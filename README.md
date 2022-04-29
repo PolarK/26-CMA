@@ -1,7 +1,7 @@
 # CMA
 Team Members |  Roles |
 -------------|--------|
-[Indra H](https://github.com/PolarK) | ```FRONT-END DEV``` |
+[Indra H](https://github.com/PolarK) | ```PROJECT MANAGER``` ```FRONT-END DEV``` |
 [Zac T](https://github.com/ZacTucak-103056938) | ```BACK-END DEV```
 [Jenna C](https://github.com/JennaCPC) | ```BACK-END DEV```
 [Justin S](https://github.com/SanJeosutin) | ```FULL STACK MANAGER```

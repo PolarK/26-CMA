@@ -12,7 +12,7 @@ Team Members |  Roles |
 
 ### About This Project
 
-The motivation behind the project is to bring researchers from all around the world together to share their ideas and findings through an online platform. The organisation funding this project, NSCLab, is a research organisation which strives to become one of the world’s research labs. NSCLab is funded by several research-focused entities including the Australian Research Council (ARC) and Deakin University
+The motivation behind the project is to bring researchers from all around the world together to share their ideas and findings through an online platform. The organisation funding this project, NSCLab, is a research organisation which strives to become one of the world’s research labs. NSCLab is funded by several research-focused entities including the Australian Research Council (ARC) and Deakin University.
 <br>
 
 ### FrameWorks / Languages: 

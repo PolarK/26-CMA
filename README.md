@@ -1,4 +1,4 @@
-# C-SMS [MAIN BRANCH]
+# C-SMS
 Team Members |  Roles |
 -------------|--------|
 [Indra H](https://github.com/PolarK) | ```PROJECT MANAGER``` ```FRONT-END DEV``` |
@@ -7,12 +7,6 @@ Team Members |  Roles |
 [Justin S](https://github.com/SanJeosutin) | ```FULL STACK MANAGER```
 [John A](https://github.com/AWildCrow) | ```UI DESIGNER``` ```FRONT-END DEV```
 [Lenardt F](https://github.com/LenardtFubex) | ```UI DESIGNER``` ```FRONT-END DEV```
-
-<br>
-
-### About This Branch
-
-Release Branch, no commits should be present until the software are finilised and completed at the end of sprint.
 
 <br>
 

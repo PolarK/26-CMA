@@ -23,7 +23,7 @@ class API
 
         switch ($arg_1) {
             case 'HEADER':
-                curl_setopt($conn, CURLOPT_HTTPHEADER, array('user-agent: person', $arg_2));
+                curl_setopt($conn, CURLOPT_HTTPHEADER, array($arg_2));
             
             default:
                 return;

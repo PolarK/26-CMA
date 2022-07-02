@@ -12,7 +12,7 @@ class Database
     public function getAllUser()
     {
         return API::request(
-            $this->baseUrl . '/user/list',
+            $this->baseUrl . 'user/list',
             "HEADER",
             $this->baseHeader
         );
@@ -21,7 +21,7 @@ class Database
     public function findUserByUsername($username)
     {
         return API::request(
-            $this->baseUrl . '/user/find?username=' . $username,
+            $this->baseUrl . 'user/find?username=' . $username,
             "HEADER",
             $this->baseHeader
         );

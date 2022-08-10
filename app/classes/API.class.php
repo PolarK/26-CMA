@@ -6,6 +6,7 @@
  * $arg_1   : Type    [array]
  * $arg_2   : Data    [array]
  */
+
 class API
 {   
     # make request to API
@@ -24,15 +25,29 @@ class API
         switch ($arg_1) {
             case 'HEADER':
                 curl_setopt($conn, CURLOPT_HTTPHEADER, array($arg_2));
+                break;
             
             default:
                 return;
         }
 
         curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
-
+        
         $res = curl_exec($conn);
         curl_close($conn);
+
+        /*
+            !   Something is wrong with the API implementation.
+            !   Will be fixed when OAuth is implemented.
+         */ 
+
+        echo 'TEST <br><hr><pre>' .
+            '   URL: ' . $arg_0 . '<br>' .
+            '   TYPE: ' . $arg_1 . '<br>' .
+            '   DATA: ' . $arg_2 . '<br>' .
+            '   RESULT: ' . json_decode($res) . '<br></pre>';
+
+
         return json_decode($res);
     }
 }

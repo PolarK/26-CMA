@@ -18,10 +18,10 @@ class Database
         );
     }
 
-    public function findUserByUsername($username)
+    public function findUserById($id)
     {
         return API::request(
-            $this->baseUrl . 'user/find?username=' . $username,
+            $this->baseUrl . 'user/findUserById?id=%' . $id . '%',
             "HEADER",
             $this->baseHeader
         );

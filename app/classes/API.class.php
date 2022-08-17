@@ -38,17 +38,16 @@ class API
         curl_close($conn);
 
         /*
-            !   Something is wrong with the API implementation.
-            !   Will be fixed when OAuth is implemented.
-         */ 
-
+            !   This is just a temporary thing.
+            !   Will need to changed when OAuth2 is implemented.
+            
         echo 'TEST <br><hr><pre>' .
             '   URL: ' . $arg_0 . '<br>' .
             '   TYPE: ' . $arg_1 . '<br>' .
             '   DATA: ' . $arg_2 . '<br>' .
             '   CONN: ' . $conn . '<br>'.
             '   RESULT: ' . $res . '<br></pre>';
-
+            */ 
 
         return json_decode($res);
     }

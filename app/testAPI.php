@@ -12,10 +12,9 @@
     $db = new Database();
     $users = $db->getAllUser();
 
-    echo "USER: " . $users[0]['username'] . "<br>";
 
     foreach ($users as $user) {
-        echo $user->username . "<br>";
+        echo $user->UserFirstName . "<br>";
     }
 
     ?>

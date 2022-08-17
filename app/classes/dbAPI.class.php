@@ -6,7 +6,7 @@ class Database
     public function __construct()
     {
         $this->baseUrl = "https://csms-api-env.herokuapp.com/api/index.php/";
-        $this->baseHeader = '\'Content-Type\': \'application/json\'';
+        $this->baseHeader = 'Content-Type: application/json; charset=UTF-8';
     }
 
     public function getAllUser()
@@ -14,7 +14,7 @@ class Database
         return API::request(
             $this->baseUrl . 'user/list',
             "HEADER",
-            //$this->baseHeader
+            $this->baseHeader
         );
     }
 

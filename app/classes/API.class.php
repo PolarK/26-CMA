@@ -32,6 +32,7 @@ class API
         }
 
         curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($conn, CURLOPT_SSL_VERIFYPEER, false);
         
         $res = curl_exec($conn);
         curl_close($conn);
@@ -45,7 +46,8 @@ class API
             '   URL: ' . $arg_0 . '<br>' .
             '   TYPE: ' . $arg_1 . '<br>' .
             '   DATA: ' . $arg_2 . '<br>' .
-            '   RESULT: ' . json_decode($res) . '<br></pre>';
+            '   CONN: ' . $conn . '<br>'.
+            '   RESULT: ' . $res . '<br></pre>';
 
 
         return json_decode($res);

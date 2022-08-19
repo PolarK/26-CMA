@@ -29,7 +29,7 @@
                       User
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                      <li><a class="dropdown-item" href="../pages/userlogin.php">Sign Out</a></li>
                   </ul>
               </li>
           </ul>

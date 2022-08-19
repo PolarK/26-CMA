@@ -171,6 +171,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Already registered? <a id="displayLoginForm" href="../index.php">Login</a></p>
+        <p class="text-muted">Already registered? <a id="displayLoginForm" href="../index.html">Login</a></p>
     </div>
 </div>

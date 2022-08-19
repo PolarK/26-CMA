@@ -1,16 +1,23 @@
+<?php
+include('./src/template/header.php');
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C-SMS Redirect</title>
-</head>
-<body>
-    <?php   
-        header("Location:pages/userlogin.php");
-        exit();
+if (isset($_SESSION['available'])) {
+    include('./src/template/navbar.php');
+}
+
+?>
+
+<div id="content" class="container-fluid p-5">
+
+    <?php
+    // check if session is set
+    if (isset($_SESSION['available'])) {
+        include('./src/pages/dashboard.php');
+    } else {
+        include('./src/pages/login.php');
+    }
     ?>
-</body>
-</html>
+
+</div>
+
+<?php include('./src/template/footer.php'); ?>

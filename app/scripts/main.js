@@ -1,9 +1,8 @@
 $(document).ready(function(){
     // Load register form content when 'register' is clicked
-    $('#registerForm').click(function(){
+    $('#displayRegisterForm').click(function(){
        $('#content').load('src\\pages\\register.php');
     });
-
 
     $('form input').blur(function(){
         if(!$(this).val()){

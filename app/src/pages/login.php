@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Don't have an account? <a id="registerForm" href="#">Register</a></p>
+        <p class="text-muted">Don't have an account? <a id="displayRegisterForm" href="#">Register</a></p>
     </div>
 
 </div>

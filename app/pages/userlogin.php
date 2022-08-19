@@ -54,12 +54,12 @@
           <form id="UserLoginForm" action="userlogin.php" method="post">
               <div class="form-group">
                 <div class="text-start"><small class="text-danger"><?php echo $err_msgs['email_err'] ?></small></div>
-                <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email"
+                <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required
                      class="form-control" value="<?php echo $email; ?>">
               </div>
               <div class="form-group">
                 <div class="text-start"><small class="text-danger"><?php echo $err_msgs['pwd_err'] ?></small></div>
-                <input id="uPassword" name="uPassword" placeholder="Password" type="password" 
+                <input id="uPassword" name="uPassword" placeholder="Password" type="password" required
                     class="form-control" value="<?php echo $pwd; ?>">
               </div>
               <div class="form-check">

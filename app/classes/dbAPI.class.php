@@ -21,7 +21,16 @@ class Database
     public function findUserById($id)
     {
         return API::request(
-            $this->baseUrl . 'user/findUserById?id=%' . $id . '%',
+            $this->baseUrl . 'user/findUserById?id=' . $id ,
+            "HEADER",
+            $this->baseHeader
+        );
+    }
+
+    public function createNewUser()
+    {
+        return API::request(
+            $this->baseUrl . 'user/createNewUser',
             "HEADER",
             $this->baseHeader
         );

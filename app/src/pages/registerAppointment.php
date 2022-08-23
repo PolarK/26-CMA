@@ -2,29 +2,25 @@
 
 // include "../others/template/functions.php";
 
-$fname = $lname = $dob = $email = $phoneno = $address = $pwd = $cpwd = "";
+$fname = $lname = $email = $phoneno = $aDate = $aTime = "";
 
 $err_msgs = [
     'fname_err' => '',
     'lname_err' => '',
-    'dob_err' => '',
     'email_err' => '',
     'phoneno_err' => '',
-    'address_err' => '',
-    'pwd_err' => '',
-    'cpwd_err' => ''
+    'date_err' => '',
+    'time_err' => '',
 ];
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fname = sanitise($_POST["uFirstName"]);
     $lname = sanitise($_POST["uLastName"]);
-    $dob = sanitise($_POST["uDob"]);
     $email = sanitise($_POST["uEmailAddress"]);
     $phoneno = sanitise($_POST["uPhoneNo"]);
-    $address = sanitise($_POST["uAddress"]);
-    $pwd = sanitise($_POST["uPassword"]);
-    $cpwd = sanitise($_POST["uCPassword"]);
+    $aDate = sanitise($_POST["date"]);
+    $aTime = sanitise($_POST["time"]);
 
     if ($fname == "") {
         $err_msgs['fname_err'] = "Please enter your first name. ";
@@ -32,10 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($lname == "") {
         $err_msgs['fname_err'] = "Please enter your last name. ";
-    }
-
-    if ($dob == "") {
-        $err_msgs['dob_err'] = "Please enter your date of birth. ";
     }
 
     if ($email == "") {
@@ -46,19 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $err_msgs['phoneno_err'] = "Please enter your phone number. ";
     }
 
-    if ($address == "") {
-        $err_msgs['address_err'] = "Please enter your address. ";
+    if ($aDate == "") {
+        $err_msgs['date_err'] = "Please enter a valid date. ";
     }
 
-    if ($pwd == "") {
-        $err_msgs['pwd_err'] = "Please enter your password. ";
+    if ($aTime == "") {
+        $err_msgs['time_err'] = "Please enter a valid time. ";
     }
 
-    if ($cpwd == "") {
-        $err_msgs['cpwd_err'] = "Please confirm you password. ";
-    } else if ($pwd != $cpwd) {
-        $err_msgs['cpwd_err'] = "* Passwords do not match";
-    }
 
     if (validate($err_msgs)) {
         // temporary redirect
@@ -76,13 +63,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div class="card-body">
         <h1 class="card-title">Conference Submission Management System</h1>
-        <h3 class="text-muted">Registration Page</h3>
+        <h3 class="text-muted">Register for an Appointment</h3>
         <br>
-        <!--Start User Register Form-->
-        <form id="UserRegisterForm" action="register.php" method="post">
+        <!--Start Event Register Form-->
+        <form id="UserRegisterForm" action="registerAppointment.php" method="post">
 
             <div class="form-group mb-2 mr-2">
                 <div class="row">
+                <!-- First name and last name -->
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
@@ -96,21 +84,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="text-start"><small class="text-danger">
                                     <?php echo $err_msgs['lname_err'] ?>
                                 </small></div>
-                            <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
+                            <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" min="09:00" max="17:00" required class="form-control" value="<?php echo $lname; ?>">
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
+                    <!-- Phone Number -->
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['dob_err'] ?>
+                                    <?php echo $err_msgs['phoneno_err'] ?>
                                 </small></div>
-                            <input id="uDob" name="uDob" placeholder="Date of Birth" type="date" required class="form-control" value="<?php echo $dob; ?>">
+                            <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
                         </div>
                     </div>
                     <div class="col">
+                        <!-- Email Address -->
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
                                     <?php $err_msgs['email_err'] ?>
@@ -121,47 +111,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="row">
+                    <!-- Date of Appointment -->
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['phoneno_err'] ?>
+                                    <?php echo $err_msgs['date_err'] ?>
                                 </small></div>
-                            <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
+                            <input id="aDate" name="aDate" placeholder="Date of Appointment" type="date" required class="form-control" value="<?php echo $aDate; ?>">
                         </div>
                     </div>
                     <div class="col">
+                        <!-- Time of Appointment -->
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['address_err'] ?>
+                                    <?php $err_msgs['time_err'] ?>
                                 </small></div>
-                            <input id="uAddress" name="uAddress" placeholder="Address" type="text" required class="form-control" value="<?php echo $address; ?>">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php $err_msgs['pwd_err'] ?>
-                                </small></div>
-                            <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['cpwd_err'] ?>
-                                </small></div>
-                            <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
+                            <input id="aTime" name="aTime" placeholder="Time" type="time" required class="form-control" value="<?php echo $aTime; ?>">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="submitCheck" id="submitCheck" type="checkbox" required>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        I have or will submit a document for review before my time of appointment
+                    </label>
                     <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
                     <label class="form-check-label" for="flexCheckDefault">
-                        By signing up, you've agreed to our <a href="">Terms & Conditions</a>
+                        By registering, you've agreed to our <a href="">Terms & Conditions</a>
                     </label>
                 </div>
             </div>
@@ -171,6 +148,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Already registered? <a id="displayLoginForm" href="../index.html">Login</a></p>
     </div>
 </div>

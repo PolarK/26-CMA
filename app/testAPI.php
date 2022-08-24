@@ -9,18 +9,30 @@
 </head>
 
 <body>
-
-    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+    <p>FIND USER:</p>
+    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="GET">
         <input type="text" name="id" placeholder="Enter ID">
-        <input type="submit" name="submit" value="Submit">
+        <input type="submit" name="submitUID" value="Find User">
+    </form>
+    <hr>
+    <p>CREATE USER:</p>
+    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+        <input type="text" name="firstName" placeholder="First Name">
+        <input type="text" name="lastName" placeholder="Last Name">
+        <input type="text" name="email" placeholder="Email">
+        <input type="text" name="phoneNo" placeholder="Phone number">
+        <input type="text" name="role" placeholder="Role">
+        
+        <input type="submit" name="submitUser" value="Create Submit">
+
     </form>
 
     <?php
     require_once "classes/dbAPI.class.php";
+    $db = new Database();
 
-    if (isset($_POST['submit'])) {
-        $id = $_POST['id'];
-        $db = new Database();
+    if (isset($_GET['submitUID'])) {
+        $id = $_GET['id'];
         $users = $db->findUserById($id);
         echo 'Finding user with id that contain number ' . $id . '<br>';
 
@@ -35,6 +47,20 @@
                 '   ROLE: ' . $user->UserRole . '<br>' .
                 '</pre><br><hr>';
         }
+    }
+
+    if (isset($_POST['submitUser'])){
+        $newUser = $db->createNewUser(
+            $_POST['ID'],
+            $_POST['firstName'],
+            $_POST['lastName'],
+            $_POST['email'],
+            $_POST['phoneNo'],
+            $_POST['role']
+        );
+
+
+
     }
     ?>
 </body>

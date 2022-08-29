@@ -3,7 +3,7 @@ require_once "classes/dbAPI.class.php";
 
 $db = new Database();
 // This will eventually need to be changed to use the logged in user details
-$users = $db->findUserById('1007');
+$users = $db->findUserById('RSAJ0001');
 ?>
 
 <div>

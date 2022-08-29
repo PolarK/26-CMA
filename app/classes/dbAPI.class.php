@@ -13,7 +13,7 @@ class Database
     {
         return API::request(
             $this->baseUrl . 'user/list',
-            "HEADER",
+            "GET_REQUEST",
             $this->baseHeader
         );
     }
@@ -22,17 +22,28 @@ class Database
     {
         return API::request(
             $this->baseUrl . 'user/findUserById?id=' . $id ,
-            "HEADER",
+            "GET_REQUEST",
             $this->baseHeader
         );
     }
 
     public function createNewUser()
     {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'UserId' => $arg_0,
+            'UserFirstName' => $arg_1,
+            'UserLastName' => $arg_2,
+            'UserDOB' => $arg_3,
+            'UserEmail' => $arg_4,
+            'UserPhoneNo' => $arg_5,
+            'UserRole' => $arg_6
+        ];
+
         return API::request(
-            $this->baseUrl . 'user/createNewUser',
-            "HEADER",
-            $this->baseHeader
+            $this->baseUrl . 'user/createUser',
+            "POST_REQUEST",
+            $fields
         );
     }
 }

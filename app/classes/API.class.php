@@ -23,8 +23,13 @@ class API
         }
 
         switch ($arg_1) {
-            case 'HEADER':
+            case 'GET_REQUEST':
                 curl_setopt($conn, CURLOPT_HTTPHEADER, array($arg_2));
+                break;
+
+            case 'POST_REQUEST':
+                curl_setopt($conn, CURLOPT_POST, true);
+                curl_setopt($conn, CURLOPT_POSTFIELDS, http_build_query($arg_2));
                 break;
             
             default:

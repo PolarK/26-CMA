@@ -17,12 +17,14 @@
     <hr>
     <p>CREATE USER:</p>
     <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
-        <input type="text" name="firstName" placeholder="First Name">
-        <input type="text" name="lastName" placeholder="Last Name">
-        <input type="text" name="email" placeholder="Email">
-        <input type="text" name="phoneNo" placeholder="Phone number">
-        <input type="text" name="role" placeholder="Role">
-        
+        <input type="text" name="uID" placeholder="ID" value="AJHS<?php echo mt_rand(1111, 9999); ?>">
+        <input type="text" name="firstName" placeholder="First Name" value='Jhon'>
+        <input type="text" name="lastName" placeholder="Last Name" value='Smith'>
+        <input type="date" name="dob" placeholder="Date of Birth" value='1998-12-12'>
+        <input type="email" name="email" placeholder="Email" value='jhon@smith.com'>
+        <input type="text" name="phoneNo" placeholder="Phone number" value='0412 398 762'>
+        <input type="text" name="role" placeholder="Role" value='ADMIN'>
+
         <input type="submit" name="submitUser" value="Create Submit">
 
     </form>
@@ -33,8 +35,15 @@
 
     if (isset($_GET['submitUID'])) {
         $id = $_GET['id'];
-        $users = $db->findUserById($id);
-        echo 'Finding user with id that contain number ' . $id . '<br>';
+
+        if ($id != null) {
+            $users = $db->findUserById($id);
+            echo 'Finding user with id that contain number ' . $id . '<br>';
+        } else {
+            $users = $db->getAllUser();
+            echo 'Finding all known users <br>';
+        }
+
 
         foreach ($users as $user) {
             echo
@@ -49,18 +58,16 @@
         }
     }
 
-    if (isset($_POST['submitUser'])){
+    if (isset($_POST['submitUser'])) {
         $newUser = $db->createNewUser(
-            $_POST['ID'],
+            $_POST['uID'],
             $_POST['firstName'],
             $_POST['lastName'],
+            $_POST['dob'],
             $_POST['email'],
             $_POST['phoneNo'],
             $_POST['role']
         );
-
-
-
     }
     ?>
 </body>

@@ -1,72 +1,42 @@
 <?php
 
-// include "../others/template/functions.php";
+    require_once "../../classes/user.class.php";
+    require_once "../../classes/validator.class.php";
 
-$fname = $lname = $dob = $email = $phoneno = $address = $pwd = $cpwd = "";
+    $fname = $lname = $dob = $email = $phoneno = $address = $pwd = $cpwd = "";
 
-$err_msgs = [
-    'fname_err' => '',
-    'lname_err' => '',
-    'dob_err' => '',
-    'email_err' => '',
-    'phoneno_err' => '',
-    'address_err' => '',
-    'pwd_err' => '',
-    'cpwd_err' => ''
-];
+    $err = [
+        'fname' => '',
+        'lname' => '',
+        'dob' => '',
+        'email' => '',
+        'phoneno' => '',
+        'address' => '',
+        'pwd' => '',
+        'cpwd' => ''
+    ];
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $fname = Validator::sanitise($_POST["uFirstName"]);
+        $lname = Validator::sanitise($_POST["uLastName"]);
+        $dob = Validator::sanitise($_POST["uDob"]);
+        $email = Validator::sanitise($_POST["uEmailAddress"]);
+        $phoneno = Validator::sanitise($_POST["uPhoneNo"]);
+        $address = Validator::sanitise($_POST["uAddress"]);
+        $pwd = Validator::sanitise($_POST["uPassword"]);
+        $cpwd = Validator::sanitise($_POST["uCPassword"]);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fname = sanitise($_POST["uFirstName"]);
-    $lname = sanitise($_POST["uLastName"]);
-    $dob = sanitise($_POST["uDob"]);
-    $email = sanitise($_POST["uEmailAddress"]);
-    $phoneno = sanitise($_POST["uPhoneNo"]);
-    $address = sanitise($_POST["uAddress"]);
-    $pwd = sanitise($_POST["uPassword"]);
-    $cpwd = sanitise($_POST["uCPassword"]);
+        $user = new User($fname, $lname, $dob, $email, $phoneno, $address, $pwd, $err); 
 
-    if ($fname == "") {
-        $err_msgs['fname_err'] = "Please enter your first name. ";
+        $user -> validateUser(); 
+        $err = $user -> get_err(); 
+
+        if (Validator::validate($err)) {
+            // temporary redirect
+            header("Location:dashboard.php");
+            exit();
+        }
     }
-
-    if ($lname == "") {
-        $err_msgs['fname_err'] = "Please enter your last name. ";
-    }
-
-    if ($dob == "") {
-        $err_msgs['dob_err'] = "Please enter your date of birth. ";
-    }
-
-    if ($email == "") {
-        $err_msgs['email_err'] = "Please enter your email address. ";
-    }
-
-    if ($phoneno == "") {
-        $err_msgs['phoneno_err'] = "Please enter your phone number. ";
-    }
-
-    if ($address == "") {
-        $err_msgs['address_err'] = "Please enter your address. ";
-    }
-
-    if ($pwd == "") {
-        $err_msgs['pwd_err'] = "Please enter your password. ";
-    }
-
-    if ($cpwd == "") {
-        $err_msgs['cpwd_err'] = "Please confirm you password. ";
-    } else if ($pwd != $cpwd) {
-        $err_msgs['cpwd_err'] = "* Passwords do not match";
-    }
-
-    if (validate($err_msgs)) {
-        // temporary redirect
-        header("Location:dashboard.php");
-        exit();
-    }
-}
-
 
 ?>
 
@@ -86,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['fname_err'] ?>
+                                    <?php echo $err['fname'] ?>
                                 </small></div>
                             <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
                         </div>
@@ -94,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['lname_err'] ?>
+                                    <?php echo $err['lname'] ?>
                                 </small></div>
                             <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
                         </div>
@@ -105,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['dob_err'] ?>
+                                    <?php echo $err['dob'] ?>
                                 </small></div>
                             <input id="uDob" name="uDob" placeholder="Date of Birth" type="date" required class="form-control" value="<?php echo $dob; ?>">
                         </div>
@@ -113,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php $err_msgs['email_err'] ?>
+                                    <?php echo $err['email'] ?>
                                 </small></div>
                             <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
                         </div>
@@ -124,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['phoneno_err'] ?>
+                                    <?php echo $err['phoneno'] ?>
                                 </small></div>
                             <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
                         </div>
@@ -132,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['address_err'] ?>
+                                    <?php echo $err['address'] ?>
                                 </small></div>
                             <input id="uAddress" name="uAddress" placeholder="Address" type="text" required class="form-control" value="<?php echo $address; ?>">
                         </div>
@@ -143,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php $err_msgs['pwd_err'] ?>
+                                    <?php echo $err['pwd'] ?>
                                 </small></div>
                             <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
                         </div>
@@ -151,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['cpwd_err'] ?>
+                                    <?php echo $err['pwd'] ?>
                                 </small></div>
                             <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
                         </div>

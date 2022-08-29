@@ -1,36 +1,29 @@
 <?php
 
-//include "../others/template/functions.php";
+    require_once "./classes/validator.class.php";
 
-$email = $pwd = "";
+    $email = $pwd = "";
 
-$err_msgs = [
-    'email_err' => '',
-    'pwd_err' => ''
-];
+    $err = [
+        'email' => '',
+        'pwd' => ''
+    ];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = sanitise($_POST["uEmailAddress"]);
-    $pwd = sanitise($_POST["uPassword"]);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = Validator::sanitise($_POST["uEmailAddress"]);
+        $pwd = Validator::sanitise($_POST["uPassword"]);
 
-    if ($email == "") {
-        $err_msgs['email_err'] = "Please enter your email address. ";
+        $err['email'] = Validator::validateEmail($email); 
+        $err['pwd'] = Validator::validatePwd($pwd); 
+
+        if (Validator::validate($err)) {
+            // temporary redirect
+            include('./src/pages/dashboard.php');
+            exit();
+        }
     }
-
-    if ($pwd == "") {
-        $err_msgs['pwd_err'] = "Please enter your password. ";
-    }
-
-    if (validate($err_msgs)) {
-        // temporary redirect
-        header("Location:dashboard.php");
-        exit();
-    }
-}
-
 
 ?>
-
 
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
     <div style="margin: auto; width: 18rem;">
@@ -41,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3 class="text-muted">User Login Page</h3>
         <br>
         <!--Start Login Form-->
-        <form id="UserLoginForm" action="userlogin.php" method="post">
+        <form id="UserLoginForm" action="#" method="post">
             <div class="form-group">
-                <div class="text-start"><small class="text-danger"><?php echo $err_msgs['email_err'] ?></small></div>
-                <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
+                <div class="text-start"><small class="text-danger"><?php echo $err['email'] ?></small></div>
+                <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="text" required class="form-control" value="<?php echo $email; ?>">
             </div>
             <div class="form-group">
-                <div class="text-start"><small class="text-danger"><?php echo $err_msgs['pwd_err'] ?></small></div>
+                <div class="text-start"><small class="text-danger"><?php echo $err['pwd'] ?></small></div>
                 <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control" value="<?php echo $pwd; ?>">
             </div>
             <div class="form-check">

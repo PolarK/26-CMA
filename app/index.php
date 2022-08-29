@@ -13,6 +13,8 @@ if (isset($_SESSION['available'])) {
     // check if session is set
     if (isset($_SESSION['available'])) {
         include('./src/pages/dashboard.php');
+    } else {
+        include('./src/pages/login.php');
     }
     ?>
 

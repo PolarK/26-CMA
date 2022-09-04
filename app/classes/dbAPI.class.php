@@ -46,5 +46,25 @@ class Database
             $fields
         );
     }
+
+    public function updateUser($data)
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'UserId' => $arg_0,
+            'UserFirstName' => $arg_1,
+            'UserLastName' => $arg_2,
+            'UserDOB' => $arg_3,
+            'UserEmail' => $arg_4,
+            'UserPhoneNo' => $arg_5,
+            'UserRole' => $arg_6
+        ];
+
+        return API::request(
+            $this->baseUrl . 'user/updateUser',
+            "POST_REQUEST",
+            $fields
+        );
+    }
 }
 ?>

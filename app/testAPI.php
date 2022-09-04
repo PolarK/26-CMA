@@ -68,9 +68,9 @@ $db = new Database();
     }
     ?>
 
-    <hr>
+<hr>
     <p>UPDATE USER:</p>
-    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <?php
 
         if (isset($_POST['updateUser'])) {
@@ -79,17 +79,18 @@ $db = new Database();
             foreach ($users as $user) {
                 echo '
                 User ID <input type="text" name="updateID" placeholder="ID" value="' . $user->UserId . '"> <br>
-                First Name <input type="text" name="updateFirstName" placeholder="First Name" value=' . $user->UserFirstName . '><br>
-                Last Name <input type="text" name="updateLastName" placeholder="Last Name" value=' . $user->UserLastName . '><br>
-                D-O-B <input type="date" name="updateDob" placeholder="Date of Birth" value=' . $user->UserDOB . '><br>
-                Email <input type="email" name="updateEmail" placeholder="Email" value=' . $user->UserEmail . '><br>
-                Phone No <input type="text" name="updatePhoneNo" placeholder="Phone number" value=' . $user->UserPhoneNo . '><br>
-                Role <input type="text" name="updateRole" placeholder="Role" value=' . $user->UserRole . ' ><br>
+                First Name <input type="text" name="updateFirstName" placeholder="First Name" value="' . $user->UserFirstName . '"><br>
+                Last Name <input type="text" name="updateLastName" placeholder="Last Name" value="' . $user->UserLastName . '"><br>
+                D-O-B <input type="date" name="updateDob" placeholder="Date of Birth" value="' . $user->UserDOB . '"><br>
+                Email <input type="email" name="updateEmail" placeholder="Email" value="' . $user->UserEmail . '"><br>
+                Phone No <input type="text" name="updatePhoneNo" placeholder="Phone number" value="' . $user->UserPhoneNo . '"><br>
+                Role <input type="text" name="updateRole" placeholder="Role" value="' . $user->UserRole . '" ><br>
                 <input type="submit" name="updateUser" value="Update User">
                 ';
             }
         } else {
-            echo '<input type="text" name="updateID" placeholder="Enter ID">
+            echo '
+            <input type="text" name="updateID" placeholder="Enter ID">
             <input type="submit" name="updateUser" value="Find User">';
         }
         ?>

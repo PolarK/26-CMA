@@ -21,7 +21,7 @@ class Database
     public function findUserById($id)
     {
         return API::request(
-            $this->baseUrl . 'user/findUserById?id=' . $id ,
+            $this->baseUrl . 'user/findUserById?id=' . $id,
             "GET_REQUEST",
             $this->baseHeader
         );
@@ -47,7 +47,7 @@ class Database
         );
     }
 
-    public function updateUser($data)
+    public function updateUser()
     {
         extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
         $fields = [

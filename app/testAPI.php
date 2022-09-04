@@ -35,7 +35,7 @@ $db = new Database();
                 '   EMAIL: ' . $user->UserEmail . '<br>' .
                 '   PHONE: ' . $user->UserPhoneNo . '<br>' .
                 '   ROLE: ' . $user->UserRole . '<br>' .
-                '</pre><br>';
+            '</pre><br>';
         }
     }
     ?>
@@ -72,10 +72,6 @@ $db = new Database();
     <p>UPDATE USER:</p>
     <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
         <?php
-        # Simulate user login session
-        $id = $_POST['updateID'] = 'ASAJ0001';
-
-
         if (isset($_POST['updateID'])) {
             $id = $_POST['updateID'];
             $users = $db->findUserById($id);

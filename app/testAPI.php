@@ -72,9 +72,9 @@ $db = new Database();
     <p>UPDATE USER:</p>
     <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
         <?php
-        if (isset($_POST['updateID'])) {
-            $id = $_POST['updateID'];
-            $users = $db->findUserById($id);
+
+        if (isset($_POST['updateUser'])) {
+            $users = $db->findUserById($_POST['updateID']);
 
             foreach ($users as $user) {
                 echo '
@@ -89,7 +89,7 @@ $db = new Database();
                 ';
             }
         } else {
-            echo '<input type="text" name="id" placeholder="Enter ID">
+            echo '<input type="text" name="updateID" placeholder="Enter ID">
             <input type="submit" name="updateUser" value="Find User">';
         }
         ?>

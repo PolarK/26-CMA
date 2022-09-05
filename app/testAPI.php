@@ -15,7 +15,7 @@ $db = new Database();
 
 <body>
     <p>FIND USER:</p>
-    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="GET">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
         <input type="text" name="id" placeholder="Enter ID">
         <input type="submit" name="submitUID" value="Find User">
     </form>
@@ -35,14 +35,14 @@ $db = new Database();
                 '   EMAIL: ' . $user->UserEmail . '<br>' .
                 '   PHONE: ' . $user->UserPhoneNo . '<br>' .
                 '   ROLE: ' . $user->UserRole . '<br>' .
-            '</pre><br>';
+                '</pre><br>';
         }
     }
     ?>
 
     <hr>
     <p>CREATE USER:</p>
-    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         User ID <input type="text" name="uID" placeholder="ID" value="AJHS<?php echo mt_rand(1111, 9999); ?>"> <br>
         First Name <input type="text" name="firstName" placeholder="First Name" value='Jhon'> <br>
         Last Name <input type="text" name="lastName" placeholder="Last Name" value='Smith'> <br>
@@ -68,7 +68,7 @@ $db = new Database();
     }
     ?>
 
-<hr>
+    <hr>
     <p>UPDATE USER:</p>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <?php

@@ -26,13 +26,11 @@ if (isset($_POST['createAccount'])) {
     $passwordRepeat = $_POST['passwordRepeat'];
 
     if (($password === $passwordRepeat) && (isset($_POST['username']))) {
-        $hashPass = hash('sha512', $password);
-        $saltHash = password_hash($hashPass, PASSWORD_DEFAULT);
+        $hashPass = password_hash($password, PASSWORD_DEFAULT);
 
         $_SESSION['username'] = $username;
         $_SESSION['password'] = $password;
         $_SESSION['hashPass'] = $hashPass;
-        $_SESSION['saltHash'] = $saltHash;
     } else {
         echo "Password does not match.";
     }
@@ -42,7 +40,6 @@ if (isset($_SESSION['password'])) {
     echo "username: <pre>" . $_SESSION['username'] . "</pre>";
     echo "password: <pre>" . $_SESSION['password'] . "</pre>";
     echo "hashed password: <pre>" . $_SESSION['hashPass'] . "</pre>";
-    echo "salted & hashed password: <pre>" . $_SESSION['saltHash'] . "</pre>";
 }
 ?>
 <hr>
@@ -57,7 +54,7 @@ if (isset($_SESSION['password'])) {
 <?php
 
 if (isset($_POST['verifyAccount'])) {
-    if ($_POST['vUsername'] == $_SESSION['username'] && $_POST['vPassword'] == password_verify($_SESSION['hashPass'], $_SESSION['saltHash'])) {
+    if ($_POST['vUsername'] == $_SESSION['username'] && password_verify($_POST['vPassword'], $_SESSION['hashPass'])) {
         echo "<p style='color:green'> Password is correct.</p>";
     } else {
         echo "<p style='color:red'> Password is incorrect.</p>";

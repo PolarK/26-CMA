@@ -66,5 +66,14 @@ class Database
             $fields
         );
     }
+
+    public function deleteUser($id)
+    {
+        return API::request(
+            $this->baseUrl . 'user/removeUser?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
 }
 ?>

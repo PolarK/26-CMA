@@ -110,6 +110,21 @@ $db = new Database();
     }
     ?>
 
+    <p>REMOVE USER:</p>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+        <input type="text" name="id" placeholder="Enter ID">
+        <input type="submit" name="delUser" value="Delete User">
+    </form>
+
+    <?php
+    if (isset($_GET['delUser'])) {
+        $id = $_GET['id'];
+        $users = $db->deleteUser($id);
+
+        echo 'user with id that contain number ' . $id . ' has been removed from the system<br>';
+    }
+    ?>
+
 </body>
 
 </html>

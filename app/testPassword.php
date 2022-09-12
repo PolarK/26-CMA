@@ -1,4 +1,4 @@
-<?php if (session_status() == PHP_SESSION_NONE) session_start(); ?>
+<?php if (session_status() == PHP_SESSION_NONE) session_start(); include_once ("./classes/idGenerator.class.php")?>
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
     <input type="submit" name="resetSession" value="Reset Current Session" />
@@ -11,7 +11,7 @@ if (isset($_POST['resetSession'])) {
 
 <strong>Create Simple Account</strong>
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
-    <p> Username: <input type="text" name="username" value="ASAJ0001"> </p>
+    <p> Username: <input type="text" name="username" value="<?php echo IDGenerator::user("ADMIN", "Justin", "SAN") ?>"> </p>
     <p> Password: <input type="text" name="password" value="T3stP@$$"> </p>
     <p> Re-Enter Password: <input type="text" name="passwordRepeat" value="T3stP@$$"> </p>
     <input type="submit" name="createAccount" value="Register" />

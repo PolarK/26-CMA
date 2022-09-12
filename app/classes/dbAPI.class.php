@@ -75,5 +75,41 @@ class Database
             $this->baseHeader
         );
     }
+
+    public function findPassword($id)
+    {
+        return API::request(
+            $this->baseUrl . 'user/findPasswordById?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function createPassword()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'UserId' => $arg_0,
+            'PassSalt' => $arg_1,
+            'passHash' => $arg_2
+        ];
+
+        return API::request(
+            $this->baseUrl . 'password/createPassword',
+            "POST_REQUEST",
+            $fields
+        );
+    }
+
+    public function updatePassword()
+    {
+        return;
+    }
+
+    public function deletePassword($id)
+    {
+        return;
+    }
+
+
 }
-?>

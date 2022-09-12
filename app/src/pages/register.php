@@ -1,42 +1,66 @@
 <?php
+require_once "./classes/dbAPI.class.php";
+require_once "./classes/user.class.php";
+require_once "./classes/validator.class.php";
+require_once "./classes/idGenerator.class.php";
 
-    require_once "../../classes/user.class.php";
-    require_once "../../classes/validator.class.php";
+$db = new Database();
 
-    $fname = $lname = $dob = $email = $phoneno = $address = $pwd = $cpwd = "";
 
-    $err = [
-        'fname' => '',
-        'lname' => '',
-        'dob' => '',
-        'email' => '',
-        'phoneno' => '',
-        'address' => '',
-        'pwd' => '',
-        'cpwd' => ''
-    ];
+$fname = $lname = $dob = $email = $phoneno = $address = $pwd = $cpwd = "";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $fname = Validator::sanitise($_POST["uFirstName"]);
-        $lname = Validator::sanitise($_POST["uLastName"]);
-        $dob = Validator::sanitise($_POST["uDob"]);
-        $email = Validator::sanitise($_POST["uEmailAddress"]);
-        $phoneno = Validator::sanitise($_POST["uPhoneNo"]);
-        $address = Validator::sanitise($_POST["uAddress"]);
-        $pwd = Validator::sanitise($_POST["uPassword"]);
-        $cpwd = Validator::sanitise($_POST["uCPassword"]);
+$err = [
+    'fname' => '',
+    'lname' => '',
+    'dob' => '',
+    'email' => '',
+    'phoneno' => '',
+    'address' => '',
+    'pwd' => '',
+    'cpwd' => ''
+];
 
-        $user = new User($fname, $lname, $dob, $email, $phoneno, $address, $pwd, $err); 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = IDGenerator::user($role, $fname, $lname);
+    $role = "SUBMITTER";
+    $fname = Validator::sanitise($_POST["uFirstName"]);
+    $lname = Validator::sanitise($_POST["uLastName"]);
+    $dob = Validator::sanitise($_POST["uDob"]);
+    $email = Validator::sanitise($_POST["uEmailAddress"]);
+    $phoneno = Validator::sanitise($_POST["uPhoneNo"]);
+    $pwd = Validator::sanitise($_POST["uPassword"]);
+    $cpwd = Validator::sanitise($_POST["uCPassword"]);
 
-        $user -> validateUser(); 
-        $err = $user -> get_err(); 
+    $user = new User($fname, $lname, $dob, $email, $phoneno, $address, $pwd, $cpwd, $err);
 
-        if (Validator::validate($err)) {
-            // temporary redirect
+    $user->validateUser();
+    $err = $user->get_err();
+
+    if (Validator::validate($err)) {
+        $db->createNewUser(
+            $id,
+            $fname,
+            $lname,
+            $dob,
+            $email,
+            $phoneno,
+            $role
+        );
+
+        $db->createPassword(
+            $id,
+            $salt,
+            $hashpass
+        );
+
+        if ($user->validateAccount($id, $pwd)) {
             header("Location:dashboard.php");
-            exit();
+        } else {
+            header("Location:login.php");
         }
+        exit();
     }
+}
 
 ?>
 
@@ -49,7 +73,7 @@
         <h3 class="text-muted">Registration Page</h3>
         <br>
         <!--Start User Register Form-->
-        <form id="UserRegisterForm" action="register.php" method="post">
+        <form id="UserRegisterForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
             <div class="form-group mb-2 mr-2">
                 <div class="row">
@@ -99,14 +123,7 @@
                             <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['address'] ?>
-                                </small></div>
-                            <input id="uAddress" name="uAddress" placeholder="Address" type="text" required class="form-control" value="<?php echo $address; ?>">
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="row">
@@ -141,6 +158,6 @@
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Already registered? <a id="displayLoginForm" href="../index.html">Login</a></p>
+        <p class="text-muted">Already registered? <a id="displayLoginForm" href="?page=login">Login</a></p>
     </div>
 </div>

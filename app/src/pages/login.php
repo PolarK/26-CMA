@@ -1,27 +1,28 @@
 <?php
 
-    require_once "./classes/validator.class.php";
+require_once "./classes/errorHandler.class.php";
+require_once "./classes/validator.class.php";
 
-    $email = $pwd = "";
+$email = $pwd = "";
 
-    $err = [
-        'email' => '',
-        'pwd' => ''
-    ];
+$err = [
+    'email' => '',
+    'pwd' => ''
+];
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = Validator::sanitise($_POST["uEmailAddress"]);
-        $pwd = Validator::sanitise($_POST["uPassword"]);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = Validator::sanitise($_POST["uEmailAddress"]);
+    $pwd = Validator::sanitise($_POST["uPassword"]);
 
-        $err['email'] = Validator::validateEmail($email); 
-        $err['pwd'] = Validator::validatePwd($pwd); 
+    $err['email'] = ErrorHandler::validateEmail($email);
+    $err['pwd'] = ErrorHandler::validatePwd($pwd, "");
 
-        if (Validator::validate($err)) {
-            // temporary redirect
-            include('./src/pages/dashboard.php');
-            exit();
-        }
+    if (Validator::validate($err)) {
+        // temporary redirect
+        include('./src/pages/dashboard.php');
+        exit();
     }
+}
 
 ?>
 
@@ -57,7 +58,7 @@
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Don't have an account? <a id="displayRegisterForm" href="#">Register</a></p>
+        <p class="text-muted">Don't have an account? <a id="displayRegisterForm" href="?page=register">Register</a></p>
     </div>
 
 </div>

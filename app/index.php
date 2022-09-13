@@ -1,34 +1,53 @@
 <?php
 include('./src/template/header.php');
 
-if (isset($_SESSION['available'])) {
+
+$request = $_SERVER['REQUEST_URI'];
+
+
+//! Where most of pages will be on
+if ($_SESSION['available']) {
     include('./src/template/navbar.php');
-}
 
-?>
-
-<div id="content" class="container-fluid p-5">
-
-    <?php
-    switch ($_GET['page']) {
-        case 'register':
-            include('./src/pages/register.php');
+    switch ($request) {
+        case '/':
+            require __DIR__ . '/src/pages/dashboard.php';
             break;
 
-        case 'login':
-            include('./src/pages/login.php');
+        case '':
+            require __DIR__ . '/src/pages/dashboard.php';
             break;
-        
+
+        case '/dashboard':
+            require __DIR__ . '/src/pages/dashboard.php';
+            break;
+
         default:
-            if (isset($_SESSION['available'])) {
-                include('./src/pages/dashboard.php');
-            } else {
-                include('./src/pages/login.php');
-            }
+            http_response_code(404);
+            require __DIR__ . '/src/pages/errors/404.php';
             break;
     }
-    ?>
+} else {
 
-</div>
+    switch ($request) {
+        case '/':
+            require __DIR__ . '/src/pages/login.php';
+            break;
 
-<?php include('./src/template/footer.php'); ?>
+        case '':
+            require __DIR__ . '/src/pages/login.php';
+            break;
+
+        case '/register':
+            require __DIR__ . '/src/pages/register.php';
+            break;
+
+        default:
+            http_response_code(404);
+            require __DIR__ . '/src/pages/errors/404.php';
+            break;
+    }
+}
+
+
+include('./src/template/footer.php');

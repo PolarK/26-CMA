@@ -7,7 +7,7 @@ require_once "./classes/idGenerator.class.php";
 $db = new Database();
 
 
-$fname = $lname = $dob = $email = $phoneno = $address = $pwd = $cpwd = "";
+$fname = $lname = $dob = $email = $phoneno = $pwd = $cpwd = "";
 
 $err = [
     'fname' => '',
@@ -15,7 +15,6 @@ $err = [
     'dob' => '',
     'email' => '',
     'phoneno' => '',
-    'address' => '',
     'pwd' => '',
     'cpwd' => ''
 ];
@@ -31,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pwd = Validator::sanitise($_POST["uPassword"]);
     $cpwd = Validator::sanitise($_POST["uCPassword"]);
 
-    $user = new User($fname, $lname, $dob, $email, $phoneno, $address, $pwd, $cpwd, $err);
+    $user = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, $err);
 
     $user->validateUser();
     $err = $user->get_err();
@@ -54,9 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
         if ($user->validateAccount($id, $pwd)) {
-            header("Location:dashboard.php");
+            header("Location:/dashboard");
         } else {
-            header("Location:login.php");
+            header("Location:/register");
         }
         exit();
     }
@@ -73,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3 class="text-muted">Registration Page</h3>
         <br>
         <!--Start User Register Form-->
-        <form id="UserRegisterForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <form id="UserRegisterForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
 
             <div class="form-group mb-2 mr-2">
                 <div class="row">
@@ -158,6 +157,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Already registered? <a id="displayLoginForm" href="?page=login">Login</a></p>
+        <p class="text-muted">Already registered? <a id="displayLoginForm" href="/">Login</a></p>
     </div>
 </div>

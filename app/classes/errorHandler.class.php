@@ -46,15 +46,6 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validateAddress($address)
-    {
-        if (empty($address)) {
-            return "Please enter your address";
-        } else if (!self::isValid(self::REGEX_ADDRESS, $address)) {
-            return "Please enter a valid address";
-        }
-    }
-
     static function validatePwd($pwd, $cpwd)
     {
         if (empty($pwd)) {

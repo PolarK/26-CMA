@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Don't have an account? <a id="displayRegisterForm" href="?page=register">Register</a></p>
+        <p class="text-muted">Don't have an account? <a id="displayRegisterForm" href="/register">Register</a></p>
     </div>
 
 </div>

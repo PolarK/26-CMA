@@ -1,14 +1,18 @@
 <?php
 
 // include "../others/template/functions.php";
+include_once("../template/navbar.php");
+include_once("../template/notification.php");
 
-$fname = $lname = $email = $phoneno = $aDate = $aTime = "";
+
+
+$fname = $lname = $email = $uAffiliation = $aDate = $aTime = "";
 
 $err_msgs = [
     'fname_err' => '',
     'lname_err' => '',
     'email_err' => '',
-    'phoneno_err' => '',
+    'affiliation_err' => '',
     'date_err' => '',
     'time_err' => '',
 ];
@@ -18,9 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fname = sanitise($_POST["uFirstName"]);
     $lname = sanitise($_POST["uLastName"]);
     $email = sanitise($_POST["uEmailAddress"]);
-    $phoneno = sanitise($_POST["uPhoneNo"]);
+    $uAffiliation = sanitise($_POST["uAffiliation"]);
     $aDate = sanitise($_POST["date"]);
     $aTime = sanitise($_POST["time"]);
+    $cDate = new DateTime();
 
     if ($fname == "") {
         $err_msgs['fname_err'] = "Please enter your first name. ";
@@ -34,12 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $err_msgs['email_err'] = "Please enter your email address. ";
     }
 
-    if ($phoneno == "") {
-        $err_msgs['phoneno_err'] = "Please enter your phone number. ";
+    if ($uAffiliation == "") {
+        $err_msgs['affiliation_err'] = "Please enter your department. ";
     }
 
     if ($aDate == "") {
         $err_msgs['date_err'] = "Please enter a valid date. ";
+    }
+
+    if ($aDate < $cDate) {
+        $err_msgs['date_err'] = "Date must be in the future. ";
     }
 
     if ($aTime == "") {
@@ -54,12 +63,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
 ?>
+
+<!-- including bootstrap -->
+<link href="../styles/bootstrap.min.css" rel="stylesheet"/>
 
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
     <div style="margin: auto; width: 18rem;">
-        <img src="src\images\CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
+        <img src="../images/CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>
     <div class="card-body">
         <h1 class="card-title">Conference Submission Management System</h1>
@@ -90,13 +101,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="row">
-                    <!-- Phone Number -->
+                    <!-- Affiliation -->
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err_msgs['phoneno_err'] ?>
+                                    <?php echo $err_msgs['affiliation_err'] ?>
                                 </small></div>
-                            <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
+                            <input id="uAffiliation" name="uAffiliation" placeholder="Department" type="text" required class="form-control" value="<?php echo $uAffiliation; ?>">
                         </div>
                     </div>
                     <div class="col">
@@ -117,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="text-start"><small class="text-danger">
                                     <?php echo $err_msgs['date_err'] ?>
                                 </small></div>
-                            <input id="aDate" name="aDate" placeholder="Date of Appointment" type="date" required class="form-control" value="<?php echo $aDate; ?>">
+                            <input id="aDate" name="aDate" placeholder="Date of Appointment" type="date" required class="form-control" min="<?php echo $cDate; ?>" value="<?php echo $aDate; ?>">
                         </div>
                     </div>
                     <div class="col">
@@ -132,14 +143,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="submitCheck" id="submitCheck" type="checkbox" required>
-                    <label class="form-check-label" for="flexCheckDefault">
-                        I have or will submit a document for review before my time of appointment
-                    </label>
-                    <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
-                    <label class="form-check-label" for="flexCheckDefault">
-                        By registering, you've agreed to our <a href="">Terms & Conditions</a>
-                    </label>
+                    <div class="col">
+                        <input class="form-check-input" type="checkbox" name="submitCheck" id="submitCheck" type="checkbox" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            I have or will submit a document for review before my time of appointment
+                        </label>
+                    </div>
+                    <div class="col">
+                        <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            By registering, you've agreed to our <a href="">Terms & Conditions</a>
+                        </label>
+                    </div>
                 </div>
             </div>
             <br>
@@ -147,6 +162,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button name="register" type="submit" class="btn btn-primary">Register</button>
             </div>
         </form>
-        <!--End Login Form-->
+        <!--End Register Appointment Form-->
     </div>
 </div>
+
+('.toast').toast('show');

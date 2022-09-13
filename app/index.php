@@ -1,34 +1,33 @@
 <?php
 include('./src/template/header.php');
 
-if (isset($_SESSION['available'])) {
-    include('./src/template/navbar.php');
+
+if ($_SESSION['available']) {
+    require __DIR__ . './src/template/navbar.php';
+    require __DIR__ . '/src/pages/dashboard.php';
+    include('./src/template/footer.php');
+    exit();
 }
 
-?>
+$request = $_SERVER['REQUEST_URI'];
 
-<div id="content" class="container-fluid p-5">
+switch ($request) {
+    case '/':
+        require __DIR__ . '/src/pages/login.php';
+        break;
 
-    <?php
-    switch ($_GET['page']) {
-        case 'register':
-            include('./src/pages/register.php');
-            break;
+    case '':
+        require __DIR__ . '/src/pages/login.php';
+        break;
 
-        case 'login':
-            include('./src/pages/login.php');
-            break;
-        
-        default:
-            if (isset($_SESSION['available'])) {
-                include('./src/pages/dashboard.php');
-            } else {
-                include('./src/pages/login.php');
-            }
-            break;
-    }
-    ?>
+    case '/register':
+        require __DIR__ . '/src/pages/register.php';
+        break;
 
-</div>
+    default:
+        http_response_code(404);
+        require __DIR__ . '/src/pages/error/404.php';
+        break;
+}
 
-<?php include('./src/template/footer.php'); ?>
+include('./src/template/footer.php');

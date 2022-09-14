@@ -166,3 +166,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!--End Register Appointment Form-->
     </div>
 </div>
+
+('.toast').toast('show');

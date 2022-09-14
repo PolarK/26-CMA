@@ -8,16 +8,15 @@ class User
 {
 
     // not too sure if user should store password as well
-    private $fname, $lname, $dob, $email, $phoneno, $address, $pwd;
+    private $fname, $lname, $dob, $email, $phoneno, $pwd;
 
-    function __construct($fname, $lname, $dob, $email, $phoneno, $address, $pwd, $err)
+    function __construct($fname, $lname, $dob, $email, $phoneno, $pwd, $err)
     {
         $this->fname = $fname;
         $this->lname = $lname;
         $this->dob = $dob;
         $this->email = $email;
         $this->phoneno = $phoneno;
-        $this->address = $address;
         $this->pwd = $pwd;
         $this->err = $err;
     }
@@ -69,15 +68,6 @@ class User
         $this->phoneno = $phoneno;
     }
 
-    function get_address()
-    {
-        return $this->address;
-    }
-    function set_address($address)
-    {
-        $this->address = $address;
-    }
-
     function get_pwd()
     {
         return $this->pwd;
@@ -112,7 +102,6 @@ class User
         $this->err['dob'] = ErrorHandler::validateDob($this->dob);
         $this->err['email'] = ErrorHandler::validateEmail($this->email);
         $this->err['phoneno'] = ErrorHandler::validatePhoneno($this->phoneno);
-        $this->err['address'] = ErrorHandler::validateAddress($this->address);
         $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
     }
 }

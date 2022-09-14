@@ -54,14 +54,8 @@ if (isset($_POST['register'])) {
                 $hashedPwd['hash']
             );
         }
-
-        if ($user->validateAccount($db, $id, $pwd)) {
-            header('Location: /');
-            $_SESSION['valid'] = true;
-        } else {
-            header('Location: /register');
-            $_SESSION['valid'] = false;
-        }
+        echo '<script>alert("Success! You can now sign in!");</script>';
+        header('Location: /login');
     }
 }
 

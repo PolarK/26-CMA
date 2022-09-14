@@ -10,7 +10,7 @@ class User
     // not too sure if user should store password as well
     private $fname, $lname, $dob, $email, $phoneno, $pwd;
 
-    function __construct($fname, $lname, $dob, $email, $phoneno, $pwd, $err)
+    function __construct($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, $err)
     {
         $this->fname = $fname;
         $this->lname = $lname;
@@ -18,6 +18,7 @@ class User
         $this->email = $email;
         $this->phoneno = $phoneno;
         $this->pwd = $pwd;
+        $this->cpwd = $cpwd;
         $this->err = $err;
     }
 

@@ -29,7 +29,7 @@ if (isset($_POST['register'])) {
     $pwd = Validator::sanitise($_POST["uPassword"]);
     $cpwd = Validator::sanitise($_POST["uCPassword"]);
 
-    $user = new User($fname, $lname, $dob, $lname, $phoneno, $pwd, array());
+    $user = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, array());
     $user->validateUser();
 
     if (Validator::validate($user->get_err())) {

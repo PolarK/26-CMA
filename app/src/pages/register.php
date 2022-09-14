@@ -6,7 +6,6 @@ require_once "./classes/idGenerator.class.php";
 
 $db = new Database();
 
-
 $fname = $lname = $dob = $email = $phoneno = $pwd = $cpwd = "";
 
 $err = [
@@ -19,8 +18,7 @@ $err = [
     'cpwd' => ''
 ];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = IDGenerator::user($role, $fname, $lname);
+if (isset($_POST['register'])) {
     $role = "SUBMITTER";
     $fname = Validator::sanitise($_POST["uFirstName"]);
     $lname = Validator::sanitise($_POST["uLastName"]);
@@ -29,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phoneno = Validator::sanitise($_POST["uPhoneNo"]);
     $pwd = Validator::sanitise($_POST["uPassword"]);
     $cpwd = Validator::sanitise($_POST["uCPassword"]);
+    $id = IDGenerator::user($role, $fname, $lname);
+
 
     $user = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, $err);
 
@@ -53,11 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
         if ($user->validateAccount($id, $pwd)) {
-            header("Location:/dashboard");
+            $_SESSION['valid'] = true;
         } else {
-            header("Location:/register");
+            header('Location: /register');
+            $_SESSION['valid'] = false;
         }
-        exit();
+        //exit();
     }
 }
 
@@ -72,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3 class="text-muted">Registration Page</h3>
         <br>
         <!--Start User Register Form-->
-        <form id="UserRegisterForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+        <form id="UserRegisterForm" action="/register" method="POST" enctype="multipart/form-data">
 
             <div class="form-group mb-2 mr-2">
                 <div class="row">

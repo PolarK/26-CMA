@@ -23,10 +23,6 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             require $publicPath . '/dashboard.php';
             break;
 
-        case '/app':
-            require $publicPath . '/dashboard.php';
-            break;
-
         case '/dashboard':
             require $publicPath . '/dashboard.php';
             break;
@@ -70,10 +66,6 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             break;
 
         case '/login':
-            require $publicPath . '/login.php';
-            break;
-
-        case '/app':
             require $publicPath . '/login.php';
             break;
 

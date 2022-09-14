@@ -2,7 +2,7 @@
     class Validator {
 
         /* constant global variable that can only be used within the class. */
-        protected const REGEX_NAME = "[0-9a-zA-Z\s]{3,45}";
+        protected const REGEX_NAME = "[a-zA-Z\s]{2,45}";
         protected const REGEX_EMAIL = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
         protected const REGEX_PHONE = "[0-9]{10}";
         // Min 8 chars, at least 1 letter, 1 number, 1 special char [Qw3rty@123]

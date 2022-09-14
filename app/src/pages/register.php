@@ -35,33 +35,35 @@ if (isset($_POST['register'])) {
     $user = new User($fname, $lname, $dob, $lname, $phoneno, $pwd, $err);
     $user->validateUser($err);
 
-    /*
     if (Validator::validate($err)) {
-        $db->createNewUser(
-            $id,
-            $fname,
-            $lname,
-            $dob,
-            $email,
-            $phoneno,
-            $role
-        );
+        $hashedPwd = $user->generatePassword($id, $pwd);
 
-        $db->createPassword(
-            $id,
-            $salt,
-            $hashpass
-        );
+        if(isset($hashedPwd['salt']) && isset($hashedPwd['hash'])){
+            $db->createNewUser(
+                $id,
+                $fname,
+                $lname,
+                $dob,
+                $email,
+                $phoneno,
+                $role
+            );
+    
+            $db->createPassword(
+                $id,
+                $hashedPwd['salt'],
+                $hashedPwd['hash']
+            );
+        }
 
-        if ($user->validateAccount($id, $pwd)) {
+        if ($user->validateAccount($db, $id, $pwd)) {
+            header('Location: /');
             $_SESSION['valid'] = true;
         } else {
             header('Location: /register');
             $_SESSION['valid'] = false;
         }
-        //exit();
     }
-    */
 }
 
 ?>

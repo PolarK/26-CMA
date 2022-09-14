@@ -82,6 +82,16 @@ class User
         return $this->err;
     }
 
+    function generatePassword($id, $pwd)
+    {
+        $salt = hash('SHA512', microtime(true) . mt_rand(1000, 9000));
+
+        return [
+            'salt' => $salt,
+            'hash' => hash('SHA512', $salt . $id . $pwd)
+        ];
+    }
+
     function validateAccount($db, $uid, $pwd)
     {
         $uPwdData = $db->findPassword($uid);
@@ -90,9 +100,10 @@ class User
             $salt = $uPwd->PassSalt;
             $hash = $uPwd->passHash;
         }
-        
+
         return hash('SHA512', $salt . $uid . $pwd) == $hash;
     }
+
 
     function validateUser()
     {

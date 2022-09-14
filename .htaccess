@@ -11,4 +11,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 #Heroku way RewriteCond
 %{HTTP:X-Forwarded-Proto} !https 
 #If neither above conditions are met, redirect to https RewriteRule ^
-https://%{HTTP_HOST}%{REQUEST_URI}/app [L,R=301]
+https://%{HTTP_HOST}%{REQUEST_URI}/app [QSA,L]

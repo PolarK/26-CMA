@@ -5,7 +5,7 @@ class Database
 {
     public function __construct()
     {
-        $this->baseUrl = "https://csms-api-env.herokuapp.com/api/index.php/";
+        $this->baseUrl = "http://localhost/26-CMA/api/index.php/";
         $this->baseHeader = 'Content-Type: application/json; charset=UTF-8';
     }
 
@@ -79,7 +79,7 @@ class Database
     public function findPassword($id)
     {
         return API::request(
-            $this->baseUrl . 'password/findPasswordById?id=' . $id,
+            $this->baseUrl . 'password/findPasswordByUserId?id=' . $id,
             "GET_REQUEST",
             $this->baseHeader
         );

@@ -1,11 +1,14 @@
 <?php
 include('./src/template/header.php');
 
-echo "REQ_URI: " . $_SERVER['REQUEST_URI'];
-
 
 $request = $_SERVER['REQUEST_URI'];
-$publicPath = '/src/pages';
+$publicPath = __DIR__ . '/src/pages';
+
+//! DEBUGING ONLY! REMOVE WHEN DONE
+echo "REQ_URI: " . $_SERVER['REQUEST_URI'] . ' | PATH: ' . $publicPath . $_SERVER['REQUEST_URI'] . '<hr>';
+//! DEBUGING ONLY! REMOVE WHEN DONE
+
 
 //! Where most of pages will be on
 if (isset($_SESSION['valid']) && $_SESSION['valid']) {
@@ -13,48 +16,74 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
 
     switch ($request) {
         case '/':
-            require __DIR__ . $publicPath . '/dashboard.php';
+            require $publicPath . '/dashboard.php';
             break;
 
         case '':
-            require __DIR__ . $publicPath . '/dashboard.php';
+            require $publicPath . '/dashboard.php';
             break;
 
         case '/app':
-            require __DIR__ . $publicPath . '/dashboard.php';
+            require $publicPath . '/dashboard.php';
             break;
 
         case '/dashboard':
-            require __DIR__ . $publicPath . '/dashboard.php';
+            require $publicPath . '/dashboard.php';
+            break;
+
+        //* Navbar actions
+        case '/submitPaper':
+            require $publicPath . '/submitPaper.php';
+            break;
+
+        case '/registerEvent':
+            require $publicPath . '/registeredEvents.php';
+            break;
+
+        case '/checkSchedule':
+            require $publicPath . '/userProfile.php';
+            break;
+
+        //* Dropdown actions
+        case '/profile':
+            require $publicPath . '/userProfile.php';
+            break;
+
+        case '/logout':
+            require $publicPath . '/logout.php';
             break;
 
         default:
             http_response_code(404);
-            require __DIR__ . $publicPath . '/errors/404.php';
+            require $publicPath . '/errors/404.php';
             break;
     }
 } else {
 
     switch ($request) {
         case '/':
-            require __DIR__ . $publicPath . '/login.php';
+            require $publicPath . '/login.php';
             break;
 
         case '':
-            require __DIR__ . $publicPath . '/login.php';
+            require $publicPath . '/login.php';
+            break;
+
+        case '/login':
+            require $publicPath . '/login.php';
             break;
 
         case '/app':
-            require __DIR__ . $publicPath . '/login.php';
+            require $publicPath . '/login.php';
             break;
 
         case '/register':
-            require __DIR__ . $publicPath . '/register.php';
+            require $publicPath . '/register.php';
             break;
 
         default:
             http_response_code(404);
-            require __DIR__ . $publicPath . '/errors/404.php';
+            require $publicPath . '/errors/404.php';
             break;
     }
 }

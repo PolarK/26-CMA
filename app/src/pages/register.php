@@ -54,8 +54,17 @@ if (isset($_POST['register'])) {
                 $hashedPwd['hash']
             );
         }
-        echo '<script>alert("Success! You can now sign in!");</script>';
-        header('Location: /login');
+        $_SESSION['valid'] = true;
+        $_SESSION['UID'] = $id;
+        $_SESSION['uRole'] = $role;
+        $_SESSION['uFName'] = $fname;
+        $_SESSION['uLName'] = $lname;
+        $_SESSION['uDob'] = $dob;
+        $_SESSION['uEmail'] = $email;
+        $_SESSION['uPhone'] = $phoneno;
+
+        echo '<script>alert("Success!");</script>';
+        header('Location: /dashboard');
     }
 }
 

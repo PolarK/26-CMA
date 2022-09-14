@@ -28,14 +28,13 @@ if (isset($_POST['register'])) {
     $phoneno = Validator::sanitise($_POST["uPhoneNo"]);
     $pwd = Validator::sanitise($_POST["uPassword"]);
     $cpwd = Validator::sanitise($_POST["uCPassword"]);
-    $id = IDGenerator::user($role, $fname, $lname);
 
-    $err = array();
+    $user = new User($fname, $lname, $dob, $lname, $phoneno, $pwd, array());
+    $user->validateUser();
 
-    $user = new User($fname, $lname, $dob, $lname, $phoneno, $pwd, $err);
-    $user->validateUser($err);
+    if (Validator::validate($user->get_err())) {
+        $id = IDGenerator::user($role, $fname, $lname);
 
-    if (Validator::validate($err)) {
         $hashedPwd = $user->generatePassword($id, $pwd);
 
         if(isset($hashedPwd['salt']) && isset($hashedPwd['hash'])){

@@ -1,4 +1,5 @@
 <div style="position: absolute; top: 0; right: 0;">
+    <!-- Login Notification -->
     <div class="toast" aria-live="assertive" aria-atomic="true" id="login">
         <div class="toast-header">
             <strong class="mr-auto"></strong>
@@ -11,7 +12,8 @@
             Login Successful!
         </div>
     </div>
-    <div class="toast" aria-live="assertive" aria-atomic="true">
+    <!-- Register Notification -->
+    <div class="toast" aria-live="assertive" aria-atomic="true" id="register">
         <div class="toast-header">
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -21,14 +23,15 @@
             Register Successful!
         </div>
     </div>
+    <!-- Failed Login Notification -->
+    <div class="toast" aria-live="assertive" aria-atomic="true" id="loginfail">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Username and Password do not Match!
+        </div>
+    </div>
 </div>
-
-<!-- <link href="../styles/bootstrap.min.css" rel="stylesheet"/> -->
-
-<!-- <script>
-    window.onload(event) => {
-        let alert = document.querySelector('.toast');
-        let toast = new bootstrap.Toast(alert);
-        toast.show();
-    }
-</script> -->

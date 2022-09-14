@@ -1,7 +1,7 @@
 <?php
 
-require_once "../../classes/errorHandler.class.php";
-require_once "../../classes/validator.class.php";
+require_once ".//classes/errorHandler.class.php";
+require_once ".//classes/validator.class.php";
 include_once "../template/navbar.php";
 include_once "../template/notification.php";
 

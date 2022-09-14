@@ -79,7 +79,7 @@ class Database
     public function findPassword($id)
     {
         return API::request(
-            $this->baseUrl . 'user/findPasswordById?id=' . $id,
+            $this->baseUrl . 'password/findPasswordById?id=' . $id,
             "GET_REQUEST",
             $this->baseHeader
         );

@@ -82,9 +82,8 @@ class User
         return $this->err;
     }
 
-    function validateAccount($uid, $pwd)
+    function validateAccount($db, $uid, $pwd)
     {
-        $db = new Database();
         $uPwdData = $db->findPassword($uid);
 
         foreach ($uPwdData as $uPwd) {

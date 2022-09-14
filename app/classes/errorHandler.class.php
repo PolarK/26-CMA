@@ -50,13 +50,9 @@ class ErrorHandler extends Validator
     {
         if (empty($pwd)) {
             return "Please enter a password";
-        }
-
-        if (!self::isValid(self::REGEX_PASSWORD, $pwd)) {
+        } else if (!self::isValid(self::REGEX_PASSWORD, $pwd)) {
             return "Please enter a valid password";
-        }
-
-        if ($pwd != $cpwd) {
+        }else if ($pwd != $cpwd) {
             return "Both password need to match";
         }
     }

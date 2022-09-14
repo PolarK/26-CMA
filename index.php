@@ -5,10 +5,6 @@ include('./src/template/header.php');
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
 
-//! DEBUGING ONLY! REMOVE WHEN DONE
-echo "REQ_URI: " . $_SERVER['REQUEST_URI'] . ' | PATH: ' . $publicPath . $_SERVER['REQUEST_URI'] . '<hr>';
-//! DEBUGING ONLY! REMOVE WHEN DONE
-
 
 //! Where most of pages will be on
 if (isset($_SESSION['valid']) && $_SESSION['valid']) {
@@ -27,7 +23,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             require $publicPath . '/dashboard.php';
             break;
 
-        //* Navbar actions
+            //* Navbar actions
         case '/submitPaper':
             require $publicPath . '/submitPaper.php';
             break;
@@ -40,7 +36,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             require $publicPath . '/userProfile.php';
             break;
 
-        //* Dropdown actions
+            //* Dropdown actions
         case '/profile':
             require $publicPath . '/userProfile.php';
             break;
@@ -55,7 +51,6 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             break;
     }
 } else {
-
     switch ($request) {
         case '/':
             require $publicPath . '/login.php';
@@ -79,6 +74,5 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             break;
     }
 }
-
 
 include('./src/template/footer.php');

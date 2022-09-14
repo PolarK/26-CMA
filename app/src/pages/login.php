@@ -1,7 +1,9 @@
 <?php
 
-require_once "./classes/errorHandler.class.php";
-require_once "./classes/validator.class.php";
+require_once "../../classes/errorHandler.class.php";
+require_once "../../classes/validator.class.php";
+include_once "../template/navbar.php";
+include_once "../template/notification.php";
 
 $email = $pwd = "";
 
@@ -10,25 +12,29 @@ $err = [
     'pwd' => ''
 ];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = Validator::sanitise($_POST["uEmailAddress"]);
-    $pwd = Validator::sanitise($_POST["uPassword"]);
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     $email = Validator::sanitise($_POST["uEmailAddress"]);
+//     $pwd = Validator::sanitise($_POST["uPassword"]);
 
-    $err['email'] = ErrorHandler::validateEmail($email);
-    $err['pwd'] = ErrorHandler::validatePwd($pwd, "");
+//     $err['email'] = ErrorHandler::validateEmail($email);
+//     $err['pwd'] = ErrorHandler::validatePwd($pwd, "");
 
-    if (Validator::validate($err)) {
-        // temporary redirect
-        include('./src/pages/dashboard.php');
-        exit();
-    }
-}
+//     if (Validator::validate($err)) {
+//         // temporary redirect
+//         include('./src/pages/dashboard.php');
+//         exit();
+//     }
+// }
 
 ?>
 
+<!-- Link Bootstrap and Script -->
+<link href="../styles/bootstrap.min.css" rel="stylesheet"/>
+<script src="../../scripts/main.js"></script>
+
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
     <div style="margin: auto; width: 18rem;">
-        <img src="src\images\CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
+        <img src="..\images\CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>
     <div class="card-body">
         <h1 class="card-title">Conference Submission Management System</h1>
@@ -54,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <br>
             <div class="form-group btn-group-lg d-grid gap-2">
-                <button name="login" type="submit" class="btn btn-primary">Login</button>
+                <button name="login" type="submit" class="btn btn-primary" onclick="showToast()">Login</button>
             </div>
         </form>
         <!--End Login Form-->

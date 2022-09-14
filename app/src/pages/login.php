@@ -1,9 +1,8 @@
 <?php
 
-require_once ".//classes/errorHandler.class.php";
-require_once ".//classes/validator.class.php";
-include_once "../template/navbar.php";
-include_once "../template/notification.php";
+require_once "./classes/errorHandler.class.php";
+require_once "./classes/validator.class.php";
+
 
 $email = $pwd = "";
 
@@ -28,13 +27,9 @@ $err = [
 
 ?>
 
-<!-- Link Bootstrap and Script -->
-<link href="../styles/bootstrap.min.css" rel="stylesheet"/>
-<script src="../../scripts/main.js"></script>
-
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
     <div style="margin: auto; width: 18rem;">
-        <img src="..\images\CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
+        <img src="src\images\CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>
     <div class="card-body">
         <h1 class="card-title">Conference Submission Management System</h1>

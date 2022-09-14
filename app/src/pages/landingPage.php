@@ -3,7 +3,7 @@
 
 <head>
     <?php
-         include_once "../others/template/head.inc";
+         include_once "./others/template/head.inc";
     ?>
     <title>CMA</title>
 </head>
@@ -11,7 +11,7 @@
 <body>
 
     <?php
-         include_once "../others/template/navBar.inc";
+         include_once "./others/template/navBar.inc";
     ?>
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">

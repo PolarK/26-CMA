@@ -1,8 +1,8 @@
 <?php
 
 // include "../others/template/functions.php";
-include_once("../template/navbar.php");
-include_once("../template/notification.php");
+include_once("./src/template/navbar.php");
+include_once("./src/template/notification.php");
 
 
 

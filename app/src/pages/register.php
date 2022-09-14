@@ -19,6 +19,7 @@ $err = [
 ];
 
 if (isset($_POST['register'])) {
+    //! Role will be changed once the basic registration is completed.
     $role = "SUBMITTER";
     $fname = Validator::sanitise($_POST["uFirstName"]);
     $lname = Validator::sanitise($_POST["uLastName"]);
@@ -29,12 +30,12 @@ if (isset($_POST['register'])) {
     $cpwd = Validator::sanitise($_POST["uCPassword"]);
     $id = IDGenerator::user($role, $fname, $lname);
 
+    $err = array();
 
-    $user = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, $err);
+    $user = new User($fname, $lname, $dob, $lname, $phoneno, $pwd, $err);
+    $user->validateUser($err);
 
-    $user->validateUser();
-    $err = $user->get_err();
-
+    /*
     if (Validator::validate($err)) {
         $db->createNewUser(
             $id,
@@ -60,6 +61,7 @@ if (isset($_POST['register'])) {
         }
         //exit();
     }
+    */
 }
 
 ?>
@@ -80,7 +82,7 @@ if (isset($_POST['register'])) {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['fname'] ?>
+                                    <?php echo (isset($user)) ? $user->err['fname'] : ' ' ?>
                                 </small></div>
                             <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
                         </div>
@@ -88,7 +90,7 @@ if (isset($_POST['register'])) {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['lname'] ?>
+                                    <?php echo (isset($user)) ? $user->err['lname'] : ' ' ?>
                                 </small></div>
                             <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
                         </div>
@@ -99,7 +101,7 @@ if (isset($_POST['register'])) {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['dob'] ?>
+                                    <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
                                 </small></div>
                             <input id="uDob" name="uDob" placeholder="Date of Birth" type="date" required class="form-control" value="<?php echo $dob; ?>">
                         </div>
@@ -107,7 +109,7 @@ if (isset($_POST['register'])) {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['email'] ?>
+                                    <?php echo (isset($user)) ? $user->err['email'] : ' ' ?>
                                 </small></div>
                             <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
                         </div>
@@ -118,7 +120,7 @@ if (isset($_POST['register'])) {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['phoneno'] ?>
+                                    <?php echo (isset($user)) ? $user->err['phoneno'] : ' ' ?>
                                 </small></div>
                             <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
                         </div>
@@ -130,7 +132,7 @@ if (isset($_POST['register'])) {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['pwd'] ?>
+                                    <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
                                 </small></div>
                             <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
                         </div>
@@ -138,7 +140,7 @@ if (isset($_POST['register'])) {
                     <div class="col">
                         <div class="form-group">
                             <div class="text-start"><small class="text-danger">
-                                    <?php echo $err['pwd'] ?>
+                                    <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
                                 </small></div>
                             <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
                         </div>

@@ -67,6 +67,10 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
         case '/register':
             require $publicPath . '/register.php';
             break;
+            
+        case '/test':
+            require $publicPath . '/dashboard.php';
+            break;
 
         default:
             http_response_code(404);

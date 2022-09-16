@@ -1,4 +1,8 @@
 <?php
+require_once "./classes/dbAPI.class.php";
+require_once "./classes/user.class.php";
+require_once "./classes/validator.class.php";
+require_once "./classes/idGenerator.class.php";
 
 require_once "./classes/errorHandler.class.php";
 require_once "./classes/validator.class.php";

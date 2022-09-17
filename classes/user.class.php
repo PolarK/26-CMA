@@ -6,7 +6,7 @@ require_once "errorHandler.class.php";
 class User
 {
     // not too sure if user should store password as well
-    private $fname, $lname, $dob, $email, $phoneno, $pwd;
+    public $fname, $lname, $dob, $email, $phoneno, $pwd;
 
     function __construct($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, $err)
     {
@@ -91,26 +91,20 @@ class User
         ];
     }
 
-    function validateAccount($db, $uid, $pwd)
-    {
-        $uPwdData = $db->findPassword($uid);
-
-        foreach ($uPwdData as $uPwd) {
-            $salt = $uPwd->PassSalt;
-            $hash = $uPwd->passHash;
-        }
-
-        return hash('SHA512', $salt . $uid . $pwd) == $hash;
-    }
-
-
-    function validateUser()
+    // Too tired to create a single method to handle both request. This will have to do for now...
+    function validateUserRegister()
     {
         $this->err['fname'] = ErrorHandler::validateFname($this->fname);
         $this->err['lname'] = ErrorHandler::validateLname($this->lname);
         $this->err['dob'] = ErrorHandler::validateDob($this->dob);
         $this->err['email'] = ErrorHandler::validateEmail($this->email);
         $this->err['phoneno'] = ErrorHandler::validatePhoneno($this->phoneno);
+        $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
+    }
+
+    function validateUserLogin()
+    {
+        $this->err['email'] = ErrorHandler::validateEmail($this->email);
         $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
     }
 }

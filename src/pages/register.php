@@ -20,7 +20,7 @@ if (isset($_POST['register'])) {
     $cpwd = Validator::sanitise($_POST["uCPassword"]);
 
     $user = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, array());
-    $user->validateUser();
+    $user->validateUserRegister();
 
     if (Validator::validate($user->get_err())) {
         $id = IDGenerator::user($role, $fname, $lname);

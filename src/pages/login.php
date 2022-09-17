@@ -3,26 +3,39 @@ require_once "./classes/dbAPI.class.php";
 require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 
-$email = $pwd = "";
+$email = '';
+$db = new Database();
 
-$err = [
-    'email' => '',
-    'pwd' => ''
-];
+if (isset($_POST['login'])) {
+    $email = Validator::sanitise($_POST['uEmailAddress']);
+    $pwd = Validator::sanitise($_POST["uPassword"]);
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     $email = Validator::sanitise($_POST["uEmailAddress"]);
-//     $pwd = Validator::sanitise($_POST["uPassword"]);
+    $user = new User('','','',$email,'', $pwd, $pwd, array());
+    $user->validateUserLogin();
 
-//     $err['email'] = ErrorHandler::validateEmail($email);
-//     $err['pwd'] = ErrorHandler::validatePwd($pwd, "");
+    if (Validator::validate($user->get_err())) {
+        $uRawData = $db->findUserByEmail($email);
+        
+        foreach ($uRawData as $uData) {
+            $uid = $uData->UserId;
+        }
 
-//     if (Validator::validate($err)) {
-//         // temporary redirect
-//         include('./src/pages/dashboard.php');
-//         exit();
-//     }
-// }
+        if (Validator::validateAccount($db, $uid, $pwd)) {
+            $_SESSION['valid'] = true;
+            $_SESSION['UID'] = $id;
+            $_SESSION['uRole'] = $role;
+            $_SESSION['uFName'] = $fname;
+            $_SESSION['uLName'] = $lname;
+            $_SESSION['uDob'] = $dob;
+            $_SESSION['uEmail'] = $email;
+            $_SESSION['uPhone'] = $phoneno;
+            echo $_SESSION['valid'];
+            echo '<script>alert("Success!");</script>';
+            header('Location: /dashboard');
+        }
+    }
+}
+
 
 ?>
 
@@ -37,12 +50,12 @@ $err = [
         <!--Start Login Form-->
         <form id="UserLoginForm" action="#" method="post">
             <div class="form-group">
-                <div class="text-start"><small class="text-danger"><?php echo $err['email'] ?></small></div>
+                <div class="text-start"><small class="text-danger"><?php echo (isset($user)) ? $user->err['email'] : ' ' ?></small></div>
                 <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="text" required class="form-control" value="<?php echo $email; ?>">
             </div>
             <div class="form-group">
-                <div class="text-start"><small class="text-danger"><?php echo $err['pwd'] ?></small></div>
-                <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control" value="<?php echo $pwd; ?>">
+                <div class="text-start"><small class="text-danger"><?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?></small></div>
+                <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
             </div>
             <div class="form-check">
                 <div>

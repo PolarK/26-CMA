@@ -27,6 +27,15 @@ class Database
         );
     }
 
+    public function findUserByEmail($email)
+    {
+        return API::request(
+            $this->baseUrl . 'user/findUserByEmail?email=' . $email,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
     public function createNewUser()
     {
         extract(func_get_args(), EXTR_PREFIX_ALL, "arg");

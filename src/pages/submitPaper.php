@@ -65,14 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<!-- including bootstrap -->
-<link href="../styles/bootstrap.min.css" rel="stylesheet"/>
-<script src="../../scripts/main.js"></script>
-
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
-    <div style="margin: auto; width: 18rem;">
-        <img src="../images/CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
-    </div>
     <div class="card-body">
         <h1 class="card-title">Conference Submission Management System</h1>
         <h3 class="text-muted">Register for an Appointment</h3>

@@ -2,11 +2,9 @@
 
 require_once "dbAPI.class.php";
 require_once "ErrorHandler.class.php";
-require_once "idGenerator.class.php";
 
 class User
 {
-
     // not too sure if user should store password as well
     private $fname, $lname, $dob, $email, $phoneno, $pwd;
 

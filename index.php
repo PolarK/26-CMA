@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include('./src/template/header.php');
 
 
@@ -66,10 +70,6 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
 
         case '/register':
             require $publicPath . '/register.php';
-            break;
-            
-        case '/test':
-            require $publicPath . '/dashboard.php';
             break;
 
         default:

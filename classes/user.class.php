@@ -1,7 +1,7 @@
 <?php
 
 require_once "dbAPI.class.php";
-require_once "ErrorHandler.class.php";
+require_once "errorHandler.class.php";
 
 class User
 {

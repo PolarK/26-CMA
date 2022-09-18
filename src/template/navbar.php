@@ -24,7 +24,7 @@
             <ul class="nav navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo $_SESSION['uFName'] . ' ' . substr($_SESSION['uLName'], 0, 1) . '.' ?>
+                        <?php echo '['. substr($_SESSION['uRole'], 0, 1) .'] ' . $_SESSION['uFName'] . ' ' . substr($_SESSION['uLName'], 0, 1) . '.' ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/profile">Edit Profile</a></li>

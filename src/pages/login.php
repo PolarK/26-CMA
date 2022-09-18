@@ -3,6 +3,8 @@ require_once "./classes/dbAPI.class.php";
 require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 
+//! check whether or not email exist!
+
 $email = '';
 $db = new Database();
 
@@ -18,6 +20,11 @@ if (isset($_POST['login'])) {
         
         foreach ($uRawData as $uData) {
             $uid = $uData->UserId;
+            $uEmail = $uData->UserEmail;
+        }
+
+        if (){
+            
         }
 
         if (Validator::validateAccount($db, $uid, $pwd)) {

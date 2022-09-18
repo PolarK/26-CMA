@@ -140,9 +140,8 @@ if (isset($_POST['register'])) {
                         </div>
                     </div>
                 </div>
-
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
+                    <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
                     <label class="form-check-label" for="flexCheckDefault">
                         By signing up, you've agreed to our <a href="">Terms & Conditions</a>
                     </label>

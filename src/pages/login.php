@@ -12,19 +12,12 @@ if (isset($_POST['login'])) {
     $email = Validator::sanitise($_POST['uEmailAddress']);
     $pwd = Validator::sanitise($_POST["uPassword"]);
 
-    $user = new User('','','',$email,'', $pwd, $pwd, array());
-    $user->validateUserLogin();
+    $uRawData = $db->findUserByEmail($email);
 
-    if (Validator::validate($user->get_err())) {
-        $uRawData = $db->findUserByEmail($email);
-        
+    if (!empty($uRawData)) {
         foreach ($uRawData as $uData) {
             $uid = $uData->UserId;
             $uEmail = $uData->UserEmail;
-        }
-
-        if (){
-            
         }
 
         if (Validator::validateAccount($db, $uid, $pwd)) {
@@ -36,13 +29,17 @@ if (isset($_POST['login'])) {
             $_SESSION['uDob'] = $dob;
             $_SESSION['uEmail'] = $email;
             $_SESSION['uPhone'] = $phoneno;
-            echo $_SESSION['valid'];
+
+            //! \/ parse data to toast notification
             echo '<script>alert("Success!");</script>';
             header('Location: /dashboard');
-        }
+        } else {
+            echo '<script>alert("Failed! Either email or password is invalid");</script>';
+        } 
+    } else{
+        echo '<script>alert("Failed! Cannot fetch account");</script>';
     }
 }
-
 
 ?>
 
@@ -57,11 +54,12 @@ if (isset($_POST['login'])) {
         <!--Start Login Form-->
         <form id="UserLoginForm" action="#" method="post">
             <div class="form-group">
-                <div class="text-start"><small class="text-danger"><?php echo (isset($user)) ? $user->err['email'] : ' ' ?></small></div>
+                <!-- \/ WILL NEED TO USE TOAST FOR INVALID LOGIN! \/ -->
+                <div class="text-start"><small class="text-danger"><?php echo (isset($user)) ? $user->err['login'] : ' ' ?></small></div>
+                <!-- /\ WILL NEED TO USE TOAST FOR INVALID LOGIN! /\-->
                 <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="text" required class="form-control" value="<?php echo $email; ?>">
             </div>
             <div class="form-group">
-                <div class="text-start"><small class="text-danger"><?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?></small></div>
                 <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
             </div>
             <div class="form-check">

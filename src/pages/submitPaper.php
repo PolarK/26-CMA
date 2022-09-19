@@ -5,8 +5,7 @@ include_once("./src/template/navbar.php");
 include_once("./src/template/notification.php");
 
 
-$err_msgs = [
-];
+$err_msgs = [];
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
     <div style="margin: auto; width: 18rem;">
-        <img src="../images/CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
+        <img src="./src/images/CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>
     <div class="card-body align-items-center">
         <h1 class="card-title">Conference Submission Management System</h1>
@@ -32,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group mb-2 mr-2">
                 <div class="row">
-                <!-- Submit Paper -->
+                    <!-- Submit Paper -->
                     <div class="col">
                         <div class="form-group">
                             <input id="SubmitPaper" name="SubmitPaper" type="file" required class="form-control flex-column" accept="application/pdf,application/msword,

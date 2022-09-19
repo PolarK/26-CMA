@@ -17,16 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-<div id="content" class="container-fluid p-2">
+<div id="content" class="container-fluid p-5">
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
         <div class="card-body">
             <h1 class="display-4">Submit Your New Finding!</h1>
             <p class="lead">We would love to see what you've come up with! So why not submit your paper here and well review it ASAP!</p>
-            <br>
-            <!--Start Event Register Form-->
+            <div style="margin: auto; width: 36rem;">
+                <br>
+                <!--Start Event Register Form-->
                 <form id="SubmitPaperForm" action="#" method="post">
-
                     <div class="form-group mb-2 mr-2">
                         <div class="row">
                             <!-- Submit Paper -->

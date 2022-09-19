@@ -1,0 +1,3 @@
+<?php 
+echo "MANAGE SUBMISSIONS";
+?>

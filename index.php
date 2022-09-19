@@ -9,50 +9,146 @@ include('./src/template/header.php');
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
 
+//! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
+// $_SESSION['uRole'] = 'SUBMITTER';
+//! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
 
 //! Where most of pages will be on
 if (isset($_SESSION['valid']) && $_SESSION['valid']) {
     include('./src/template/navbar.php');
 
-    switch ($request) {
-        case '/':
-            require $publicPath . '/dashboard.php';
-            break;
+    //* Navbar actions
+    if ($_SESSION['uRole'] == 'SUBMITTER') {
+        switch ($request) {
+            case '/':
+                require $publicPath . '/dashboard.php';
+                break;
 
-        case '':
-            require $publicPath . '/dashboard.php';
-            break;
+            case '':
+                require $publicPath . '/dashboard.php';
+                break;
 
-        case '/dashboard':
-            require $publicPath . '/dashboard.php';
-            break;
+            case '/dashboard':
+                require $publicPath . '/dashboard.php';
+                break;
 
-            //* Navbar actions
-        case '/submitPaper':
-            require $publicPath . '/submitPaper.php';
-            break;
+                //* Dropdown actions
+            case '/profile':
+                require $publicPath . '/userProfile.php';
+                break;
 
-        case '/registerEvent':
-            require $publicPath . '/registeredEvents.php';
-            break;
+            case '/logout':
+                require $publicPath . '/logout.php';
+                break;
+            case '/checkSubmission':
+                require $publicPath . '/submitter/checkSubmission.php';
+                break;
 
-        case '/checkSchedule':
-            require $publicPath . '/userProfile.php';
-            break;
+            case '/submitPaper':
+                require $publicPath . '/submitter/submitPaper.php';
+                break;
 
-            //* Dropdown actions
-        case '/profile':
-            require $publicPath . '/userProfile.php';
-            break;
+            case '/manageMyEvents':
+                require $publicPath . '/submitter/manageMyEvents.php';
+                break;
 
-        case '/logout':
-            require $publicPath . '/logout.php';
-            break;
+            case '/myUpcommingEvents':
+                require $publicPath . '/submitter/myUpcommingEvents.php';
+                break;
 
-        default:
-            http_response_code(404);
-            require $publicPath . '/errors/404.php';
-            break;
+            case '/registerNewEvent':
+                require $publicPath . '/submitter/registerNewEvent.php';
+                break;
+
+            default:
+                http_response_code(404);
+                require $publicPath . '/errors/404.php';
+                break;
+        }
+    } else if ($_SESSION['uRole'] == 'REVIWER') {
+        switch ($request) {
+            case '/':
+                require $publicPath . '/dashboard.php';
+                break;
+
+            case '':
+                require $publicPath . '/dashboard.php';
+                break;
+
+            case '/dashboard':
+                require $publicPath . '/dashboard.php';
+                break;
+
+                //* Dropdown actions
+            case '/profile':
+                require $publicPath . '/userProfile.php';
+                break;
+
+            case '/logout':
+                require $publicPath . '/logout.php';
+                break;
+
+            case '/reviewSubmission':
+                require $publicPath . '/reviewer/reviewSubmission.php';
+                break;
+
+            case '/createNewEvent':
+                require $publicPath . '/reviewer/createNewEvent.php';
+                break;
+
+            case '/manageUpcommingEvents':
+                require $publicPath . '/reviewer/manageUpcommingEvents.php';
+                break;
+
+            case '/checkUpcommingEvents':
+                require $publicPath . '/reviewer/checkUpcommingEvents.php';
+                break;
+
+            default:
+                http_response_code(404);
+                require $publicPath . '/errors/404.php';
+                break;
+        }
+    } else if ($_SESSION['uRole'] == 'ADMIN') {
+        switch ($request) {
+            case '/':
+                require $publicPath . '/dashboard.php';
+                break;
+
+            case '':
+                require $publicPath . '/dashboard.php';
+                break;
+
+            case '/dashboard':
+                require $publicPath . '/dashboard.php';
+                break;
+
+                //* Dropdown actions
+            case '/profile':
+                require $publicPath . '/userProfile.php';
+                break;
+
+            case '/logout':
+                require $publicPath . '/logout.php';
+                break;
+
+            case '/manageUsers':
+                require $publicPath . '/admin/manageUsers.php';
+                break;
+
+            case '/manageSubmissions':
+                require $publicPath . '/admin/manageSubmissions.php';
+                break;
+
+            case '/manageEvents':
+                require $publicPath . '/admin/manageEvents.php';
+                break;
+
+            default:
+                http_response_code(404);
+                require $publicPath . '/errors/404.php';
+                break;
+        }
     }
 } else {
     switch ($request) {
@@ -78,5 +174,4 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             break;
     }
 }
-
 include('./src/template/footer.php');

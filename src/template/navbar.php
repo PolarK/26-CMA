@@ -7,24 +7,78 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="nav navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/submitPaper">Submit Paper</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/registerEvent">Register Event</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/checkSchedule">Schedule</a>
-                </li>
+
+                <?php if ($_SESSION['uRole'] == 'SUBMITTER') { ?>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            My Submission
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/checkSubmission">Check My Submission</a></li>
+                            <li><a class="dropdown-item" href="/submitPaper">Submit New Finding</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Events
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/manageMyEvents">Managed My Events</a></li>
+                            <li><a class="dropdown-item" href="/myUpcommingEvents">My Upcomming Events</a></li>
+                            <li><a class="dropdown-item" href="/registerNewEvent">Register An Event</a></li>
+                        </ul>
+                    </li>
+
+                <?php }
+                if ($_SESSION['uRole'] == 'REVIEWER') { ?>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Submission
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/reviewSubmission">Review submission</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Events
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/createNewEvent">Create New Event</a></li>
+                            <li><a class="dropdown-item" href="/manageUpcommingEvents">Managed Upcomming Events</a></li>
+                            <li><a class="dropdown-item" href="/checkUpcommingEvents">Upcomming Events</a></li>
+                        </ul>
+                    </li>
+
+                <?php }
+                if ($_SESSION['uRole'] == 'ADMIN') { ?>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Managed
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/manageUsers">Users</a></li>
+                            <li><a class="dropdown-item" href="/manageSubmissions">Submissions</a></li>
+                            <li><a class="dropdown-item" href="/manageEvents">Events</a></li>
+                        </ul>
+                    </li>
+
+                <?php } ?>
+
             </ul>
             <ul class="nav navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle font-weight-bold" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo '['. substr($_SESSION['uRole'], 0, 1) .'] ' . $_SESSION['uFName'] . ' ' . substr($_SESSION['uLName'], 0, 1) . '.' ?>
+                        <?php echo '[' . substr($_SESSION['uRole'], 0, 1) . '] ' . $_SESSION['uFName'] . ' ' . substr($_SESSION['uLName'], 0, 1) . '.' ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/profile">Edit Profile</a></li>
@@ -33,5 +87,6 @@
                 </li>
             </ul>
         </div>
+        <br><br>
     </div>
 </nav>

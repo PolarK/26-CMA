@@ -16,7 +16,7 @@ include_once("./classes/dbAPI.class.php");
             $subData = [
                 'Future-of-IoT.pdf',
                 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nostrum assumenda provident perspiciatis, vel quaerat aut fugiat perferendis magni explicabo praesentium totam, in commodi quidem, exercitationem ab! Vero, voluptatibus laborum.',
-                '/file/' . $_SESSION['UID'] . '/Future-of-IoT.pdf',
+                '/' . $_SESSION['UID'] . '/Future-of-IoT.pdf',
                 'Accepted',
                 '19-09-2022 7:10PM'
             ];

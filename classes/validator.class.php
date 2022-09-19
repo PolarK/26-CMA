@@ -39,15 +39,16 @@ class Validator
     {
         $uPwdData = $db->findPassword($uid);
 
-        print_r($uPwdData);
-
         foreach ($uPwdData as $uPwd) {
             $salt = $uPwd->PassSalt;
             $hash = $uPwd->passHash;
         }
-        echo "SALT " . $salt;
-        echo "RES-HASH ". hash('SHA512', $salt . $uid . $pwd);
-        
+        echo "<hr><pre>
+        DB_SALT : $salt
+        DB_HASH : $hash  
+        LC-HASH : ". hash('SHA512', $salt . $uid . $pwd)
+        . "</pre>";
+
         return hash('SHA512', $salt . $uid . $pwd) == $hash;
     }
 }

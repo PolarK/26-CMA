@@ -9,9 +9,19 @@ include('./src/template/header.php');
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
 
-//! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
-// $_SESSION['uRole'] = 'SUBMITTER';
 //! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
+//! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
+$_SESSION['valid'] = true;
+$_SESSION['UID'] = 'SSJ0d3e2';
+$_SESSION['uRole'] = 'ADMIN';
+$_SESSION['uFName'] = 'John';
+$_SESSION['uLName'] = 'Smith';
+$_SESSION['uDob'] = '1989-12-21';
+$_SESSION['uEmail'] = 'john@smith.com';
+$_SESSION['uPhone'] = '0432887119';
+
+//! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
+
 
 //! Where most of pages will be on
 if (isset($_SESSION['valid']) && $_SESSION['valid']) {

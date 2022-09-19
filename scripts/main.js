@@ -1,11 +1,28 @@
-$(document).ready(function(){
-    // Load register form content when 'register' is clicked
-/*  
-    $('#displayRegisterForm').click(function(){
-       $('#content').load('src\\pages\\register.php');
+function displayUsers(){
+    $('#displayUsers').Tabledit({
+        url: 'scripts/handlers/userHandler.php',
+        columns: {
+            identifier: [0, 'UserId'],
+            editable: [
+                [1, 'UserFirstName'],
+                [2, 'UserLastName'],
+                [3, 'UserDOB'],
+                [4, 'UserEmail'],
+                [5, 'UserPhoneNo'],
+            ]
+        }, 
+        restoreButton: false,
+        onSuccess: function (data, textStatus, jqXHR) {
+            if (data.action == "delete") {
+                $("#" + data.id).remove();
+                $("#displayUsers").DataTable().ajax.reload();
+            }
+        },
     });
-*/
+}
 
+$(document).ready(function(){
+    //Form input dynamic styling
     $('form input').blur(function(){
         if(!$(this).val()){
             $(this).css('border','1px solid red');
@@ -13,6 +30,18 @@ $(document).ready(function(){
             $(this).css('border','1px solid green');
         }
     });
+
+    //User Manager
+    $('#searchUID').keyup(function(){
+        var searchUID = $('#searchUID').val();
+
+        $.post('./scripts/handlers/userHandler.php', {searchName : searchUID}, function(data){
+            $('#searchResult').html(data);
+            displayUsers();
+        });
+    });
+
+    displayUsers();
 });
 
 //! Vanila JS (Not in jquery syntax)

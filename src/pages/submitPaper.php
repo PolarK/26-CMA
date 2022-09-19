@@ -20,14 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
-<<<<<<< Updated upstream:src/pages/submitPaper.php
-    <div class="card-body">
-=======
     <div style="margin: auto; width: 18rem;">
         <img src="../images/CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>
     <div class="card-body align-items-center">
->>>>>>> Stashed changes:app/src/pages/submitPaper.php
         <h1 class="card-title">Conference Submission Management System</h1>
         <h3 class="text-muted">Make a Submission</h3>
         <br>

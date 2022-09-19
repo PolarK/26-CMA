@@ -1,5 +1,5 @@
 <?php
-include_once './classes/dbAPI.class.php';
+include_once '../../classes/dbAPI.class.php';
 header('Content-Type: application/json');
 
 $db = new Database();

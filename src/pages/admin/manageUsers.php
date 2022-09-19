@@ -19,32 +19,32 @@ $users = $db->getAllUser();
                             <form class="form-inline">
                                 <th scope="row">
                                     <div class="form-group mb-2 mr-2">
-                                        <input type="text" class="form-control form-control-sm" name="searchUID" id="searchUID" placeholder="User ID">
+                                        <input type="search" class="form-control form-control-sm" name="searchUID" id="searchUID" placeholder="User ID">
                                     </div>
                                 </th>
                                 <th scope="row">
                                     <div class="form-group mb-2 mr-2">
-                                        <input type="text" class="form-control form-control-sm" name="searchFName" id="searchFName" placeholder="User First Name">
+                                        <input type="search" class="form-control form-control-sm" name="searchFName" id="searchFName" placeholder="User First Name">
                                     </div>
                                 </th>
                                 <th scope="row">
                                     <div class="form-group mb-2 mr-2">
-                                        <input type="text" class="form-control form-control-sm" name="searchLName" id="searchLName" placeholder="User Last Name">
+                                        <input type="search" class="form-control form-control-sm" name="searchLName" id="searchLName" placeholder="User Last Name">
                                     </div>
                                 </th>
                                 <th scope="row">
                                     <div class="form-group mb-2 mr-2">
-                                        <input type="text" class="form-control form-control-sm" name="searchDOB" id="searchDOB" placeholder="User DOB">
+                                        <input type="search" class="form-control form-control-sm" name="searchDOB" id="searchDOB" placeholder="User DOB">
                                     </div>
                                 </th>
                                 <th scope="row">
                                     <div class="form-group mb-2 mr-2">
-                                        <input type="text" class="form-control form-control-sm" name="searchEmail" id="searchEmail" placeholder="User Email Address">
+                                        <input type="search" class="form-control form-control-sm" name="searchEmail" id="searchEmail" placeholder="User Email Address">
                                     </div>
                                 </th>
                                 <th scope="row">
                                     <div class="form-group mb-2 mr-2">
-                                        <input type="text" class="form-control form-control-sm" name="searchPhoneNo" id="searchPhoneNo" placeholder="User PhoneNo">
+                                        <input type="search" class="form-control form-control-sm" name="searchPhoneNo" id="searchPhoneNo" placeholder="User PhoneNo">
                                     </div>
                                 </th>
                             </form>

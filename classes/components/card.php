@@ -14,6 +14,10 @@ class Card
 
             case 'upcommingEvent':
                 return self::upcommingEventcard($data[0], $data[1], $data[2], $data[3]);
+
+
+            case 'userProfile':
+                return self::userProfile($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
         }
     }
 
@@ -76,6 +80,61 @@ class Card
                 <h5 class="card-title">' . $title . '</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Event at: ' . $timestamp . ' </h6>
                 <a class="stretched-link" href="' . $eventURL . '" class="card-link">View My Event in Details</a> 
+            </div>
+        </div>
+        <br>
+        ';
+    }
+
+    private static function userProfile($fName, $lName, $email, $phoneNo, $dob, $password)
+    {
+        return '
+        <div class="card bg-gradient-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <strong>Name</strong>
+                    </div>
+                    <div class="col text-secondary">
+                         ' . $fName . ' ' . $lName . ' 
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <strong>Email</strong>
+                    </div>
+                    <div class="col text-secondary">
+                         ' . $email . '
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <strong>Phone No.</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        ' . $phoneNo . '
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <strong>Date of Birth</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        ' . $dob . '
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <strong>Password</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        ' . $password . '
+                    </div>
+                </div>
             </div>
         </div>
         <br>

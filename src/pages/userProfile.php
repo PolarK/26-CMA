@@ -1,84 +1,37 @@
 <?php
+include_once("./classes/components/card.php");
 require_once "classes/dbAPI.class.php";
 
 $db = new Database();
 // This will eventually need to be changed to use the logged in user details
 $users = $db->findUserById($_SESSION['UID']);
+foreach ($users as $user) {
 ?>
+    <!--CONTENT START-->
+    <div id="content" class="container-fluid p-5">
+        <div class="d-flex flex-column justify-content-center align-items-center text-left h-100">
 
-<div>
-    <!-- the background is purely for seeing the size of the container/cards, can be removed later -->
-    <?php
-    foreach($users as $user) {
-    ?>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-4">
-                    <div class="row h-100">
-                        <div class="card bg-gradient-light">
-                            <div id="card-body">
-                                <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                    <h1> Hello </h1>
-                                    <h1><?php echo $user->UserFirstName?></h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-                <div class="col-8">
-                    <div class="card bg-gradient-light">
-                        <div class="card-body">
-                        <hr>
-                        <div class="row">
-                            <div class="col">
-                                <b>First Name</b>
-                            </div>
-                            <div class="col text-secondary">
-                                <?php echo $user->UserFirstName ?>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col">
-                                <b>Last Name</b>
-                            </div>
-                            <div class="col text-secondary">
-                                <?php echo $user->UserLastName ?>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col">
-                                <b>Email</b>
-                            </div>
-                            <div class="col text-secondary">
-                                <?php echo $user->UserEmail ?>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col">
-                                <b>Phone No.</b>
-                            </div>
-                            <div class="col text-secondary">
-                                <?php echo $user->UserPhoneNo ?>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col">
-                                <b>Date of Birth</b>
-                            </div>
-                            <div class="col text-secondary">
-                                <?php echo $user->UserDOB ?>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
+            <h1 class="display-4">Hello, <?php echo $user->UserFirstName . " " . $user->UserLastName  ?></h1>
+            <p class="lead">You can edit your profile here and our handyman will get right on updating it!</p>
+            <div style="margin: auto; width: 36rem;">
+
+                <?php
+
+                $subData = [
+                    $user->UserFirstName,
+                    $user->UserLastName,
+                    $user->UserEmail,
+                    $user->UserPhoneNo,
+                    $user->UserDOB,
+                    '***********',
+                ];
+
+                echo Card::display("userProfile", $subData);
+
+                ?>
             </div>
         </div>
-    <?php
-    }
-    ?>
-</div>
+    </div>
+    <!--CONTENT END-->
+
+<?php } ?>

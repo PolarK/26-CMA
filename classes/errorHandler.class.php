@@ -1,9 +1,10 @@
 <?php
 include_once "./classes/validator.class.php";
+include_once "./classes/dbAPI.class.php";
 
 class ErrorHandler extends Validator
 {
-    static function validateFname($fname): string
+    static function validateFname($fname)
     {
         if (empty($fname)) {
             return "Please enter your first name";
@@ -12,7 +13,7 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validateLname($lname): string
+    static function validateLname($lname)
     {
         if (empty($lname)) {
             return "Please enter your last name";
@@ -21,23 +22,28 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validateDob($dob): string
+    static function validateDob($dob)
     {
         if (empty($dob)) {
             return "Please enter your date of birth";
         }
     }
 
-    static function validateEmail($email): string
+    static function validateEmail($email)
     {
+        $db = new  Database();
+        $uRawData = $db->findUserByEmail($email);
+
         if (empty($email)) {
             return "Please enter your email address";
         } else if (!self::isValid(self::REGEX_EMAIL, $email)) {
             return "Please enter a valid email address";
+        } else if (!empty($uRawData)) {
+            return "Email address already exist. Try <a href='/login'>logging in </a> instead";
         }
     }
 
-    static function validatePhoneno($phoneno): string
+    static function validatePhoneno($phoneno)
     {
         if (empty($phoneno)) {
             return "Please enter your phone number";
@@ -46,7 +52,7 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validatePwd($pwd, $cpwd): string
+    static function validatePwd($pwd, $cpwd)
     {
         if (empty($pwd)) {
             return "Please enter a password";

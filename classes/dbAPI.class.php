@@ -85,7 +85,7 @@ class Database
         );
     }
 
-    public function findPassword($id)
+    public function findPasswordById($id)
     {
         return API::request(
             $this->baseUrl . 'password/findPasswordByUserId?id=' . $id,
@@ -112,12 +112,27 @@ class Database
 
     public function updatePassword()
     {
-        return;
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'UserId' => $arg_0,
+            'PassSalt' => $arg_1,
+            'passHash' => $arg_2
+        ];
+
+        return API::request(
+            $this->baseUrl . 'password/updatePassword',
+            "POST_REQUEST",
+            $fields
+        );
     }
 
     public function deletePassword($id)
     {
-        return;
+        return API::request(
+            $this->baseUrl . 'password/removePassword?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
     }
 
 

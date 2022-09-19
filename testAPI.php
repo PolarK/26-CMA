@@ -125,6 +125,31 @@ $db = new Database();
     }
     ?>
 
+    <hr>
+
+    <p>FIND PASSWORD:</p>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+        <input type="text" name="id" placeholder="Enter ID">
+        <input type="submit" name="submitUIDPass" value="Find Password">
+    </form>
+
+    <?php
+    if (isset($_GET['submitUIDPass'])) {
+        $id = $_GET['id'];
+        $users = $db->findPasswordById($id);
+        echo 'Finding user password with id that contain number ' . $id . '<br>';
+
+        foreach ($users as $user) {
+            echo
+            '<pre>' .
+                '   ID: ' . $user->UserId . '<br>' .
+                '   PassSalt: ' . $user->PassSalt . '<br>' .
+                '   PassHash: ' . $user->passHash . '<br>' .
+            '</pre><br>';
+        }
+    }
+    ?>
+
 </body>
 
 </html>

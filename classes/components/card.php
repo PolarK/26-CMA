@@ -11,6 +11,9 @@ class Card
 
             case 'event':
                 return self::eventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+
+            case 'upcommingEvent':
+                return self::upcommingEventcard($data[0], $data[1], $data[2], $data[3]);
         }
     }
 
@@ -30,6 +33,7 @@ class Card
         ';
     }
 
+    //! $date & $time should be merge into $timestamp
     private static function eventCard($title, $link, $date, $time, $filePath, $presenter, $status)
     {
         return '
@@ -57,6 +61,21 @@ class Card
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+        <br>
+        ';
+    }
+
+    private static function upcommingEventcard($title, $timestamp, $eventURL, $status)
+    {
+        return '
+        <div class="card bg-gradient-light">
+            <span class="badge ' . self::defineStatus($status) . ' text-dark">' . $status . '</span>
+            <div class="card-body">
+                <h5 class="card-title">' . $title . '</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Event at: ' . $timestamp . ' </h6>
+                <a class="stretched-link" href="' . $eventURL . '" class="card-link">View My Event in Details</a> 
             </div>
         </div>
         <br>

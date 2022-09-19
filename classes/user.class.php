@@ -91,7 +91,6 @@ class User
         ];
     }
 
-    // Too tired to create a single method to handle both request. This will have to do for now...
     function validateUserRegister()
     {
         $this->err['fname'] = ErrorHandler::validateFname($this->fname);
@@ -99,12 +98,6 @@ class User
         $this->err['dob'] = ErrorHandler::validateDob($this->dob);
         $this->err['email'] = ErrorHandler::validateEmail($this->email);
         $this->err['phoneno'] = ErrorHandler::validatePhoneno($this->phoneno);
-        $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
-    }
-
-    function validateUserLogin()
-    {
-        $this->err['email'] = ErrorHandler::validateEmail($this->email);
         $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
     }
 }

@@ -3,7 +3,7 @@ include_once "./classes/validator.class.php";
 
 class ErrorHandler extends Validator
 {
-    static function validateFname($fname)
+    static function validateFname($fname): string
     {
         if (empty($fname)) {
             return "Please enter your first name";
@@ -12,7 +12,7 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validateLname($lname)
+    static function validateLname($lname): string
     {
         if (empty($lname)) {
             return "Please enter your last name";
@@ -21,14 +21,14 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validateDob($dob)
+    static function validateDob($dob): string
     {
         if (empty($dob)) {
             return "Please enter your date of birth";
         }
     }
 
-    static function validateEmail($email)
+    static function validateEmail($email): string
     {
         if (empty($email)) {
             return "Please enter your email address";
@@ -37,7 +37,7 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validatePhoneno($phoneno)
+    static function validatePhoneno($phoneno): string
     {
         if (empty($phoneno)) {
             return "Please enter your phone number";
@@ -46,13 +46,13 @@ class ErrorHandler extends Validator
         }
     }
 
-    static function validatePwd($pwd, $cpwd)
+    static function validatePwd($pwd, $cpwd): string
     {
         if (empty($pwd)) {
             return "Please enter a password";
         } else if (!self::isValid(self::REGEX_PASSWORD, $pwd)) {
             return "Please enter a valid password";
-        }else if ($pwd != $cpwd) {
+        } else if ($pwd != $cpwd) {
             return "Both password need to match";
         }
     }

@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3 class="text-muted">Register for an Appointment</h3>
         <br>
         <!--Start Event Register Form-->
-        <form id="UserRegisterForm" action="registerAppointment.php" method="post">
+        <form id="EventRegisterForm" action="registerAppointment.php" method="post">
 
             <div class="form-group mb-2 mr-2">
                 <div class="row">
@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
                         <label class="form-check-label" for="TermsConditions">
-                            By registering, you've agreed to our <a href="">Terms & Conditions</a>
+                            By registering, you are agreeinh to our <a href="">Terms & Conditions</a>
                         </label>
                     </div>
                 </div>

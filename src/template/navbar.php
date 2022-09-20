@@ -30,7 +30,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/manageMyEvents">Managed My Events</a></li>
-                            <li><a class="dropdown-item" href="/myUpcommingEvents">My Upcomming Events</a></li>
+                            <li><a class="dropdown-item" href="/myUpcomingEvents">My Upcomming Events</a></li>
                             <li><a class="dropdown-item" href="/registerNewEvent">Register An Event</a></li>
                         </ul>
                     </li>

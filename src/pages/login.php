@@ -3,13 +3,6 @@ require_once "./classes/dbAPI.class.php";
 require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 
-/*
- * TEST USER FOR LOGIN
- * * * * * * * * * * * * * * * 
- * EMAIL    : test@user.com
- * PASS     : Test@user123
- */
-
 //! check whether or not email exist!
 
 $email = '';
@@ -24,12 +17,7 @@ if (isset($_POST['login'])) {
     if (!empty($uRawData)) {
         foreach ($uRawData as $uData) {
             $uid = $uData->UserId;
-            $fname = $uData->UserFirstName;
-            $lname = $uData->UserLastName;
-            $dob = $uData->UserDOB;
-            $email = $uData->UserEmail;
-            $phoneno = $uData->UserPhoneNo;
-            $role = $uData->UserRole;
+            $uEmail = $uData->UserEmail;
         }
 
         if (Validator::validateAccount($db, $uid, $pwd)) {
@@ -47,8 +35,8 @@ if (isset($_POST['login'])) {
             header('Location: /dashboard');
         } else {
             echo '<script>alert("Failed! Either email or password is invalid");</script>';
-        }
-    } else {
+        } 
+    } else{
         echo '<script>alert("Failed! Cannot fetch account");</script>';
     }
 }

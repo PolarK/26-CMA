@@ -13,7 +13,7 @@ $publicPath = __DIR__ . '/src/pages';
 //! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
 $_SESSION['valid'] = true;
 $_SESSION['UID'] = 'SSJ0d3e2';
-$_SESSION['uRole'] = 'ADMIN';
+$_SESSION['uRole'] = 'SUBMITTER';
 $_SESSION['uFName'] = 'John';
 $_SESSION['uLName'] = 'Smith';
 $_SESSION['uDob'] = '1989-12-21';
@@ -75,7 +75,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/errors/404.php';
                 break;
         }
-    } else if ($_SESSION['uRole'] == 'REVIWER') {
+    } else if ($_SESSION['uRole'] == 'REVIEWER') {
         switch ($request) {
             case '/':
                 require $publicPath . '/dashboard.php';
@@ -106,12 +106,12 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/reviewer/createNewEvent.php';
                 break;
 
-            case '/manageUpcommingEvents':
-                require $publicPath . '/reviewer/manageUpcommingEvents.php';
+            case '/manageUpcomingEvents':
+                require $publicPath . '/reviewer/manageUpcomingEvents.php';
                 break;
 
-            case '/checkUpcommingEvents':
-                require $publicPath . '/reviewer/checkUpcommingEvents.php';
+            case '/checkUpcomingEvents':
+                require $publicPath . '/reviewer/checkUpcomingEvents.php';
                 break;
 
             default:

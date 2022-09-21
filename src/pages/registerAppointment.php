@@ -71,11 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
     <div style="margin: auto; width: 18rem;">
-        <img src="/src/images/CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
+        <img src="../images/CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>
     <div class="card-body">
-        <h1 class="card-title">Register for an Appointment</h1>
-        <h3 class="text-muted">Get Your Document Reviewed After Submitting</h3>
+        <h1 class="card-title">Conference Submission Management System</h1>
+        <h3 class="text-muted">Register for an Appointment</h3>
         <br>
         <!--Start Event Register Form-->
         <form id="EventRegisterForm" action="registerAppointment.php" method="post">
@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col">
                         <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
                         <label class="form-check-label" for="TermsConditions">
-                            By registering, you are agreeing to our <a href="">Terms & Conditions</a>
+                            By registering, you are agreeinh to our <a href="">Terms & Conditions</a>
                         </label>
                     </div>
                 </div>

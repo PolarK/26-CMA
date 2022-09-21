@@ -37,12 +37,17 @@ class Validator
 
     static function validateAccount($db, $uid, $pwd): bool
     {
-        $uPwdData = $db->findPasswordById($uid);
+        $uPwdData = $db->findPassword($uid);
 
         foreach ($uPwdData as $uPwd) {
             $salt = $uPwd->PassSalt;
             $hash = $uPwd->passHash;
         }
+        echo "<hr><pre>
+        DB_SALT : $salt
+        DB_HASH : $hash  
+        LC-HASH : ". hash('SHA512', $salt . $uid . $pwd)
+        . "</pre>";
 
         return hash('SHA512', $salt . $uid . $pwd) == $hash;
     }

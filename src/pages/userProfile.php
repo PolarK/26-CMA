@@ -1,6 +1,6 @@
 <?php
 include_once("./classes/components/card.php");
-require_once "./classes/dbAPI.class.php";
+require_once "classes/dbAPI.class.php";
 
 $db = new Database();
 // This will eventually need to be changed to use the logged in user details

@@ -43,11 +43,6 @@ class Validator
             $salt = $uPwd->PassSalt;
             $hash = $uPwd->passHash;
         }
-        echo "<hr><pre>
-        DB_SALT : $salt
-        DB_HASH : $hash  
-        LC-HASH : ". hash('SHA512', $salt . $uid . $pwd)
-        . "</pre>";
 
         return hash('SHA512', $salt . $uid . $pwd) == $hash;
     }

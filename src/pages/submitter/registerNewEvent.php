@@ -9,8 +9,8 @@ $fname = $lname = $affiliation = $email = $date = $time = "";
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
         <div class="card-body">
-            <h1 class="display-4">Conference Submission Management System</h1>
-            <p class="lead">Congrats on the offer, we were very hapy with your submission and would like to hear about it more! So please, register here to talk about your finding to us. We cant wait to hear it from you!</p>
+            <h1 class="display-4">Register to Your New Event!</h1>
+            <p class="lead">Congrats on the offer, we were very happy with your submission and would like to hear about it more! So please, register here to talk about your finding to us. We cant wait to hear it from you!</p>
             <br>
             <!--Start Event Register Form-->
             <form id="EventRegisterForm" action="registerAppointment.php" method="post">

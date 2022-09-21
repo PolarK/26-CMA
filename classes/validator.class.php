@@ -37,7 +37,7 @@ class Validator
 
     static function validateAccount($db, $uid, $pwd): bool
     {
-        $uPwdData = $db->findPassword($uid);
+        $uPwdData = $db->findPasswordById($uid);
 
         foreach ($uPwdData as $uPwd) {
             $salt = $uPwd->PassSalt;

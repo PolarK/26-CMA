@@ -17,9 +17,9 @@ $users = $db->getAllUser();
         ?>
             <div style="margin: auto; width: 75%;">
                 <div style="height: 600px; overflow: hidden scroll;">
-                    <table id="displayUsers" class="table" style=" border: 2px black solid;">
-                        <thead class="bg-light" style="position: sticky; top: 0;">
-                            <tr>
+                    <table id="displayUsers" class="table">
+                        <thead class="bg-light" style="position: sticky; top: 0; z-index: 10;">
+                            <tr style="border: 2px black solid;">
                                 <form class="form-inline">
                                     <th scope="row">
                                         <div class="form-group mb-2 mr-2">

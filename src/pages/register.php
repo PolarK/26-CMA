@@ -153,6 +153,6 @@ if (isset($_POST['register'])) {
             </div>
         </form>
         <!--End Login Form-->
-        <p class="text-muted">Already registered? <a id="displayLoginForm" href="/">Login</a></p>
+        <p class="text-muted">Already registered? <a id="displayLoginForm" href="/login">Login</a></p>
     </div>
 </div>

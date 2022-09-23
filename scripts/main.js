@@ -21,6 +21,28 @@ function displayUsers() {
     });
 }
 
+function displaySubmissions() {
+    $('#displaySubmissions').Tabledit({
+        url: 'scripts/handlers/submissionHandler.php',
+        columns: {
+            identifier:
+                [0, 'SubmissionId'],
+            editable: [
+                [1, 'UserId'],
+                [2, 'SubmissionTimestamp'],
+                [3, 'SubmissionPath'],
+            ]
+        },
+        restoreButton: false,
+        onSuccess: function (data, textStatus, jqXHR) {
+            if (data.action == "delete") {
+                $("#" + data.id).remove();
+                $("#displaySubmissions").DataTable().ajax.reload();
+            }
+        },
+    });
+}
+
 $(document).ready(function () {
     //Form input dynamic styling
     $('form input').blur(function () {
@@ -35,7 +57,7 @@ $(document).ready(function () {
     $('#searchUID').keyup(function () {
         var searchUID = $('#searchUID').val();
 
-        $.post('scripts/handlers/searchHandler.php', { searchByUID: searchUID }, function (data) {
+        $.post('./scripts/handlers/searchHandler.php', { searchByUID: searchUID }, function (data) {
             $('#searchResult').html(data);
             displayUsers();
         });
@@ -88,8 +110,59 @@ $(document).ready(function () {
 
     /* END OF User Manager */
 
+    
+    /* START OF Submission Manager */
 
+    $('#searchSID').keyup(function () {
+        var searchSID = $('#searchSID').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchBySID: searchSID }, function (data) {
+            $('#searchResult').html(data);
+            displaySubmissions();
+        });
+    });
+
+    //! Will eventually changed to include the user's name instead of their id
+    $('#searchName').keyup(function () {
+        var searchName = $('#searchName').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchByName: searchName }, function (data) {
+            $('#searchResult').html(data);
+            displaySubmissions();
+        });
+    });
+
+    $('#searchSID').keyup(function () {
+        var searchSID = $('#searchSID').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchBySID: searchSID }, function (data) {
+            $('#searchResult').html(data);
+            displaySubmissions();
+        });
+    });
+
+    $('#searchTimestamp').keyup(function () {
+        var searchTimestamp = $('#searchTimestamp').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchByTimestamp: searchTimestamp }, function (data) {
+            $('#searchResult').html(data);
+            displaySubmissions();
+        });
+    });
+
+    $('#searchPath').keyup(function () {
+        var searchPath = $('#searchPath').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchByPath: searchPath }, function (data) {
+            $('#searchResult').html(data);
+            displaySubmissions();
+        });
+    });
+
+    /* END OF Submission Manager */
     displayUsers();
+    displaySubmissions();
+
 });
 
 //! Vanila JS (Not in jquery syntax)

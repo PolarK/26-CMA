@@ -1,26 +1,16 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include('./src/template/header.php');
-
 
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
 
+//! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
 //! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
 //! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
-$_SESSION['valid'] = true;
-$_SESSION['UID'] = 'SSJ0d3e2';
-$_SESSION['uRole'] = 'SUBMITTER';
-$_SESSION['uFName'] = 'John';
-$_SESSION['uLName'] = 'Smith';
-$_SESSION['uDob'] = '1989-12-21';
-$_SESSION['uEmail'] = 'john@smith.com';
-$_SESSION['uPhone'] = '0432887119';
 
-//! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
+// $_SESSION['uRole'] = 'SUBMITTER';
+
+//! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
 
 
 //! Where most of pages will be on

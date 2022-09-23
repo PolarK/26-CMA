@@ -6,8 +6,8 @@ include_once("./classes/dbAPI.class.php");
 <!--CONTENT START-->
 <div id="content" class="container-fluid p-5">
     <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
-        <h1 class="display-4">My Upcomming Events</h1>
-        <p class="lead">Check all of your upcomming events here. Click the card to view it in details!</p>
+        <h1 class="display-4">My Upcoming Events</h1>
+        <p class="lead">Check all of your upcoming events here. Click the card to view it in details!</p>
         <div style="margin: auto; width: 36rem;">
 
             <?php
@@ -19,7 +19,7 @@ include_once("./classes/dbAPI.class.php");
                 'Accepted',
             ];
 
-            echo Card::display("upcommingEvent", $subData);
+            echo Card::display("upcomingEvent", $subData);
 
             ?>
 

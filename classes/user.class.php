@@ -83,7 +83,7 @@ class User
 
     function generatePassword($id, $pwd)
     {
-        $salt = hash('SHA512', microtime(true) . mt_rand(1000, 9000));
+        $salt = hash('SHA256', microtime(true) . mt_rand(1000, 9000));
 
         return [
             'salt' => $salt,

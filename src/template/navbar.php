@@ -29,9 +29,9 @@
                             Events
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/manageMyEvents">Managed My Events</a></li>
-                            <li><a class="dropdown-item" href="/myUpcomingEvents">My Upcomming Events</a></li>
-                            <li><a class="dropdown-item" href="/registerNewEvent">Register An Event</a></li>
+                            <li><a class="dropdown-item" href="/manageMyEvents">Manage My Events</a></li>
+                            <li><a class="dropdown-item" href="/myUpcomingEvents">My Upcoming Events</a></li>
+                            <li><a class="dropdown-item" href="/registerNewEvent">Register for An Event</a></li>
                         </ul>
                     </li>
 
@@ -53,8 +53,8 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/createNewEvent">Create New Event</a></li>
-                            <li><a class="dropdown-item" href="/manageUpcommingEvents">Managed Upcomming Events</a></li>
-                            <li><a class="dropdown-item" href="/checkUpcommingEvents">Upcomming Events</a></li>
+                            <li><a class="dropdown-item" href="/manageUpcomingEvents">Manage Upcoming Events</a></li>
+                            <li><a class="dropdown-item" href="/checkUpcomingEvents">Upcoming Events</a></li>
                         </ul>
                     </li>
 
@@ -63,7 +63,7 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Managed
+                            Manage
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/manageUsers">Users</a></li>

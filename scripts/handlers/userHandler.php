@@ -12,6 +12,7 @@ if ($input["action"] === 'edit') {
         $input['UserLastName'],
         $input['UserDOB'],
         $input['UserEmail'],
+        $input['UserPhoneNo'],
     );
 }
 

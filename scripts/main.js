@@ -35,7 +35,7 @@ $(document).ready(function(){
     $('#searchUID').keyup(function(){
         var searchUID = $('#searchUID').val();
 
-        $.post('./scripts/handlers/searchHandler.php', {searchName : searchUID}, function(data){
+        $.post('scripts/handlers/searchHandler.php', {searchByUID : searchUID}, function(data){
             $('#searchResult').html(data);
             displayUsers();
         });
@@ -44,7 +44,7 @@ $(document).ready(function(){
     $('#searchFName').keyup(function(){
         var searchFName = $('#searchFName').val();
 
-        $.post('./scripts/handlers/searchHandler.php', {searchName : searchFName}, function(data){
+        $.post('./scripts/handlers/searchHandler.php', {searchByFName : searchFName}, function(data){
             $('#searchResult').html(data);
             displayUsers();
         });

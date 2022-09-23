@@ -5,6 +5,7 @@ require_once "./classes/dbAPI.class.php";
 $db = new Database();
 // This will eventually need to be changed to use the logged in user details
 $users = $db->findUserById($_SESSION['UID']);
+
 foreach ($users as $user) {
 ?>
     <!--CONTENT START-->

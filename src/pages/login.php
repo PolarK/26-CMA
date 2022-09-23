@@ -25,7 +25,7 @@ if (isset($_POST['login'])) {
 
         if (Validator::validateAccount($db, $uid, $pwd)) {
             $_SESSION['valid'] = true;
-            $_SESSION['UID'] = $id;
+            $_SESSION['UID'] = $uid;
             $_SESSION['uRole'] = $role;
             $_SESSION['uFName'] = $fname;
             $_SESSION['uLName'] = $lname;

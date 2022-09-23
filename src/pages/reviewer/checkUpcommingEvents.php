@@ -1,3 +1,3 @@
 <?php 
-echo "UPCOMMING EVENTS";
+echo "UPCOMING EVENTS";
 ?>

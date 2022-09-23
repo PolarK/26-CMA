@@ -8,6 +8,8 @@ class Database
         $this->baseUrl = "https://csms-api-env.herokuapp.com/api/index.php/";
         $this->baseHeader = 'Content-Type: application/json; charset=UTF-8';
     }
+    
+    /* START USERS API CONNECTION*/
 
     public function getAllUser()
     {
@@ -27,10 +29,55 @@ class Database
         );
     }
 
+    public function findUserByFirstName($fName)
+    {
+        return API::request(
+            $this->baseUrl . 'user/findUserByFirstName?firstName=' . $fName,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findUserByLastName($lName)
+    {
+        return API::request(
+            $this->baseUrl . 'user/findUserByLastName?lastName=' . $lName,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findUserByDOB($dob)
+    {
+        return API::request(
+            $this->baseUrl . 'user/findUserByDOB?dob=' . $dob,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
     public function findUserByEmail($email)
     {
         return API::request(
             $this->baseUrl . 'user/findUserByEmail?email=' . $email,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findUserByPhoneNo($phoneno)
+    {
+        return API::request(
+            $this->baseUrl . 'user/findUserByPhoneNo?phoneNo=' . $phoneno,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findUserByRole($role)
+    {
+        return API::request(
+            $this->baseUrl . 'user/findUserByRole?role=' . $role,
             "GET_REQUEST",
             $this->baseHeader
         );
@@ -85,6 +132,11 @@ class Database
         );
     }
 
+    /* END USERS API CONNECTION*/
+
+
+    /* START PASSWORD API CONNECTION*/
+
     public function findPasswordById($id)
     {
         return API::request(
@@ -134,6 +186,75 @@ class Database
             $this->baseHeader
         );
     }
+
+    /* END PASSWORD API CONNECTION*/
+    
+    /* START SUBMISSION API CONNECTION*/
+
+    public function getAllSubmission()
+    {
+        return API::request(
+            $this->baseUrl . 'submission/list',
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findSubmissionById($id)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionById?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findSubmissionByTimestamp($ts)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByTimeStamp?timestamp=' . $ts,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findSubmissionByPath($path)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByPath?path=' . $path,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function updateSubmission()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'SubmissionId' => $arg_0,
+            'UserId' => $arg_1,
+            'SubmissionTimestamp' => $arg_2,
+            'SubmissionPath' => $arg_3,
+        ];
+
+        return API::request(
+            $this->baseUrl . 'submission/updateSubmission',
+            "POST_REQUEST",
+            $fields
+        );
+    }
+
+    public function deleteSubmission($id)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/removeSubmission?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    /* END SUBMISSION API CONNECTION*/
+
 
 
 }

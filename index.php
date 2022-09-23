@@ -8,7 +8,7 @@ $publicPath = __DIR__ . '/src/pages';
 //! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
 //! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
 
-// $_SESSION['uRole'] = 'SUBMITTER';
+$_SESSION['uRole'] = 'ADMIN';
 
 //! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
 
@@ -153,7 +153,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
 } else {
     switch ($request) {
         case '/':
-            require $publicPath . '/login.php';
+            require $publicPath . '/landingPage.php';
             break;
 
         case '':

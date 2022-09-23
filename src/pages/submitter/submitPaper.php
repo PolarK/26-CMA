@@ -1,10 +1,5 @@
 <?php
 
-// include "../others/template/functions.php";
-include_once("./src/template/navbar.php");
-include_once("./src/template/notification.php");
-
-
 $err_msgs = [];
 
 

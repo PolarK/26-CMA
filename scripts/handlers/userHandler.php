@@ -17,5 +17,6 @@ if ($input["action"] === 'edit') {
 
 if ($input["action"] === 'delete') {
     $db->deleteUser($input['UserId']);
+    $db->deletePassword($input['UserId']);
 }
 echo json_encode($input);

@@ -7,7 +7,7 @@ class Card
 
         switch ($type) {
             case 'submission':
-                return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4]);
+                return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4],  $data[5]);
 
             case 'event':
                 return self::eventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
@@ -15,22 +15,24 @@ class Card
             case 'upcomingEvent':
                 return self::upcomingEventCard($data[0], $data[1], $data[2], $data[3]);
 
-
             case 'userProfile':
                 return self::userProfile($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+
+            case 'displayEvent':
+                return self::displayEvent($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
         }
     }
 
-    private static function submissionCard($title, $blurb, $filePath, $status, $timestamp)
+    private static function submissionCard($title, $blurb, $filePath, $status, $date, $time)
     {
         return '
         <div class="card">
             <span class="badge ' . self::defineStatus($status) . ' text-dark">Submission ' . $status . '</span>
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Submitted at: ' . $timestamp . ' </h6>
+                <h6 class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</h6>
                 <p class="card-text">' . $blurb . '</p>
-                <a href="' . $filePath . '" class="card-link">View My Paper</a> 
+                <a href="./viewSubmission?filepath=' . $filePath . '" class="card-link">View My Paper</a> 
             </div>
         </div>
         <br>
@@ -135,6 +137,24 @@ class Card
                         ' . $password . '
                     </div>
                 </div>
+            </div>
+        </div>
+        <br>
+        ';
+    }
+
+    private static function displayEvent($id, $title, $location, $date, $time, $fee, $status)
+    {
+        return '
+        <div class="card">
+            <span class="badge ' . ' text-dark">' . $title . '</span>
+            <div class="card-body">
+                <h5 class="card-title">Title: ' . $title . '</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Date: ' . $date . ' </h6>
+                <h6 class="card-subtitle mb-2 text-muted">Time: ' . $time . ' </h6>
+                <h6 class="card-subtitle mb-2 text-muted">Location: ' . $location . ' </h6>
+                <h6 class="card-subtitle mb-2 text-muted">Registration Fee: $' . $fee . ' </h6>
+                <a href="./submitPaper?eventid=' . $id . '" class="card-link">' . $status . '</a> 
             </div>
         </div>
         <br>

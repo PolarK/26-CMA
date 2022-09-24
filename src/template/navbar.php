@@ -16,11 +16,11 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            My Submission
+                            Submissions
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/checkSubmission">Check My Submission</a></li>
-                            <li><a class="dropdown-item" href="/submitPaper">Submit New Finding</a></li>
+                            <li><a class="dropdown-item" href="/checkSubmission">My Submissions</a></li>
+                            <li><a class="dropdown-item" href="/events">Submit New Finding</a></li>
                         </ul>
                     </li>
 

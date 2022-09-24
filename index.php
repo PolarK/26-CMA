@@ -40,13 +40,18 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             case '/logout':
                 require $publicPath . '/logout.php';
                 break;
+
             case '/checkSubmission':
                 require $publicPath . '/submitter/checkSubmission.php';
                 break;
 
-            case '/submitPaper':
+            case (preg_match('/submitPaper\?eventid=.*/', $request) ? true : false) : 
                 require $publicPath . '/submitter/submitPaper.php';
-                break;
+                break; 
+
+            case (preg_match('/viewSubmission\?filepath=.*/', $request) ? true : false) : 
+                require $publicPath . '/submitter/viewSubmission.php';
+                break; 
 
             case '/manageMyEvents':
                 require $publicPath . '/submitter/manageMyEvents.php';
@@ -58,6 +63,10 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
 
             case '/registerNewEvent':
                 require $publicPath . '/submitter/registerNewEvent.php';
+                break;
+
+            case '/events':
+                require $publicPath . '/submitter/displayEvents.php';
                 break;
 
             default:

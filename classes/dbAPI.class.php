@@ -209,6 +209,24 @@ class Database
         );
     }
 
+    public function findSubmissionByUserId($id)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByUserId?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findSubmissionByConferenceId($id)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByConferenceId?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
     public function findSubmissionByTimestamp($ts)
     {
         return API::request(
@@ -224,6 +242,25 @@ class Database
             $this->baseUrl . 'submission/findSubmissionByPath?path=' . $path,
             "GET_REQUEST",
             $this->baseHeader
+        );
+    }
+
+    public function createSubmission()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'SubmissionId' => $arg_0,
+            'UserId' => $arg_1,
+            'ConferenceId' => $arg_2, 
+            'SubmissionTimestamp' => $arg_3, 
+            'SubmissionPath' => $arg_4, 
+            'SubmissionStatus' => $arg_5 
+        ];
+
+        return API::request(
+            $this->baseUrl . 'submission/createSubmission',
+            "POST_REQUEST",
+            $fields
         );
     }
 
@@ -256,5 +293,24 @@ class Database
     /* END SUBMISSION API CONNECTION*/
 
 
+    /* START CONFERENCE API CONNECTION*/
 
+     public function getConferences()
+    {
+        return API::request(
+            $this->baseUrl . 'conference/list',
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findConferenceById($id) {
+        return API::request(
+            $this->baseUrl . 'conference/findConferenceById?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    /* END CONFERENCE API CONNECTION*/
 }

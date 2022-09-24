@@ -1,15 +1,78 @@
 <?php
 
-$err_msgs = [];
+// include "../others/template/functions.php";
+include_once("./src/template/notification.php");
+require "./classes/dbAPI.class.php";
 
+date_default_timezone_set('Australia/Melbourne');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$db = new Database();
 
-    if (in_array('.', $err_msgs) == FALSE) {
-        // temporary redirect
-        echo ('success');
+$event = $db->findConferenceById($_GET["eventid"]); 
+$eId = $event[0]->ConferenceId; 
+$eTitle = $event[0]->ConferenceTitle; 
+$userid = $_SESSION["UID"]; 
+
+if ($event) {
+
+    $err_msgs = [];
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (in_array('.', $err_msgs) == FALSE) {
+            if (isset($_FILES['SubmitPaper']['name'])) {
+
+                $valid_exts = array("pdf", "doc", "docx"); 
+                
+                $file_submitted = $_FILES["SubmitPaper"]["name"]; 
+                $file_ext = pathinfo($file_submitted, PATHINFO_EXTENSION);      // get file format
+
+                $folder_path = __DIR__ . "/submissions/" . $userid;
+                $filename_no_ext = $eId . "_" . $eTitle;        // Filename -> EventId_EventTitle
+  				$filepath_no_ext = $folder_path . "/" . $filename_no_ext;
+                $file_path = $filepath_no_ext . "." . $file_ext; 
+
+                if (!file_exists($folder_path)) {          // create user file if it does not exist
+                    mkdir($folder_path);
+                }
+
+                foreach ($valid_exts as $ext) {        // delete file submitted for related conference regardless of extension
+                    if (is_file($filepath_no_ext . "." . $ext)) {
+                        unlink($filepath_no_ext . "." . $ext);
+                    }
+                }                
+            
+                $filetmp = $_FILES["SubmitPaper"]["tmp_name"];
+                move_uploaded_file($filetmp, $file_path);    
+            
+                $submissionid = $eId . "_" . $userid; 
+                $timestamp = date('Y-m-d h:i:s');
+                $status = "Not Reviewed"; 
+                 
+                if ($db->findSubmissionById($submissionid)) {
+
+                    $db->updateSubmission(
+                        $submissionid,          
+                        $userid,
+                        $eId, 
+                        $timestamp, 
+                        $filename_no_ext . "." . $file_ext, 
+                        $status
+                    ); 
+                }
+                else {
+                    $db->createSubmission(
+                        $submissionid,         
+                        $userid,
+                        $eId, 
+                        $timestamp, 
+                        $filename_no_ext . "." . $file_ext, 
+                        $status
+                    ); 
+                }                
+            }
+        }
     }
-}
 
 ?>
 <div id="content" class="container-fluid p-5">
@@ -21,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div style="margin: auto; width: 36rem;">
                 <br>
                 <!--Start Event Register Form-->
-                <form id="SubmitPaperForm" action="#" method="post">
+                <form id="SubmitPaperForm" action="#" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-2 mr-2">
                         <div class="row">
                             <!-- Submit Paper -->
@@ -59,3 +122,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </div>
+
+<?php
+}
+else {
+    http_response_code(404);
+    require $publicPath . './errors/404.php';
+}
+?>
+    

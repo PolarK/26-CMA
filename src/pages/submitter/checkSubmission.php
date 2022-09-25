@@ -2,6 +2,10 @@
 include_once("./classes/components/card.php");
 include_once("./classes/dbAPI.class.php");
 
+$db = new Database();
+
+$submissions = $db->findSubmissionByUserId($_SESSION['UID']);
+
 ?>
 
 <!--CONTENT START-->
@@ -12,16 +16,30 @@ include_once("./classes/dbAPI.class.php");
         <div style="margin: auto; width: 36rem;">
 
             <?php
-            // !testing only, will have to get data from the db
-            $subData = [
-                'Future-of-IoT.pdf',
-                'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nostrum assumenda provident perspiciatis, vel quaerat aut fugiat perferendis magni explicabo praesentium totam, in commodi quidem, exercitationem ab! Vero, voluptatibus laborum.',
-                '/' . $_SESSION['UID'] . '/Future-of-IoT.pdf',
-                'Accepted',
-                '19-09-2022 7:10PM'
-            ];
 
-            echo Card::display("submission", $subData);
+                if (!$submissions) {
+                    echo '<div class="d-flex align-items-center justify-content-center vh-100 bg-secondary">
+                            <h1 class="display-6 fw-bold text-white">No submissions</h1>
+                        </div>'; 
+                }
+                else {
+                    foreach ($submissions as $sub) {
+                        // will be retrieved from database after fixing schema
+                        $status = "Accepted"; 
+
+                        $timestamp = strtotime($sub->SubmissionTimestamp); 
+                        $date = date('d/m/Y', $timestamp);
+                        $time = date('H:i', $timestamp);
+                        $subData = [
+                            $sub->SubmissionId,
+                            $sub->SubmissionPath, 
+                            $status, 
+                            $date, 
+                            $time,                            
+                        ];
+                        echo Card::display("submission", $subData);
+                    }
+                }
 
             ?>
         </div>

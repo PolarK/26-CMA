@@ -7,7 +7,7 @@ class Card
 
         switch ($type) {
             case 'submission':
-                return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4],  $data[5]);
+                return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4]);
 
             case 'event':
                 return self::eventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
@@ -23,7 +23,7 @@ class Card
         }
     }
 
-    private static function submissionCard($title, $blurb, $filePath, $status, $date, $time)
+    private static function submissionCard($title, $filePath, $status, $date, $time)
     {
         return '
         <div class="card">
@@ -31,7 +31,6 @@ class Card
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</h6>
-                <p class="card-text">' . $blurb . '</p>
                 <a href="./viewSubmission?filepath=' . $filePath . '" class="card-link">View My Paper</a> 
             </div>
         </div>

@@ -64,9 +64,64 @@ $(document).ready(function () {
             displayUsers();
         });
     });
+
+    $("button").click(function (event) {
+        var rawID = event.target.id;
+        var tableID = "#field-".concat(rawID);
+
+        if (rawID.includes('edit')) {
+            var editBox = "#box-".concat(rawID);
+            $(tableID).prop("disabled", false);
+
+            alert("you're now editing " + rawID);
+
+            $(editBox).append(
+                $("#".concat(rawID)).hide(),
+
+                $(document.createElement('button')).prop({
+                    type: 'button',
+                    id: 'accept-'.concat(rawID),
+                    class: 'btn btn-sm btn-success fa fa-check m-1',
+                }),
+
+                $(document.createElement('button')).prop({
+                    type: 'button',
+                    id: 'cancel-'.concat(rawID),
+                    class: 'btn btn-sm btn-danger fa fa-times',
+                }),
+
+            );
+            
+
+        }
+
+        if (rawID.includes('disable')) {
+            var disableBox = "#box-".concat(rawID);
+
+            alert("you're now disabling " + rawID);
+
+            $(disableBox).append(
+                $("#".concat(rawID)).hide(),
+
+                $(document.createElement('button')).prop({
+                    type: 'button',
+                    id: 'accept-'.concat(rawID),
+                    class: 'btn btn-sm btn-success fa fa-check m-1',
+                }),
+
+                $(document.createElement('button')).prop({
+                    type: 'button',
+                    id: 'cancel-'.concat(rawID),
+                    class: 'btn btn-sm btn-danger fa fa-times',
+                }),
+
+            );
+        }
+
+    });
     /* END OF User Manager */
 
-    
+
     displayUsers();
     displaySubmissions();
 

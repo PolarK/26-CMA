@@ -176,13 +176,13 @@ class Card
                     <div class="col border-end m-1">
                         <p>' . $id . '</p>
                     </div>
-                    <div class="col border-end">
-                        <button id=\'edit-' . $id . '\' type="button" class="btn btn-sm btn-success">
+                    <div id="box-edit-' . $id . '" class="col border-end">
+                        <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success">
                             <i class="fas fa-edit"></i> EDIT
                         </button>
                     </div>
-                    <div class="col border-end">
-                        <button id=\'disable-' . $id . '\' type="button" class="btn btn-sm btn-danger">
+                    <div id="box-disable-' . $id . '" class="col border-end">
+                        <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger">
                             <i class="fa fa-minus"></i> DISABLE
                         </button>
                     </div>
@@ -191,7 +191,7 @@ class Card
                     </div>
                 </div>
             </div>
-            <fieldset id="' . $id . '" disabled>
+            <fieldset id="field-edit-' . $id . '" disabled>
                 <form class="form-inline">
                     <div class="card-body align-items-left align-text-left p-1">
                         <div class="row ml-1 mr-1">

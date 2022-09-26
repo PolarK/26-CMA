@@ -55,13 +55,13 @@ $(document).ready(function () {
     });
 
     /* START OF User Manager */
+    // 'dynamic' search bar
     $('#searchParam').keyup(function () {
         var searchParam = $('#searchParam').val();
         var searchOption = $('#searchOption').val();
 
         $.post('./scripts/handlers/searchHandler.php', { searchByParam: searchParam, searchByOption: searchOption }, function (data) {
             $('#searchResult').html(data);
-            displayUsers();
         });
     });
 
@@ -89,9 +89,30 @@ $(document).ready(function () {
                     id: 'cancel-'.concat(rawID),
                     class: 'btn btn-sm btn-danger fa fa-times',
                 }),
-
             );
-            
+
+
+            $("#accept-".concat(rawID)).click(function () {
+                alert(rawID + " has been edited.");
+                $(tableID).prop("disabled", true);
+                $("#".concat(rawID)).show();
+
+                $("#accept-".concat(rawID)).remove();
+                $("#cancel-".concat(rawID)).remove();
+
+                $.post("./scripts/handlers/userHandler.php", function (data) {
+                    $.toast('User has been successfully edited.');
+                });
+            });
+
+            $("#cancel-".concat(rawID)).click(function () {
+                alert(rawID + " has been canceled.");
+                $(tableID).prop("disabled", true);
+                $("#".concat(rawID)).show();
+
+                $("#accept-".concat(rawID)).remove();
+                $("#cancel-".concat(rawID)).remove();
+            });
 
         }
 
@@ -121,9 +142,6 @@ $(document).ready(function () {
     });
     /* END OF User Manager */
 
-
-    displayUsers();
-    displaySubmissions();
 
 });
 

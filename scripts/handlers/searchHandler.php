@@ -1,20 +1,24 @@
 <?php
+include_once "../../classes/components/card.php";
 include_once "../../classes/dbAPI.class.php";
 
 $db = new Database();
 
 function displayUsers($rawData)
 {
+    echo "";
     foreach ($rawData as $data) {
-        echo '
-        <tr>
-            <td>' . $data->UserId . '</td>
-            <td>' . $data->UserFirstName . '</td>
-            <td>' . $data->UserLastName . '</td>
-            <td>' . $data->UserDOB . '</td>
-            <td>' . $data->UserEmail . '</td>
-            <td>' . $data->UserPhoneNo . '</td>
-        </tr>';
+        $userData = [
+            $data->UserId,
+            $data->UserFirstName,
+            $data->UserLastName,
+            $data->UserDOB,
+            $data->UserEmail,
+            $data->UserPhoneNo,
+            $data->UserRole
+        ];
+
+        echo Card::display('userCard', $userData);
     }
 }
 
@@ -33,39 +37,9 @@ function displaySubmissions($rawData)
 
 /* START USER SEARCH */
 
-if (isset($_POST['searchByUID'])) {
-    $users = $db->findUserById($_POST['searchByUID']);
-    displayUsers($users);
-}
-
-if (isset($_POST['searchByFName'])) {
-    $users = $db->findUserByFirstName($_POST['searchByFName']);
-    displayUsers($users);
-}
-
-if (isset($_POST['searchByLName'])) {
-    $users = $db->findUserByLastName($_POST['searchByLName']);
-    displayUsers($users);
-}
-
-if (isset($_POST['searchByDOB'])) {
-    $users = $db->findUserByDOB($_POST['searchByDOB']);
-    displayUsers($users);
-}
-
-if (isset($_POST['searchByEmail'])) {
-    $users = $db->findUserByEmail($_POST['searchByEmail']);
-    displayUsers($users);
-}
-
-if (isset($_POST['searchByPhoneNo'])) {
-    $users = $db->findUserByPhoneNo($_POST['searchByPhoneNo']);
-    displayUsers($users);
-}
-
-if (isset($_POST['searchByRole'])) {
-    $users = $db->findUserByRole($_POST['searchByRole']);
-    displayUsers($users);
+if (isset($_POST['searchByParam'])) {
+    $searchByOption = 'findUserBy'.$_POST['searchByOption'];
+    displayUsers($db->$searchByOption($_POST['searchByParam']));
 }
 
 /* END USER SEARCH */

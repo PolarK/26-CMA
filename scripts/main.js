@@ -55,10 +55,11 @@ $(document).ready(function () {
     });
 
     /* START OF User Manager */
-    $('#searchUID').keyup(function () {
-        var searchUID = $('#searchUID').val();
+    $('#searchParam').keyup(function () {
+        var searchParam = $('#searchParam').val();
+        var searchOption = $('#searchOption').val();
 
-        $.post('./scripts/handlers/searchHandler.php', { searchByUID: searchUID }, function (data) {
+        $.post('./scripts/handlers/searchHandler.php', { searchByParam: searchParam, searchByOption: searchOption }, function (data) {
             $('#searchResult').html(data);
             displayUsers();
         });

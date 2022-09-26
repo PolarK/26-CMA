@@ -20,6 +20,9 @@ class Card
 
             case 'displayEvent':
                 return self::displayEvent($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+
+            case 'userCard':
+                return self::userCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
         }
     }
 
@@ -163,9 +166,52 @@ class Card
     }
 
 
-    private static function userCard($id, $fname, $lname, $dob, $email, $phoneNo)
+    private static function userCard($id, $fname, $lname, $dob, $email, $phoneNo, $role)
     {
-        return;
+        return '
+        <!--DISPLAY DATA START-->
+        <div class="card bg-light border-dark ml-2 mr-2 mt-1">
+            <div class="badge text-dark border-bottom border-dark bg-secondary">
+                <div class="row ml-1 mr-1 ">
+                    <div class="col border-end m-1">
+                        <p class="">' . $id . '</p>
+                    </div>
+                    <div class="col border-end">
+                        <button type="button" class="btn btn-sm btn-success">
+                            <i id=\'' . $id . '\' class="fas fa-edit"></i> EDIT
+                        </button>
+                    </div>
+                    <div class="col border-end">
+                        <button type="button" class="btn btn-sm btn-danger">
+                            <i id=\'' . $id . '\' class="fa fa-minus"></i> DISABLE
+                        </button>
+                    </div>
+                    <div class="col m-1">
+                        ' . $role . '
+                    </div>
+                </div>
+            </div>
+            <div class="card-body align-items-left align-text-left p-1">
+                <div class="row ml-1 mr-1">
+                    <div class="col border-end  border-dark">
+                        <i class="fa fa-user"></i> ' . $fname . ' ' . $lname . '
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-envelope"></i> ' . $email . '
+                    </div>
+                </div>
+                <div class="row ml-1 mr-1">
+                    <div class="col border-end border-dark">
+                        <i class="fa fa-mobile"></i> ' . $phoneNo . '
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-calendar"></i> ' . $dob . '
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--DISPLAY DATA END-->
+        ';
     }
 
     private static function defineStatus($status)

@@ -17,12 +17,12 @@ $users = $db->getAllUser();
                 <!--SEARCH START-->
                 <p class="form-group mr-2">Search by: </p>
                 <div class="dropdown">
-                    <select class="form-select form-select-sm" aria-label="Default select">
-                        <option><a class="dropdown-item" name="searchFName" id="searchFName" href="#">First Name</a></option>
-                        <option><a class="dropdown-item" name="searchLName" id="searchLName" href="#">Last Name</a></option>
-                        <option><a class="dropdown-item" name="searchDOB" id="searchDOB" href="#">Date of Birth</a></option>
-                        <option><a class="dropdown-item" name="searchEmail" id="searchEmail" href="#">Email</a></option>
-                        <option><a class="dropdown-item" name="searchPhoneNo" id="searchPhoneNo" href="#">Phone No.</a></option>
+                    <select id="searchOption" class="form-select form-select-sm" aria-label="Default select">
+                        <option value="FirstName"><a class="dropdown-item" name="searchFName" id="searchFName" href="#">First Name</a></option>
+                        <option value="LastName"><a class="dropdown-item" name="searchLName" id="searchLName" href="#">Last Name</a></option>
+                        <option value="DOB"><a class="dropdown-item" name="searchDOB" id="searchDOB" href="#">Date of Birth</a></option>
+                        <option value="Email"><a class="dropdown-item" name="searchEmail" id="searchEmail" href="#">Email</a></option>
+                        <option value="PhoneNo"><a class="dropdown-item" name="searchPhoneNo" id="searchPhoneNo" href="#">Phone No.</a></option>
                     </select>
                 </div>
                 <input type="search" class="form-control form-control-sm" name="searchParam" id="searchParam" placeholder="Search">
@@ -31,48 +31,28 @@ $users = $db->getAllUser();
         <hr>
         <!--SEARCH END-->
 
-        <!--DISPLAY DATA START-->
-        <div class="card" style="margin: auto; width: 32rem;">
-            <div class="badge text-dark" style="border-bottom: 1px solid black">
-                <div class="row ml-1 mr-1">
-                    <div class="col border-end m-1">RJS4e0f</div>
-                    <div class="col border-end">
-                        <button type="button" class="btn btn-sm btn-success">
-                            <i class="fas fa-edit"></i> EDIT
-                        </button>
-                    </div>
-                    <div class="col border-end">
-                        <button type="button" class="btn btn-sm btn-danger">
-                            <i class="fa fa-minus"></i> DISABLE
-                        </button>
-                    </div>
-                    <div class="col m-1">Reviewer</div>
-                </div>
-            </div>
-            <div class="card-body align-items-left align-text-left">
-                <div class="row ml-1 mr-1">
-                    <div class="col border-end">
-                        <i class="fa fa-user"></i> John Smith
-                    </div>
-                    <div class="col">
-                        <i class="fa fa-envelope"></i> john@smith.com
-                    </div>
-                </div>
-                <div class="row ml-1 mr-1">
-                    <div class="col border-end">
-                        <i class="fa fa-mobile"></i> 0442 559 773
-                    </div>
-                    <div class="col">
-                        <i class="fa fa-calendar"></i> 2000-12-12
-                    </div>
-
-                </div>
+        <div class="overflow-auto vw-75 vh-25 border rounded-3 border-secondary p-4" style="height: 32rem; width: 64rem">
+            <div id="searchResult">
+                <?php
+                foreach ($users as $user) {
+                    echo Card::display(
+                        'userCard',
+                        [
+                            $user->UserId,
+                            $user->UserFirstName,
+                            $user->UserLastName,
+                            $user->UserDOB,
+                            $user->UserEmail,
+                            $user->UserPhoneNo,
+                            $user->UserRole
+                        ]
+                    );
+                }
+                ?>
             </div>
         </div>
-        <br>
-        <!--DISPLAY DATA END-->
-
-
     </div>
+
+
 </div>
 <!--CONTENT END-->

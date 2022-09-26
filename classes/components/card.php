@@ -171,19 +171,19 @@ class Card
         return '
         <!--DISPLAY DATA START-->
         <div class="card bg-light border-dark ml-2 mr-2 mt-1">
-            <div class="badge text-dark border-bottom border-dark bg-secondary">
+            <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
                 <div class="row ml-1 mr-1 ">
                     <div class="col border-end m-1">
-                        <p class="">' . $id . '</p>
+                        <p>' . $id . '</p>
                     </div>
                     <div class="col border-end">
-                        <button type="button" class="btn btn-sm btn-success">
-                            <i id=\'' . $id . '\' class="fas fa-edit"></i> EDIT
+                        <button id=\'edit-' . $id . '\' type="button" class="btn btn-sm btn-success">
+                            <i class="fas fa-edit"></i> EDIT
                         </button>
                     </div>
                     <div class="col border-end">
-                        <button type="button" class="btn btn-sm btn-danger">
-                            <i id=\'' . $id . '\' class="fa fa-minus"></i> DISABLE
+                        <button id=\'disable-' . $id . '\' type="button" class="btn btn-sm btn-danger">
+                            <i class="fa fa-minus"></i> DISABLE
                         </button>
                     </div>
                     <div class="col m-1">
@@ -191,24 +191,57 @@ class Card
                     </div>
                 </div>
             </div>
-            <div class="card-body align-items-left align-text-left p-1">
-                <div class="row ml-1 mr-1">
-                    <div class="col border-end  border-dark">
-                        <i class="fa fa-user"></i> ' . $fname . ' ' . $lname . '
+            <fieldset id="' . $id . '" disabled>
+                <form class="form-inline">
+                    <div class="card-body align-items-left align-text-left p-1">
+                        <div class="row ml-1 mr-1">
+                            <div class="col border-end border-dark">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <input id="text" name="text" type="text" class="form-control" value="' . $fname . '">
+                                    <input id="text" name="text" type="text" class="form-control" value="' . $lname . '">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                    </div>
+                                    <input id="text" name="text" type="text" class="form-control" value="' . $email . '">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-1 mr-1">
+                            <div class="col border-end border-dark">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-mobile"></i>
+                                        </div>
+                                    </div>
+                                    <input id="text" name="text" type="text" class="form-control" value="' . $phoneNo . '">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <input id="text" name="text" type="text" class="form-control" value="' . $dob . '">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
-                        <i class="fa fa-envelope"></i> ' . $email . '
-                    </div>
-                </div>
-                <div class="row ml-1 mr-1">
-                    <div class="col border-end border-dark">
-                        <i class="fa fa-mobile"></i> ' . $phoneNo . '
-                    </div>
-                    <div class="col">
-                        <i class="fa fa-calendar"></i> ' . $dob . '
-                    </div>
-                </div>
-            </div>
+                </form>
+            </fieldset>
         </div>
         <!--DISPLAY DATA END-->
         ';

@@ -13,6 +13,7 @@ function displayUsers() {
         },
         restoreButton: false,
         onSuccess: function (data, textStatus, jqXHR) {
+            $.toast('User has been successfully edited.');
             if (data.action == "delete") {
                 $("#" + data.id).remove();
                 $("#displayUsers").DataTable().ajax.reload();

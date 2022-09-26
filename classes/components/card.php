@@ -87,6 +87,7 @@ class Card
         ';
     }
 
+    //? Should be changed to userProfileCard and not userProfile
     private static function userProfile($fName, $lName, $email, $phoneNo, $dob, $password)
     {
         return '
@@ -142,6 +143,7 @@ class Card
         ';
     }
 
+    //? Should be changed to displayEventCard and not displayEvent
     private static function displayEvent($id, $title, $location, $date, $time, $fee, $status)
     {
         return '
@@ -158,6 +160,12 @@ class Card
         </div>
         <br>
         ';
+    }
+
+
+    private static function userCard($id, $fname, $lname, $dob, $email, $phoneNo)
+    {
+        return;
     }
 
     private static function defineStatus($status)

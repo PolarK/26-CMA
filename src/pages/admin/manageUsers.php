@@ -12,71 +12,67 @@ $users = $db->getAllUser();
         <h1 class="display-4">Manage Users</h1>
         <p class="lead">You have the power to manage all of the registered users!</p>
 
-        <?php
-        if (!empty($users)) {
-        ?>
-            <div style="margin: auto; width: 75%;">
-                <div style="height: 600px; overflow: hidden scroll;">
-                    <table id="displayUsers" class="table">
-                        <thead class="bg-light" style="position: sticky; top: 0; z-index: 10;">
-                            <tr style="border: 2px black solid;">
-                                <form class="form-inline">
-                                    <th scope="row">
-                                        <div class="form-group mb-2 mr-2">
-                                            <input type="search" class="form-control form-control-sm" name="searchUID" id="searchUID" placeholder="User ID">
-                                        </div>
-                                    </th>
-                                    <th scope="row">
-                                        <div class="form-group mb-2 mr-2">
-                                            <input type="search" class="form-control form-control-sm" name="searchFName" id="searchFName" placeholder="User First Name">
-                                        </div>
-                                    </th>
-                                    <th scope="row">
-                                        <div class="form-group mb-2 mr-2">
-                                            <input type="search" class="form-control form-control-sm" name="searchLName" id="searchLName" placeholder="User Last Name">
-                                        </div>
-                                    </th>
-                                    <th scope="row">
-                                        <div class="form-group mb-2 mr-2">
-                                            <input type="search" class="form-control form-control-sm" name="searchDOB" id="searchDOB" placeholder="User DOB">
-                                        </div>
-                                    </th>
-                                    <th scope="row">
-                                        <div class="form-group mb-2 mr-2">
-                                            <input type="search" class="form-control form-control-sm" name="searchEmail" id="searchEmail" placeholder="User Email Address">
-                                        </div>
-                                    </th>
-                                    <th scope="row">
-                                        <div class="form-group mb-2 mr-2">
-                                            <input type="search" class="form-control form-control-sm" name="searchPhoneNo" id="searchPhoneNo" placeholder="User PhoneNo">
-                                        </div>
-                                    </th>
-                                </form>
-                            </tr>
-                        </thead>
-                        <tbody id="searchResult">
-                            <?php foreach ($users as $user) { ?>
-                                <tr>
-                                    <td><?php echo $user->UserId ?></td>
-                                    <td><?php echo $user->UserFirstName ?></td>
-                                    <td><?php echo $user->UserLastName ?></td>
-                                    <td><?php echo $user->UserDOB ?></td>
-                                    <td><?php echo $user->UserEmail ?></td>
-                                    <td><?php echo $user->UserPhoneNo ?></td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+        <form class="form-inline">
+            <div class="form-group mb-2 mr-2">
+                <!--SEARCH START-->
+                <p class="form-group mr-2">Search by: </p>
+                <div class="dropdown">
+                    <select class="form-select form-select-sm" aria-label="Default select">
+                        <option><a class="dropdown-item" name="searchFName" id="searchFName" href="#">First Name</a></option>
+                        <option><a class="dropdown-item" name="searchLName" id="searchLName" href="#">Last Name</a></option>
+                        <option><a class="dropdown-item" name="searchDOB" id="searchDOB" href="#">Date of Birth</a></option>
+                        <option><a class="dropdown-item" name="searchEmail" id="searchEmail" href="#">Email</a></option>
+                        <option><a class="dropdown-item" name="searchPhoneNo" id="searchPhoneNo" href="#">Phone No.</a></option>
+                    </select>
                 </div>
+                <input type="search" class="form-control form-control-sm" name="searchParam" id="searchParam" placeholder="Search">
+            </div>
+        </form>
+        <hr>
+        <!--SEARCH END-->
 
+        <!--DISPLAY DATA START-->
+        <div class="card" style="margin: auto; width: 32rem;">
+            <div class="badge text-dark" style="border-bottom: 1px solid black">
+                <div class="row ml-1 mr-1">
+                    <div class="col border-end m-1">RJS4e0f</div>
+                    <div class="col border-end">
+                        <button type="button" class="btn btn-sm btn-success">
+                            <i class="fas fa-edit"></i> EDIT
+                        </button>
+                    </div>
+                    <div class="col border-end">
+                        <button type="button" class="btn btn-sm btn-danger">
+                            <i class="fa fa-minus"></i> DISABLE
+                        </button>
+                    </div>
+                    <div class="col m-1">Reviewer</div>
+                </div>
             </div>
-        <?php } else { ?>
-            <div class="card card-body bg-info">
-                <p class="text-center">
-                    Sadly, there aren't any records to fetch.
-                </p>
+            <div class="card-body align-items-left align-text-left">
+                <div class="row ml-1 mr-1">
+                    <div class="col border-end">
+                        <i class="fa fa-user"></i> John Smith
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-envelope"></i> john@smith.com
+                    </div>
+                </div>
+                <div class="row ml-1 mr-1">
+                    <div class="col border-end">
+                        <i class="fa fa-mobile"></i> 0442 559 773
+                    </div>
+                    <div class="col">
+                        <i class="fa fa-calendar"></i> 2000-12-12
+                    </div>
+
+                </div>
             </div>
-        <?php } ?>
+        </div>
+        <br>
+        <!--DISPLAY DATA END-->
+
+
     </div>
 </div>
 <!--CONTENT END-->

@@ -245,6 +245,15 @@ class Database
         );
     }
 
+    public function findSubmissionByStatus($status)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByStatus?status=' . $status,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
     public function createSubmission()
     {
         extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
@@ -270,8 +279,10 @@ class Database
         $fields = [
             'SubmissionId' => $arg_0,
             'UserId' => $arg_1,
-            'SubmissionTimestamp' => $arg_2,
-            'SubmissionPath' => $arg_3,
+            'ConferenceId' => $arg_2, 
+            'SubmissionTimestamp' => $arg_3, 
+            'SubmissionPath' => $arg_4, 
+            'SubmissionStatus' => $arg_5 
         ];
 
         return API::request(
@@ -313,4 +324,60 @@ class Database
     }
 
     /* END CONFERENCE API CONNECTION*/
+    
+    /* START REVIEW API CONNECTION*/
+
+    public function findReviewById($id) {
+        return API::request(
+            $this->baseUrl . 'review/findReviewById?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findReviewBySubmissionId($id) {
+        return API::request(
+            $this->baseUrl . 'review/findReviewBySubmissionId?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function createReview()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'ReviewId' => $arg_0,
+            'SubmissionId' => $arg_1,
+            'ReviewTimestamp' => $arg_2, 
+            'ReviewComments' => $arg_3, 
+            'ReviewStatus' => $arg_4
+        ];
+
+        return API::request(
+            $this->baseUrl . 'review/createReview',
+            "POST_REQUEST",
+            $fields
+        );
+    }
+
+    public function updateReview()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'ReviewId' => $arg_0,
+            'SubmissionId' => $arg_1,
+            'ReviewTimestamp' => $arg_2, 
+            'ReviewComments' => $arg_3, 
+            'ReviewStatus' => $arg_4
+        ];
+
+        return API::request(
+            $this->baseUrl . 'review/updateReview',
+            "POST_REQUEST",
+            $fields
+        );
+    }
+
+    /* END REVIEW API CONNECTION*/
 }

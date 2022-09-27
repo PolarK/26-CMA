@@ -97,9 +97,13 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/logout.php';
                 break;
 
-            case '/reviewSubmission':
-                require $publicPath . '/reviewer/reviewSubmission.php';
+            case '/viewSubmissions':
+                require $publicPath . '/reviewer/viewSubmissions.php';
                 break;
+
+            case (preg_match('/reviewSubmission\?filepath=.*&rSubId=.*/', $request) ? true : false) : 
+                require $publicPath . '/reviewer/reviewSubmission.php';
+                break; 
 
             case '/createNewEvent':
                 require $publicPath . '/reviewer/createNewEvent.php';

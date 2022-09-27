@@ -43,7 +43,7 @@
                             Submission
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/reviewSubmission">Review submission</a></li>
+                            <li><a class="dropdown-item" href="/viewSubmissions">Review submissions</a></li>
                         </ul>
                     </li>
 

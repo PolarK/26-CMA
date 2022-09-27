@@ -1,90 +1,37 @@
 <?php
 
 // include "../others/template/functions.php";
+include_once("./src/template/navbar.php");
 include_once("./src/template/notification.php");
-require "./classes/dbAPI.class.php";
 
-date_default_timezone_set('Australia/Melbourne');
 
-$db = new Database();
+$err_msgs = [];
 
-$event = $db->findConferenceById($_GET["eventid"]); 
-$eId = $event[0]->ConferenceId; 
-$eTitle = $event[0]->ConferenceTitle; 
-$userid = $_SESSION["UID"]; 
 
-if ($event) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $err_msgs = [];
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        if (in_array('.', $err_msgs) == FALSE) {
-            if (isset($_FILES['SubmitPaper']['name'])) {
-
-                $valid_exts = array("pdf", "doc", "docx"); 
-                
-                $file_submitted = $_FILES["SubmitPaper"]["name"]; 
-                $file_ext = pathinfo($file_submitted, PATHINFO_EXTENSION);      // get file format
-
-                $folder_path = __DIR__ . "/submissions/" . $userid;
-                $filename_no_ext = $eId . "_" . $eTitle;        // Filename -> EventId_EventTitle
-  				$filepath_no_ext = $folder_path . "/" . $filename_no_ext;
-                $file_path = $filepath_no_ext . "." . $file_ext; 
-
-                if (!file_exists($folder_path)) {          // create user file if it does not exist
-                    mkdir($folder_path);
-                }
-
-                foreach ($valid_exts as $ext) {        // delete file submitted for related conference regardless of extension
-                    if (is_file($filepath_no_ext . "." . $ext)) {
-                        unlink($filepath_no_ext . "." . $ext);
-                    }
-                }                
-            
-                $filetmp = $_FILES["SubmitPaper"]["tmp_name"];
-                move_uploaded_file($filetmp, $file_path);    
-            
-                $submissionid = $eId . "_" . $userid; 
-                $timestamp = date('Y-m-d h:i:s');
-                $status = "Not Reviewed"; 
-                 
-                if ($db->findSubmissionById($submissionid)) {
-
-                    $db->updateSubmission(
-                        $submissionid,          
-                        $userid,
-                        $eId, 
-                        $timestamp, 
-                        $filename_no_ext . "." . $file_ext, 
-                        $status
-                    ); 
-                }
-                else {
-                    $db->createSubmission(
-                        $submissionid,         
-                        $userid,
-                        $eId, 
-                        $timestamp, 
-                        $filename_no_ext . "." . $file_ext, 
-                        $status
-                    ); 
-                }                
-            }
-        }
+    if (in_array('.', $err_msgs) == FALSE) {
+        // temporary redirect
+        echo ('success');
     }
+}
 
 ?>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <div id="content" class="container-fluid p-5">
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
         <div class="card-body">
             <h1 class="display-4">Submit Your New Finding!</h1>
             <p class="lead">We would love to see what you've come up with! So why not submit your paper here and well review it ASAP!</p>
-            <div style="margin: auto; width: 36rem;">
+            <div style="margin: auto; width:100%;">
                 <br>
-                <!--Start Event Register Form-->
-                <form id="SubmitPaperForm" action="#" method="post" enctype="multipart/form-data">
+                <!--Start Submit Paper Form-->
+                <form id="SubmitPaperForm" action="#" method="post">
                     <div class="form-group mb-2 mr-2">
                         <div class="row">
                             <!-- Submit Paper -->
@@ -122,12 +69,3 @@ if ($event) {
         </div>
     </div>
 </div>
-
-<?php
-}
-else {
-    http_response_code(404);
-    require $publicPath . './errors/404.php';
-}
-?>
-    

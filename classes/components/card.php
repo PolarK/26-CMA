@@ -257,7 +257,7 @@ class Card
             case 'Pending':
                 return 'bg-warning';
 
-            case 'Reject':
+            case 'Rejected':
                 return 'bg-danger';
         }
     }

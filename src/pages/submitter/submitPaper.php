@@ -1,7 +1,7 @@
 <?php
 
 // include "../others/template/functions.php";
-include_once("./src/template/notification.php");
+//include_once("./src/template/notification.php");
 require "./classes/dbAPI.class.php";
 
 date_default_timezone_set('Australia/Melbourne');
@@ -69,7 +69,10 @@ if ($event) {
                         $filename_no_ext . "." . $file_ext, 
                         $status
                     ); 
-                }                
+                }     
+
+                // needs to redirect to successful submission screen
+                header('Location: /dashboard');         
             }
         }
     }

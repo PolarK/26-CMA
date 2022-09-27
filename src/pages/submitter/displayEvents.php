@@ -14,8 +14,8 @@
     else {
         foreach ($events as $event) {
             $status = "Submit Paper"; 
-            $submission = $db->findSubmissionByConferenceId($event->ConferenceId);
-            if ($submission) {
+            $submissions = $db->findSubmissionByConferenceId($event->ConferenceId);
+            if (in_array($_SESSION["UID"], array_column($submissions, 'UserId'))) {
                 $status = "Resubmit Paper"; 
             }
             $timestamp = strtotime($event->ConferenceTimestamp); 

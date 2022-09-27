@@ -24,9 +24,24 @@ $submissions = $db->findSubmissionByUserId($_SESSION['UID']);
                 }
                 else {
                     foreach ($submissions as $sub) {
-                        // will be retrieved from database after fixing schema
-                        $status = "Accepted"; 
+                        
+                        $review = $db->findReviewBySubmissionId($sub->SubmissionId); 
+                        $reviewStatus = ($review)? $review[0]->ReviewStatus : ""; 
+                        $status = ""; 
+                        switch ($reviewStatus) {
+                            case "Success": 
+                                $status = "Accepted"; 
+                            break;
 
+                            case "Fail": 
+                                $status = "Rejected"; 
+                            break; 
+
+                            default: 
+                                $status = "Pending"; 
+                            break; 
+
+                        }
                         $timestamp = strtotime($sub->SubmissionTimestamp); 
                         $date = date('d/m/Y', $timestamp);
                         $time = date('H:i', $timestamp);

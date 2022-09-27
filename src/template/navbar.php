@@ -3,7 +3,7 @@
         <a class="navbar-brand" href="#">
             <img src="src\images\CSMS_Logo.png" alt="C-SMS Logo" width="70" height="70">
         </a>
-        <button class="navbar-toggler" style="right: 15px; position: absolute;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">

@@ -9,7 +9,7 @@ include_once("./classes/dbAPI.class.php");
     <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
         <h1 class="display-4">My Events</h1>
         <p class="lead">Check your events progress here. We'll send you a notification nearing the event date. Keep a look out!</p>
-        <div style="margin: auto; width: 100%;">
+        <div style="margin: auto; width: 36rem;">
 
             <?php
             // !testing only, will have to get data from the db

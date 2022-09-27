@@ -8,7 +8,7 @@ include_once("./classes/dbAPI.class.php");
     <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
         <h1 class="display-4">My Upcoming Events</h1>
         <p class="lead">Check all of your upcoming events here. Click the card to view it in details!</p>
-        <div style="margin: auto; width: 100%;">
+        <div style="margin: auto; width: 36rem;">
 
             <?php
             // !testing only, will have to get data from the db

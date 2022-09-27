@@ -1,23 +1,37 @@
 <?php
+include_once "../../classes/components/card.php";
 include_once '../../classes/dbAPI.class.php';
-header('Content-Type: application/json');
-
 $db = new Database();
-$input = filter_input_array(INPUT_POST);
 
-if ($input["action"] === 'edit') {
+function displayUsers($rawData)
+{
+    foreach ($rawData as $data) {
+        $userData = [
+            $data->UserId,
+            $data->UserFirstName,
+            $data->UserLastName,
+            $data->UserDOB,
+            $data->UserEmail,
+            $data->UserPhoneNo,
+            $data->UserRole
+        ];
+
+        echo Card::display('userCard', $userData);
+    }
+}
+
+
+if (isset($_POST['editByUser'])) {
     $db->updateUser(
-        $input['UserId'],
-        $input['UserFirstName'],
-        $input['UserLastName'],
-        $input['UserDOB'],
-        $input['UserEmail'],
-        $input['UserPhoneNo'],
-    );
-}
+        $_POST['UserId'],
+        $_POST['UserFirstName'],
+        $_POST['UserLastName'],
+        $_POST['UserDOB'],
+        $_POST['UserEmail'],
+        $_POST['UserPhoneNo'],
+        $_POST['UserRole'],
 
-if ($input["action"] === 'delete') {
-    $db->deletePassword($input['UserId']);
-    $db->deleteUser($input['UserId']);
+    );
+
+    displayUsers($db->getAllUser());
 }
-echo json_encode($input);

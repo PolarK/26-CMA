@@ -174,7 +174,7 @@ class Card
             <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
                 <div class="row ml-1 mr-1 ">
                     <div class="col border-end m-1">
-                        <p>' . $id . '</p>
+                        <p id="uID-' . $id . '" name="uID-' . $id . '">' . $id . '</p>
                     </div>
                     <div id="box-edit-' . $id . '" class="col border-end">
                         <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success">
@@ -187,7 +187,8 @@ class Card
                         </button>
                     </div>
                     <div class="col m-1">
-                        ' . $role . '
+                    <p id="uRole-' . $id . '" name="uRole-' . $id . '">' . $role . '</p>
+
                     </div>
                 </div>
             </div>
@@ -202,8 +203,8 @@ class Card
                                             <i class="fa fa-user"></i>
                                         </div>
                                     </div>
-                                    <input id="text" name="text" type="text" class="form-control" value="' . $fname . '">
-                                    <input id="text" name="text" type="text" class="form-control" value="' . $lname . '">
+                                    <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fname . '">
+                                    <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lname . '">
                                 </div>
                             </div>
                             <div class="col">
@@ -213,7 +214,7 @@ class Card
                                             <i class="fa fa-envelope"></i>
                                         </div>
                                     </div>
-                                    <input id="text" name="text" type="text" class="form-control" value="' . $email . '">
+                                    <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
                                 </div>
                             </div>
                         </div>
@@ -225,7 +226,7 @@ class Card
                                             <i class="fa fa-mobile"></i>
                                         </div>
                                     </div>
-                                    <input id="text" name="text" type="text" class="form-control" value="' . $phoneNo . '">
+                                    <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
                                 </div>
                             </div>
                             <div class="col">
@@ -235,7 +236,7 @@ class Card
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
-                                    <input id="text" name="text" type="text" class="form-control" value="' . $dob . '">
+                                    <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
                                 </div>
                             </div>
                         </div>

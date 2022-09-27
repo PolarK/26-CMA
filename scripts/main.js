@@ -73,8 +73,6 @@ $(document).ready(function () {
             var editBox = "#box-".concat(rawID);
             $(tableID).prop("disabled", false);
 
-            alert("you're now editing " + rawID);
-
             $(editBox).append(
                 $("#".concat(rawID)).hide(),
 
@@ -91,17 +89,38 @@ $(document).ready(function () {
                 }),
             );
 
-
             $("#accept-".concat(rawID)).click(function () {
-                alert(rawID + " has been edited.");
+                var id = rawID.replace('edit-', '-');
+
+                $.toast({
+                    heading: 'Success',
+                    text: 'User with the ID of ' + id.replace('-', '') + ' was successfully changed.',
+                    icon: 'success',
+                    position: {
+                        left: 10,
+                        top: 110
+                    },
+                    loader: true,        // Change it to false to disable loader
+                    loaderBg: '#9EC600'  // To change the background
+                });
+
                 $(tableID).prop("disabled", true);
                 $("#".concat(rawID)).show();
 
                 $("#accept-".concat(rawID)).remove();
                 $("#cancel-".concat(rawID)).remove();
 
-                $.post("./scripts/handlers/userHandler.php", function (data) {
-                    $.toast('User has been successfully edited.');
+                $.post('./scripts/handlers/userHandler.php', {
+                    editByUser: event.target.id,
+                    UserId: $('#uID'.concat(id)).text(),
+                    UserFirstName: $('#uFName'.concat(id)).val(),
+                    UserLastName: $('#uLName'.concat(id)).val(),
+                    UserDOB: $('#uDOB'.concat(id)).val(),
+                    UserEmail: $('#uEmail'.concat(id)).val(),
+                    UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
+                    UserRole: $('#uRole'.concat(id)).text(),
+                }, function (data) {
+                    $('#searchResult').html(data);
                 });
             });
 

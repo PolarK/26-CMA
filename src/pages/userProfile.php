@@ -14,7 +14,7 @@ foreach ($users as $user) {
 
             <h1 class="display-4">Hello, <?php echo $user->UserFirstName . " " . $user->UserLastName  ?></h1>
             <p class="lead">You can edit your profile here and our handyman will get right on updating it!</p>
-            <div style="margin: auto; width: 36rem;">
+            <div style="margin: auto; width: 100%;">
 
                 <?php
 

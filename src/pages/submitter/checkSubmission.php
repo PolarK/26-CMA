@@ -13,7 +13,7 @@ $submissions = $db->findSubmissionByUserId($_SESSION['UID']);
     <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
         <h1 class="display-4">My Submissions</h1>
         <p class="lead">Check your paper progress here. We'll send you a notification as soon as we completed our review!</p>
-        <div style="margin: auto; width: 36rem;">
+        <div style="margin: auto; width: 100%;">
 
             <?php
 

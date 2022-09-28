@@ -36,7 +36,7 @@ $users = $db->getAllUser();
                 <?php
                 foreach ($users as $user) {
                     echo Card::display(
-                        'userCard',
+                        'manageUserCard',
                         [
                             $user->UserId,
                             $user->UserFirstName,

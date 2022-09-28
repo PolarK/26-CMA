@@ -2,8 +2,7 @@
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
-
-function editUserData(rawID, tableID) {
+function editSubmissionData(rawID, tableID) {
     let editBox = "#box-".concat(rawID);
 
     // create buttons inside 'editBox' element's id
@@ -17,7 +16,7 @@ function editUserData(rawID, tableID) {
         let id = rawID.replace('edit-', '-');
         userToast([
             'Action Completed!',
-            'User with the ID of ' + id.replace('-', '') + ' was successfully changed.',
+            'Submission with the ID of ' + id.replace('-', '') + ' was successfully changed.',
             'success'
         ]);
 
@@ -26,14 +25,15 @@ function editUserData(rawID, tableID) {
 
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
-            editByUser: event.target.id,
-            UserId: $('#uID'.concat(id)).text(),
-            UserFirstName: $('#uFName'.concat(id)).val(),
-            UserLastName: $('#uLName'.concat(id)).val(),
-            UserDOB: $('#uDOB'.concat(id)).val(),
-            UserEmail: $('#uEmail'.concat(id)).val(),
-            UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
-            UserRole: $('#uRole'.concat(id)).text(),
+            editBySubmission: event.target.id,
+            SubmissionId: $('#sID'.concat(id)).text(),
+            SubmissionFirstName: $('#sFName'.concat(id)).val(),
+            SubmissionLastName: $('#sLName'.concat(id)).val(),
+            SubmissionStatus: $('#sStatus'.concat(id)).text(),
+            SubmissionTimestamp: $('#sTimestamp'.concat(id)).val(),
+            SubmissionConferenceLocation: $('#sConLocation'.concat(id)).val(),
+            SubmissionReviewBy: $('#sReviewBy'.concat(id)).val(),
+            SubmissionPath: $('#sPath'.concat(id)).val(),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);
@@ -45,7 +45,7 @@ function editUserData(rawID, tableID) {
         let id = rawID.replace('edit-', '-');
         userToast([
             'Action Canceled!',
-            'User with the ID of ' + id.replace('-', '') + ' was <b>not</b> changed.',
+            'Submission with the ID of ' + id.replace('-', '') + ' was <b>not</b> changed.',
             'info'
         ], rawID);
 
@@ -54,7 +54,7 @@ function editUserData(rawID, tableID) {
     });
 }
 
-function disableUserData(rawID) {
+function disableSubmissionData(rawID) {
     var disableBox = "#box-".concat(rawID);
 
     $(disableBox).append(
@@ -67,7 +67,7 @@ function disableUserData(rawID) {
         let id = rawID.replace('disable-', '-');
         userToast([
             'Action Completed!',
-            'User with the ID of ' + id.replace('-', '') + ' was successfully disabled.',
+            'Submission with the ID of ' + id.replace('-', '') + ' was successfully disabled.',
             'success'
         ]);
 
@@ -81,7 +81,7 @@ function disableUserData(rawID) {
         let id = rawID.replace('disable-', '-');
         userToast([
             'Action Canceled!',
-            'User with the ID of ' + id.replace('-', '') + ' was <b>not</b> changed.',
+            'Submission with the ID of ' + id.replace('-', '') + ' was <b>not</b> changed.',
             'info'
         ], rawID);
 
@@ -90,12 +90,12 @@ function disableUserData(rawID) {
     });
 }
 
-function dynamicUserSearch() {
+function dynamicSubmissionSearch() {
     $('#searchParam').keyup(function () {
         var searchParam = $('#searchParam').val();
         var searchOption = $('#searchOption').val();
 
-        $.post('./scripts/handlers/searchHandler.php', { searchByUserParam: searchParam, searchByOption: searchOption }, function (data) {
+        $.post('./scripts/handlers/searchHandler.php', { searchBySubmissionParam: searchParam, searchByOption: searchOption }, function (data) {
             $('#searchResult').html(data);
         });
     });

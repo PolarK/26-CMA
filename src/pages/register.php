@@ -33,7 +33,7 @@ if (isset($_POST['register'])) {
                 $fname,
                 $lname,
                 $dob,
-                $email,
+                strtolower($email),
                 $phoneno,
                 $role
             );
@@ -53,8 +53,7 @@ if (isset($_POST['register'])) {
         $_SESSION['uEmail'] = $email;
         $_SESSION['uPhone'] = $phoneno;
 
-        echo '<script>alert("Success!");</script>';
-        header('Location: /dashboard');
+        //header('Location: /dashboard');
     }
 }
 

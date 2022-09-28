@@ -1,4 +1,5 @@
 $.getScript("./scripts/user.js");
+$.getScript("./scripts/submission.js");
 
 $(document).ready(function () {
     //Form input dynamic styling
@@ -10,23 +11,40 @@ $(document).ready(function () {
         }
     });
 
-    /* START OF User Manager */
     dynamicUserSearch();
+    dynamicSubmissionSearch();
 
     $("button").click(function (event) {
+        var curentPath = window.location.pathname;
+
         var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
 
         if (rawID.includes('edit')) {
-            editUserData(rawID, tableID);
+            switch (curentPath) {
+                case "/manageUsers":
+                    editUserData(rawID, tableID);
+                    break;
+
+                case "/manageSubmissions":
+                    editSubmissionData(rawID, tableID);
+                    break;
+            }
         }
 
         if (rawID.includes('disable')) {
-            disableUserData(rawID);
+            switch (curentPath) {
+                case "/manageUsers":
+                    disableUserData(rawID, tableID);
+                    break;
+
+                case "/manageSubmissions":
+                    disableSubmissionData(rawID, tableID);
+                    break;
+            }
         }
 
     });
-    /* END OF User Manager */
 
     /* START OF VIEW SUBMISSIONS */
 
@@ -77,7 +95,7 @@ $(document).ready(function () {
             $('#rSearchResult').html(data);
         });
     });
-    
+
     /* END OF VIEW SUBMISSIONS */
 
 

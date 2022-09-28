@@ -3,7 +3,6 @@ include_once("./classes/components/card.php");
 include_once("./classes/dbAPI.class.php");
 
 $db = new Database();
-$users = $db->getAllUser();
 $submissions = $db->getAllSubmission();
 ?>
 
@@ -34,102 +33,25 @@ $submissions = $db->getAllSubmission();
         <div class="overflow-auto vw-75 vh-25 border rounded-3 border-secondary p-4" style="height: 32rem; width: 64rem">
             <div id="searchResult">
 
-                <!--DISPLAY DATA START-->
-                <div class="card bg-light border-dark ml-2 mr-2 mt-1">
-                    <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
-                        <div class="row ml-1 mr-1 ">
-                            <div class="col border-end m-1">
-                                <p id="sID-' . $id . '" name="sID-' . $id . '">' . $id . '</p>
-                            </div>
-                            <div id="box-edit-' . $id . '" class="col border-end">
-                                <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success">
-                                    <i class="fas fa-edit"></i> EDIT
-                                </button>
-                            </div>
-                            <div id="box-disable-' . $id . '" class="col border-end">
-                                <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger">
-                                    <i class="fa fa-trash"></i> DELETE
-                                </button>
-                            </div>
-                            <div class="col m-1">
-                                <p id="uRole-' . $id . '" name="uRole-' . $id . '">' . $role . '</p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <fieldset id="field-edit-' . $id . '" disabled>
-                        <form class="form-inline">
-                            <div class="card-body align-items-left align-text-left p-1">
-                                <div class="row ml-1 mr-1">
-                                    <div class="col border-end border-dark">
-                                        <div class="input-group input-group-sm p-1">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="fa fa-user"></i>
-                                                </div>
-                                            </div>
-                                            <input id="sFName-' . $id . '" name="sFName-' . $id . '" type="text" class="form-control" value="' . $fname . '">
-                                            <input id="sLName-' . $id . '" name="sLName-' . $id . '" type="text" class="form-control" value="' . $lname . '">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-group input-group-sm p-1">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="fa fa-envelope"></i>
-                                                </div>
-                                            </div>
-                                            <input id="sTimestamp-' . $id . '" name="sTimestamp-' . $id . '" type="text" class="form-control" value="' . $timestamp . '">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row ml-1 mr-1">
-                                    <div class="col border-end border-dark">
-                                        <div class="input-group input-group-sm p-1">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="fa fa-mobile"></i>
-                                                </div>
-                                            </div>
-                                            <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-group input-group-sm p-1">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-                                            </div>
-                                            <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </fieldset>
-                </div>
-                <!--DISPLAY DATA END-->
-
-
-
-
-
                 <?php
-                //foreach ($submissions as $submission) {
-                //    echo Card::display(
-                //        'submissionCard',
-                //        [
-                //            $submission->UserId,
-                //            $submission->UserFirstName,
-                //            $submission->UserLastName,
-                //            $submission->UserDOB,
-                //            $submission->UserEmail,
-                //            $submission->UserPhoneNo,
-                //            $submission->UserRole
-                //        ]
-                //    );
-                //}
+                foreach ($submissions as $submission) {
+                    $user = $db->findUserById($submission->UserId);
+                    $conference = $db->findConferenceById($submission->ConferenceId);
+
+                    echo Card::display(
+                        'manageSubmissionCard',
+                        [
+                            $submission->SubmissionId,
+                            $user[0]->UserFirstName,
+                            $user[0]->UserLastName,
+                            $submission->SubmissionStatus,
+                            $submission->SubmissionTimestamp,
+                            $conference[0]->ConferenceLocation,
+                            "Anee Janee", // need to linked 'reviewer's ID'
+                            $submission->SubmissionPath,
+                        ]
+                    );
+                }
                 ?>
             </div>
         </div>

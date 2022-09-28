@@ -77,7 +77,7 @@
         }
 ?>
 
-<div class="container-fluid">
+<div class="container-fluid" style="width:100%">
   <div class="row vh-100">
     <div class="col-sm-6 col-md-8 border bg-light embed-responsive embed-responsive-21by9">
         <iframe class="p-3 embed-responsive-item" src= "<?php echo $filepath; ?>"></iframe>

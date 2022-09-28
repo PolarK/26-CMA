@@ -7,6 +7,9 @@ $users = $db->getAllUser();
 ?>
 
 <!--CONTENT START-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <div id="content" class="container-fluid p-5">
     <div class="d-flex flex-column justify-content-center align-items-center text-left h-100">
         <h1 class="display-4">Manage Users</h1>
@@ -31,7 +34,7 @@ $users = $db->getAllUser();
         <hr>
         <!--SEARCH END-->
 
-        <div class="overflow-auto vw-75 vh-25 border rounded-3 border-secondary p-4" style="height: 32rem; width: 64rem">
+        <div class="overflow-auto vw-75 vh-25 border rounded-3 border-secondary p-4" style="height: 32rem; width: 100%">
             <div id="searchResult">
                 <?php
                 foreach ($users as $user) {

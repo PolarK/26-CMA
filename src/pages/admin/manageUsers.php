@@ -7,9 +7,6 @@ $users = $db->getAllUser();
 ?>
 
 <!--CONTENT START-->
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 <div id="content" class="container-fluid p-5">
     <div class="d-flex flex-column justify-content-center align-items-center text-left h-100">
         <h1 class="display-4">Manage Users</h1>
@@ -28,7 +25,7 @@ $users = $db->getAllUser();
                         <option value="PhoneNo"><a class="dropdown-item" name="searchPhoneNo" id="searchPhoneNo" href="#">Phone No.</a></option>
                     </select>
                 </div>
-                <input type="search" class="form-control form-control-sm" name="searchParam" id="searchParam" placeholder="Search">
+                <input type="search" class="form-control form-control-sm" name="searchUserParam" id="searchUserParam" placeholder="Search">
             </div>
         </form>
         <hr>

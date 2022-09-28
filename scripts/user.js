@@ -91,8 +91,8 @@ function disableUserData(rawID) {
 }
 
 function dynamicUserSearch() {
-    $('#searchParam').keyup(function () {
-        var searchParam = $('#searchParam').val();
+    $('#searchUserParam').keyup(function () {
+        var searchParam = $('#searchUserParam').val();
         var searchOption = $('#searchOption').val();
 
         $.post('./scripts/handlers/searchHandler.php', { searchByUserParam: searchParam, searchByOption: searchOption }, function (data) {

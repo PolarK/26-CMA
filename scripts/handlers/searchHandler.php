@@ -60,7 +60,7 @@ function rDisplaySubmissions($rawData)
 /* START USER SEARCH */
 if (isset($_POST['searchByUserParam'])) {
     $searchByOption = 'findUserBy' . $_POST['searchByOption'];
-    displayUsers($db->$searchByOption($_POST['searchByParam']));
+    displayUsers($db->$searchByOption($_POST['searchByUserParam']));
 }
 /* END USER SEARCH */
 
@@ -68,7 +68,7 @@ if (isset($_POST['searchByUserParam'])) {
 /* START SUBMISSION SEARCH */
 if (isset($_POST['searchBySubmissionParam'])) {
     $searchByOption = (strpos($_POST['searchByOption'], 'Name') != false ? 'findUserBy' : 'findSubmissionBy') . $_POST['searchByOption'];
-    displaySubmissions($db->$searchByOption($_POST['searchByParam']));
+    displaySubmissions($db->$searchByOption($_POST['searchBySubmissionParam']));
 }
 /* END SUBMISSION SEARCH */
 

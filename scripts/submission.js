@@ -91,8 +91,8 @@ function disableSubmissionData(rawID) {
 }
 
 function dynamicSubmissionSearch() {
-    $('#searchParam').keyup(function () {
-        var searchParam = $('#searchParam').val();
+    $('#searchSubmissionParam').keyup(function () {
+        var searchParam = $('#searchSubmissionParam').val();
         var searchOption = $('#searchOption').val();
 
         $.post('./scripts/handlers/searchHandler.php', { searchBySubmissionParam: searchParam, searchByOption: searchOption }, function (data) {

@@ -47,7 +47,6 @@ if (isset($_POST['editByUser'])) {
         $_POST['UserEmail'],
         $_POST['UserPhoneNo'],
         $_POST['UserRole'],
-
     );
 
     displayUsers($db->getAllUser());
@@ -63,7 +62,6 @@ if (isset($_POST['editBySubmission'])) {
         $_POST['SubmissionConferenceLocation'],
         $_POST['SubmissionReviewBy'],
         $_POST['SubmissionPath'],
-
     );
 
     displaySubmissions($db->getAllSubmission());

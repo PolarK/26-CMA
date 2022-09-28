@@ -3,6 +3,46 @@
 $fname = $lname = $affiliation = $email = $date = $time = "";
 ?>
 
+<?php
+    require_once "./classes/dbAPI.class.php";
+    require_once "./classes/user.class.php";
+    require_once "./classes/validator.class.php";
+    require_once "./classes/idGenerator.class.php";
+
+    $db = new Database();
+
+    $fname = $lname = $affiliation = $email = $date = $time = "";
+
+    if (isset($_POST['register'])) {
+        //! Role will be changed once the basic registration is completed.
+        $role = "SUBMITTER";
+        $fname = Validator::sanitise($_POST["uFirstName"]);
+        $lname = Validator::sanitise($_POST["uLastName"]);
+        $affiliation = Validator::sanitise($_POST["Uaffiliation"]);
+        $email = Validator::sanitise($_POST["uEmailAddress"]);
+        $date = Validator::sanitise($_POST["aDate"]);
+        $time = Validator::sanitise($_POST["aTime"]);
+
+        $regId = IDGenerator::conference();
+        $userId = $_SESSION['UID'];
+        $confId = IDGenerator::conference();
+
+        // merges Date and time into DateTime format
+        $merge = new DateTime($date->format('Y-m-d') .' ' .$time->format('H:i:s'));
+        $dateTime = $merge->format('Y-m-d H:i:s'); // Outputs '2222-22-22 22:22:22' format
+
+        $db->createNewEvent(
+            $regId,
+            $userId,
+            $confId,
+            $dateTime
+        );
+
+        echo '<script>alert("Success!");</script>';
+        header('Location: /dashboard');
+    }
+?>
+
 <div id="content" class="container-fluid p-5">
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
@@ -86,7 +126,7 @@ $fname = $lname = $affiliation = $email = $date = $time = "";
                         <div class="col">
                             <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
                             <label class="form-check-label" for="TermsConditions">
-                                By registering, you are agreeinh to our <a href="">Terms & Conditions</a>
+                                By registering, you are agreeing to our <a href="">Terms & Conditions</a>
                             </label>
                         </div>
                     </div>

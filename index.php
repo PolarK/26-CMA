@@ -8,7 +8,8 @@ $publicPath = __DIR__ . '/src/pages';
 //! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
 //! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
 
-//$_SESSION['uRole'] = 'ADMIN';
+$_SESSION['uRole'] = 'SUBMITTER';
+$_SESSION['valid'] = True;
 
 //! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
 

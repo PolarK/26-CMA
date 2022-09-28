@@ -380,4 +380,25 @@ class Database
     }
 
     /* END REVIEW API CONNECTION*/
+
+   /* START EVENT API CONNECTION*/
+
+    public function createNewEvent()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'RegId' => $arg_0,
+            'UserId' => $arg_1,
+            'ConferenceId' => $arg_1,
+            'RegDateTime' => $arg_2,
+        ];
+
+        return API::request(
+            $this->baseUrl . 'user/createNewEvent',
+            "POST_REQUEST",
+            $fields
+        );
+    }
+
+    /* END EVENT API CONNECTION*/
 }

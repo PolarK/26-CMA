@@ -17,6 +17,11 @@ class IDGenerator
     {
         return self::unqid(8);
     }
+
+    static function conference()
+    {
+        return self::unqid(8);
+    }
     
     private static function unqid($lenght = 5)
     {

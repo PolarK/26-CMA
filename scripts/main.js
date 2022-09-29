@@ -1,5 +1,6 @@
 $.getScript("./scripts/user.js");
 $.getScript("./scripts/submission.js");
+$.getScript("./scripts/profile.js");
 
 $(document).ready(function () {
     //Form input dynamic styling
@@ -28,6 +29,9 @@ $(document).ready(function () {
 
                 case "/manageSubmissions":
                     editSubmissionData(rawID, tableID);
+                    break;
+                case "/profile":
+                    editProfileData(rawID, tableID);
                     break;
             }
         }

@@ -15,8 +15,8 @@ class Card
             case 'upcomingEvent':
                 return self::upcomingEventCard($data[0], $data[1], $data[2], $data[3]);
 
-            case 'userProfile':
-                return self::userProfile($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+            case 'userProfileCard':
+                return self::userProfileCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
             case 'displayEvent':
                 return self::displayEvent($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
@@ -93,55 +93,77 @@ class Card
         ';
     }
 
-    //? Should be changed to userProfileCard and not userProfile
-    private static function userProfile($fName, $lName, $email, $phoneNo, $dob, $password)
+    private static function userProfileCard($fName, $lName, $email, $phoneNo, $dob, $password)
     {
         return '
         <div class="card bg-gradient-light">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <strong>Name</strong>
+            <fieldset id="field-edit-' . $id . '" disabled>
+                <form class="form-inline">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex align-items-center">
+                                <strong>First Name</strong>
+                            </div>
+                            <div class="col text-secondary">
+                                <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fName . '">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col d-flex align-items-center">
+                                <strong>Last Name</strong>
+                            </div>
+                            <div class="col text-secondary">
+                                <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lName . '">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col d-flex align-items-center">
+                                <strong>Email</strong>
+                            </div>
+                            <div class="col text-secondary">
+                                <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col d-flex align-items-center">
+                                <strong>Phone No.</strong>
+                            </div>
+                            <div class="col text-secondary">
+                                <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col d-flex align-items-center">
+                                <strong>Date of Birth</strong>
+                            </div>
+                            <div class="col text-secondary">
+                                <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col d-flex align-items-center">
+                                <strong>Password</strong>
+                            </div>
+                            <div class="col text-secondary">
+                                ' . $password . '
+                                <!-- <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">-->
+                            </div>
+                            
+                        </div>                 
                     </div>
-                    <div class="col text-secondary">
-                         ' . $fName . ' ' . $lName . ' 
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <strong>Email</strong>
-                    </div>
-                    <div class="col text-secondary">
-                         ' . $email . '
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <strong>Phone No.</strong>
-                    </div>
-                    <div class="col text-secondary">
-                        ' . $phoneNo . '
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <strong>Date of Birth</strong>
-                    </div>
-                    <div class="col text-secondary">
-                        ' . $dob . '
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <strong>Password</strong>
-                    </div>
-                    <div class="col text-secondary">
-                        ' . $password . '
-                    </div>
+                    <p id="uID-' . $id . '" name="uID-' . $id . '">' . $id . '</p>
+                </form>
+            </fieldset>
+            <div class="row">
+                <div id="box-edit-' . $id . '" class="col border-end d-flex justify-content-center">
+                    <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success">
+                        <i class="fas fa-edit"></i> EDIT
+                    </button>
                 </div>
             </div>
         </div>

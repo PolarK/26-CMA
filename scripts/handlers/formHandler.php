@@ -37,6 +37,19 @@ function displaySubmissions($rawData)
     }
 }
 
+function displayProfile($rawData)
+{
+    $subData = [
+        $rawData->UserFirstName,
+        $rawData->UserLastName,
+        $rawData->UserDOB,
+        $rawData->UserEmail,
+        $rawData->UserPhoneNo,
+        '********'
+];
+
+echo Card::display('userProfileCard', $subData);
+}
 
 if (isset($_POST['editByUser'])) {
     $db->updateUser(
@@ -65,4 +78,17 @@ if (isset($_POST['editBySubmission'])) {
     );
 
     displaySubmissions($db->getAllSubmission());
+}
+
+if (isset($_POST['editByProfile'])) {
+    $db->updateUser(
+        $_POST['UserId'],
+        $_POST['UserFirstName'],
+        $_POST['UserLastName'],
+        $_POST['UserDOB'],
+        $_POST['UserEmail'],
+        $_POST['UserPhoneNo'],
+    );
+
+    displayProfile($db->FindUserByID($_POST['UserId']));
 }

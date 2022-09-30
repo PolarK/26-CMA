@@ -80,7 +80,12 @@ if (isset($_POST['editBySubmission'])) {
     displaySubmissions($db->getAllSubmission());
 }
 
+//! UPDATE THE PROFILE POR FAVOR! 
 if (isset($_POST['editByProfile'])) {
+    $user = new User('');
+
+    $newPass = $user->generatePassword($_POST['UserId'], $_POST['pwd']);
+
     $db->updateUser(
         $_POST['UserId'],
         $_POST['UserFirstName'],
@@ -89,6 +94,13 @@ if (isset($_POST['editByProfile'])) {
         $_POST['UserEmail'],
         $_POST['UserPhoneNo'],
     );
+
+    $db->updatePassword(
+        $_POST['UserId'],
+        $newPass['salt'],
+        $newPass['hash']
+    );
+    
 
     displayProfile($db->FindUserByID($_POST['UserId']));
 }

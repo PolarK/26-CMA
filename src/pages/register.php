@@ -53,7 +53,7 @@ if (isset($_POST['register'])) {
         $_SESSION['uEmail'] = $email;
         $_SESSION['uPhone'] = $phoneno;
 
-        //header('Location: /dashboard');
+        header('Location: /dashboard');
     }
 }
 

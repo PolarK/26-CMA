@@ -16,7 +16,7 @@ class Card
                 return self::upcomingEventCard($data[0], $data[1], $data[2], $data[3]);
 
             case 'userProfileCard':
-                return self::userProfileCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+                return self::userProfileCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
 
             case 'displayEvent':
                 return self::displayEvent($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
@@ -93,7 +93,7 @@ class Card
         ';
     }
 
-    private static function userProfileCard($fName, $lName, $email, $phoneNo, $dob, $password)
+    private static function userProfileCard($id, $fName, $lName, $email, $phoneNo, $dob, $password)
     {
         return '
         <div class="card bg-gradient-light">

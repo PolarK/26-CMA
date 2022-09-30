@@ -74,6 +74,22 @@ function disableUserData(rawID) {
         removeButton("#accept-", rawID);
         removeButton("#cancel-", rawID);
 
+        // hand the data to userHandler to process the changes
+        $.post('./scripts/handlers/formHandler.php', {
+            disableByUser: event.target.id,
+            UserId: $('#uID'.concat(id)).text(),
+            UserFirstName: $('#uFName'.concat(id)).val(),
+            UserLastName: $('#uLName'.concat(id)).val(),
+            UserDOB: $('#uDOB'.concat(id)).val(),
+            UserEmail: $('#uEmail'.concat(id)).val(),
+            UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
+            UserRole: $('#uRole'.concat(id)).text(),
+            UserActive: $('#uActive'.concat(id)).text(),
+        }, function (data) {
+            // bugs where input successfully submitted, button doesnt work
+            $('#searchResult').html(data);
+        });
+
     });
 
     // when 'X' is clicked, show message, and revert back to original state

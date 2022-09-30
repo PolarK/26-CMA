@@ -39,7 +39,7 @@ $submissions = $db->getAllSubmission();
 
             <!--DISPLAY DATA START-->
         <div class="card bg-light border-dark ml-2 mr-2 mt-1">
-            <div class="badge text-dark border-bottom border-dark ' .  self::defineStatus($status) . '">
+            <div class="badge text-dark border-bottom border-dark ' .  self::defineConfirmationStatus($status) . '">
                 <div class="row ml-1 mr-1 ">
                     <div class="col border-end m-1">
                         <p id="sID-' . $id . '" name="sID-' . $id . '">' . $id . '</p>

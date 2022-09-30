@@ -65,6 +65,10 @@ if (isset($_POST['editByUser'])) {
     displayUsers($db->getAllUser());
 }
 
+if (isset($_POST['disableByUser'])) {
+    echo "<script>alert(1)</script>";
+}
+
 if (isset($_POST['editBySubmission'])) {
     $db->updateSubmission(
         $_POST['SubmissionId'],

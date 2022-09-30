@@ -44,7 +44,8 @@ $users = $db->getAllUser();
                             $user->UserDOB,
                             $user->UserEmail,
                             $user->UserPhoneNo,
-                            $user->UserRole
+                            $user->UserRole,
+                            $user->UserActive,
                         ]
                     );
                 }

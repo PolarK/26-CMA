@@ -22,7 +22,7 @@ class Card
                 return self::displayEvent($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
 
             case 'manageUserCard':
-                return self::manageUserCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+                return self::manageUserCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
 
             case 'manageSubmissionCard':
                 return self::manageSubmissionCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
@@ -33,7 +33,7 @@ class Card
     {
         return '
         <div class="card">
-            <span class="badge ' . self::defineStatus($status) . ' text-dark">Submission ' . $status . '</span>
+            <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Submission ' . $status . '</span>
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</h6>
@@ -49,7 +49,7 @@ class Card
     {
         return '
         <div class="card">
-            <span class="badge ' . self::defineStatus($status) . ' text-dark">Event ' . $status . '</span>
+            <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Event ' . $status . '</span>
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Presented by: ' . $presenter . ' </h6>
@@ -82,7 +82,7 @@ class Card
     {
         return '
         <div class="card bg-gradient-light">
-            <span class="badge ' . self::defineStatus($status) . ' text-dark">' . $status . '</span>
+            <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">' . $status . '</span>
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Event at: ' . $timestamp . ' </h6>
@@ -190,16 +190,16 @@ class Card
         ';
     }
 
-
-    private static function manageUserCard($id, $fname, $lname, $dob, $email, $phoneNo, $role)
+    private static function manageUserCard($id, $fname, $lname, $dob, $email, $phoneNo, $role, $isActive)
     {
         return '
         <!--DISPLAY DATA START-->
         <div class="card bg-light border-dark ml-2 mr-2 mt-1">
             <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
-                <div class="row ml-1 mr-1 ">
+                <div class="row ml-1 mr-1">
+
                     <div class="col border-end m-1">
-                        <p id="uID-' . $id . '" name="uID-' . $id . '">' . $id . '</p>
+                        <p id="uID-' . $id . '" name="uID-' . $id . '"><span class="badge bg-secondary '. self::isUserActive($isActive) .'">' . $id . ' </span></p>
                     </div>
                     <div id="box-edit-' . $id . '" class="col border-end">
                         <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success">
@@ -212,8 +212,9 @@ class Card
                         </button>
                     </div>
                     <div class="col m-1">
-                    <p id="uRole-' . $id . '" name="uRole-' . $id . '">' . $role . '</p>
-
+                    <p id="uRole-' . $id . '" name="uRole-' . $id . '"><span class="badge bg-secondary '. self::isUserActive($isActive) .'">' . $role . ' </span></p>
+                    
+                    <p hidden id="uActive-' . $id . '" name="uActive-' . $id . '">' . $isActive . '</p>
                     </div>
                 </div>
             </div>
@@ -278,7 +279,7 @@ class Card
         $card = '
         <!--DISPLAY DATA START-->
         <div class="card bg-light border-dark ml-2 mr-2 mt-1">
-            <div class="badge text-dark border-bottom border-dark ' .  self::defineStatus($status) . '">
+            <div class="badge text-dark border-bottom border-dark ' .  self::defineConfirmationStatus($status) . '">
                 <div class="row ml-1 mr-1 ">
                     <div class="col border-end m-1">
                         <p id="sID-' . $id . '" name="sID-' . $id . '">' . $id . '</p>
@@ -375,7 +376,11 @@ class Card
         return $card;
     }
 
-    private static function defineStatus($status)
+    public static function isUserActive($isActive){
+        return ($isActive) ? 'bg-success' : 'bg-danger';
+    }
+
+    private static function defineConfirmationStatus($status)
     {
         switch ($status) {
             case 'Accepted':

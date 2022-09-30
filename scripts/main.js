@@ -13,6 +13,7 @@ $(document).ready(function () {
     });
 
     dynamicUserSearch();
+    console.log("/\\ ");
     dynamicSubmissionSearch();
 
     $("button").click(function (event) {
@@ -20,6 +21,8 @@ $(document).ready(function () {
 
         var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
+
+        console.log(rawID);
 
         if (rawID.includes('edit')) {
             switch (curentPath) {

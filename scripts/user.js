@@ -91,22 +91,25 @@ function disableUserData(rawID) {
 }
 
 function dynamicUserSearch() {
-    //reload the data when 'x' is clicked
-    document.getElementById("searchUserParam").addEventListener("search", function(event) {
-        var searchParam = $('#searchUserParam').val();
-        var searchOption = $('#searchOption').val();
-
-        $.post('./scripts/handlers/searchHandler.php', { searchByUserParam: searchParam, searchByOption: searchOption }, function (data) {
-            $('#searchResult').html(data);
-        });
-      });
-
     $('#searchUserParam').keyup(function () {
         var searchParam = $('#searchUserParam').val();
         var searchOption = $('#searchOption').val();
 
         $.post('./scripts/handlers/searchHandler.php', { searchByUserParam: searchParam, searchByOption: searchOption }, function (data) {
-            $('#searchResult').html(data);
+            $('div #searchResult').html(data);
+
+            $("button").click(function (event) {
+                var rawID = event.target.id;
+                var tableID = "#field-".concat(rawID);
+
+                if (rawID.includes('edit')) {
+                    editUserData(rawID, tableID);
+                }
+
+                if (rawID.includes('disable')) {
+                    disableUserData(rawID);
+                }
+            });
         });
     });
 }

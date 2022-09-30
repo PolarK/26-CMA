@@ -45,13 +45,13 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/submitter/checkSubmission.php';
                 break;
 
-            case (preg_match('/submitPaper\?eventid=.*/', $request) ? true : false) : 
+            case (preg_match('/submitPaper\?eventid=.*/', $request) ? true : false):
                 require $publicPath . '/submitter/submitPaper.php';
-                break; 
+                break;
 
-            case (preg_match('/viewSubmission\?filepath=.*/', $request) ? true : false) : 
+            case (preg_match('/viewSubmission\?filepath=.*/', $request) ? true : false):
                 require $publicPath . '/submitter/viewSubmission.php';
-                break; 
+                break;
 
             case '/manageMyEvents':
                 require $publicPath . '/submitter/manageMyEvents.php';
@@ -101,20 +101,8 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/reviewer/viewSubmissions.php';
                 break;
 
-            case (preg_match('/reviewSubmission\?filepath=.*&rSubId=.*/', $request) ? true : false) : 
+            case (preg_match('/reviewSubmission\?filepath=.*&rSubId=.*/', $request) ? true : false):
                 require $publicPath . '/reviewer/reviewSubmission.php';
-                break; 
-
-            case '/createNewEvent':
-                require $publicPath . '/reviewer/createNewEvent.php';
-                break;
-
-            case '/manageUpcomingEvents':
-                require $publicPath . '/reviewer/manageUpcomingEvents.php';
-                break;
-
-            case '/checkUpcomingEvents':
-                require $publicPath . '/reviewer/checkUpcomingEvents.php';
                 break;
 
             default:
@@ -153,8 +141,16 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/admin/manageSubmissions.php';
                 break;
 
-            case '/manageEvents':
-                require $publicPath . '/admin/manageEvents.php';
+            case '/createNewEvent':
+                require $publicPath . '/reviewer/createNewEvent.php';
+                break;
+
+            case '/manageUpcomingEvents':
+                require $publicPath . '/reviewer/manageUpcomingEvents.php';
+                break;
+
+            case '/checkUpcomingEvents':
+                require $publicPath . '/reviewer/checkUpcomingEvents.php';
                 break;
 
             default:

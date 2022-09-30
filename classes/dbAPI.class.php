@@ -245,6 +245,15 @@ class Database
         );
     }
 
+    public function findSubmissionByFile($path)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByFile?file=' . $path,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
     public function findSubmissionByStatus($status)
     {
         return API::request(

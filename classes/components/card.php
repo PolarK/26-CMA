@@ -273,9 +273,9 @@ class Card
         ';
     }
 
-    private static function manageSubmissionCard($id, $fname, $lname, $status, $timestamp, $location, $reviewBy, $filePath)
+    private static function manageSubmissionCard($id, $users, $status, $timestamp, $location, $reviewers, $filePath)
     {
-        return '
+        $card = '
         <!--DISPLAY DATA START-->
         <div class="card bg-light border-dark ml-2 mr-2 mt-1">
             <div class="badge text-dark border-bottom border-dark ' .  self::defineStatus($status) . '">
@@ -310,8 +310,13 @@ class Card
                                             <i class="fa fa-user"></i>
                                         </div>
                                     </div>
-                                    <input id="sFName-' . $id . '" name="sFName-' . $id . '" type="text" class="form-control" value="' . $fname . '">
-                                    <input id="sLName-' . $id . '" name="sLName-' . $id . '" type="text" class="form-control" value="' . $lname . '">
+                                    <select class="form-select form-select-sm" id="authors-' . $id . '" aria-label="Default select">
+                                    '; 
+                                    //foreach($user in $users){
+                                    //    $card += '<option value="' . $user->UserFirstName . ' ' . $user->UserLastName . '">' . $user->UserFirstName . ' ' . $user->UserLastName . '</option>';
+                                    //}
+                                    $card += '
+                                        </select>
                                 </div>
                             </div>
                             <div class="col">
@@ -343,7 +348,9 @@ class Card
                                             <i class="fa fa-id-badge"></i>
                                         </div>
                                     </div>
-                                    <input id="sReviewBy-' . $id . '" name="sReviewBy-' . $id . '" type="text" class="form-control" value="' . $reviewBy . '">
+                                    <select class="form-select form-select-sm" id="reviewers-' . $id . '" aria-label="Default select">
+                                        <option value="' . $user->UserFirstName . ' ' . $user->UserLastName . '">' . $user->UserFirstName . ' ' . $user->UserLastName . '</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -364,6 +371,8 @@ class Card
             </fieldset>
         </div>
         <!--DISPLAY DATA END-->';
+
+        return $card;
     }
 
     private static function defineStatus($status)

@@ -46,29 +46,27 @@
                             <li><a class="dropdown-item" href="/viewSubmissions">Review submissions</a></li>
                         </ul>
                     </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Events
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/createNewEvent">Create New Event</a></li>
-                            <li><a class="dropdown-item" href="/manageUpcomingEvents">Manage Upcoming Events</a></li>
-                            <li><a class="dropdown-item" href="/checkUpcomingEvents">Upcoming Events</a></li>
-                        </ul>
-                    </li>
-
                 <?php }
                 if ($_SESSION['uRole'] == 'ADMIN') { ?>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Manage
+                            Manage Users & Submissions
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/manageUsers">Users</a></li>
                             <li><a class="dropdown-item" href="/manageSubmissions">Submissions</a></li>
-                            <li><a class="dropdown-item" href="/manageEvents">Events</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Manage Events
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/createNewEvent">Create New Event</a></li>
+                            <li><a class="dropdown-item" href="/manageUpcomingEvents">Manage Upcoming Events</a></li>
+                            <li><a class="dropdown-item" href="/checkUpcomingEvents">Upcoming Events</a></li>
                         </ul>
                     </li>
 

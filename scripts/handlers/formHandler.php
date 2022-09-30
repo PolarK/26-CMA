@@ -46,9 +46,9 @@ function displayProfile($rawData)
         $rawData->UserEmail,
         $rawData->UserPhoneNo,
         '********'
-];
+    ];
 
-echo Card::display('userProfileCard', $subData);
+    echo Card::display('userProfileCard', $subData);
 }
 
 if (isset($_POST['editByUser'])) {
@@ -100,7 +100,7 @@ if (isset($_POST['editByProfile'])) {
         $newPass['salt'],
         $newPass['hash']
     );
-    
+
 
     displayProfile($db->FindUserByID($_POST['UserId']));
 }

@@ -91,6 +91,16 @@ function disableUserData(rawID) {
 }
 
 function dynamicUserSearch() {
+    //reload the data when 'x' is clicked
+    document.getElementById("searchUserParam").addEventListener("search", function(event) {
+        var searchParam = $('#searchUserParam').val();
+        var searchOption = $('#searchOption').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchByUserParam: searchParam, searchByOption: searchOption }, function (data) {
+            $('#searchResult').html(data);
+        });
+      });
+
     $('#searchUserParam').keyup(function () {
         var searchParam = $('#searchUserParam').val();
         var searchOption = $('#searchOption').val();

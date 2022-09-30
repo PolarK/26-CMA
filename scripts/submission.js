@@ -91,6 +91,17 @@ function disableSubmissionData(rawID) {
 }
 
 function dynamicSubmissionSearch() {
+    //reload the data when 'x' is clicked
+    document.getElementById("searchSubmissionParam").addEventListener("search", function (event) {
+        var searchParam = $('#searchSubmissionParam').val();
+        var searchOption = $('#searchOption').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchBySubmissionParam: searchParam, searchByOption: searchOption }, function (data) {
+            $('#searchResult').html(data);
+        });
+    });
+
+
     $('#searchSubmissionParam').keyup(function () {
         var searchParam = $('#searchSubmissionParam').val();
         var searchOption = $('#searchOption').val();

@@ -142,15 +142,15 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 break;
 
             case '/createNewEvent':
-                require $publicPath . '/reviewer/createNewEvent.php';
+                require $publicPath . '/admin/createNewEvent.php';
                 break;
 
             case '/manageUpcomingEvents':
-                require $publicPath . '/reviewer/manageUpcomingEvents.php';
+                require $publicPath . '/admin/manageUpcomingEvents.php';
                 break;
 
             case '/checkUpcomingEvents':
-                require $publicPath . '/reviewer/checkUpcomingEvents.php';
+                require $publicPath . '/admin/checkUpcomingEvents.php';
                 break;
 
             default:

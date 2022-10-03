@@ -2,6 +2,21 @@
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
+function enableButtonClicks() {
+    $("button").click(function (event) {
+        var rawID = event.target.id;
+        var tableID = "#field-".concat(rawID);
+
+        if (rawID.includes('edit')) {
+            editUserData(rawID, tableID);
+        }
+
+        if (rawID.includes('disable')) {
+            disableUserData(rawID);
+        }
+    });
+};
+
 
 function editUserData(rawID, tableID) {
     let editBox = "#box-".concat(rawID);
@@ -34,9 +49,11 @@ function editUserData(rawID, tableID) {
             UserEmail: $('#uEmail'.concat(id)).val(),
             UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
             UserRole: $('#uRole'.concat(id)).text(),
+            UserActive: $('#uActive'.concat(id)).val(),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);
+            enableButtonClicks();
         });
     });
 
@@ -88,6 +105,7 @@ function disableUserData(rawID) {
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);
+            enableButtonClicks();
         });
 
     });
@@ -113,19 +131,7 @@ function dynamicUserSearch() {
 
         $.post('./scripts/handlers/searchHandler.php', { searchByUserParam: searchParam, searchByOption: searchOption }, function (data) {
             $('div #searchResult').html(data);
-
-            $("button").click(function (event) {
-                var rawID = event.target.id;
-                var tableID = "#field-".concat(rawID);
-
-                if (rawID.includes('edit')) {
-                    editUserData(rawID, tableID);
-                }
-
-                if (rawID.includes('disable')) {
-                    disableUserData(rawID);
-                }
-            });
+            enableButtonClicks();
         });
     });
 }

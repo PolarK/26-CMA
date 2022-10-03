@@ -1,4 +1,4 @@
-<?php
+<?php if (session_status() == PHP_SESSION_NONE) session_start();
 class Card
 {
     public static function display($type = '', $data = array())
@@ -192,6 +192,8 @@ class Card
 
     private static function manageUserCard($id, $fname, $lname, $dob, $email, $phoneNo, $role, $isActive)
     {
+        $userActiveAttribute = self::isUserActive($isActive);
+        
         return '
         <!--DISPLAY DATA START-->
         <div class="card bg-light border-dark ml-2 mr-2 mt-1">
@@ -199,20 +201,20 @@ class Card
                 <div class="row ml-1 mr-1">
 
                     <div class="col border-end m-1">
-                        <p id="uID-' . $id . '" name="uID-' . $id . '"><span class="badge bg-secondary '. self::isUserActive($isActive) .'">' . $id . ' </span></p>
+                        <p id="uID-' . $id . '" name="uID-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $id . ' </span></p>
                     </div>
                     <div id="box-edit-' . $id . '" class="col border-end">
-                        <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success">
+                        <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success" ' . self::checkUserRole($id, $role) . '>
                             <i class="fas fa-edit"></i> EDIT
                         </button>
                     </div>
                     <div id="box-disable-' . $id . '" class="col border-end">
-                        <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger">
-                            <i class="fa fa-minus"></i> DISABLE
+                        <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger" ' . self::checkUserRole($id, $role) . '>
+                            <i class="fa fa-minus"></i> '. $userActiveAttribute['text'] .'
                         </button>
                     </div>
                     <div class="col m-1">
-                    <p id="uRole-' . $id . '" name="uRole-' . $id . '"><span class="badge bg-secondary '. self::isUserActive($isActive) .'">' . $role . ' </span></p>
+                    <p id="uRole-' . $id . '" name="uRole-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $role . ' </span></p>
                     
                     <p hidden id="uActive-' . $id . '" name="uActive-' . $id . '">' . $isActive . '</p>
                     </div>
@@ -312,11 +314,11 @@ class Card
                                         </div>
                                     </div>
                                     <select class="form-select form-select-sm" id="authors-' . $id . '" aria-label="Default select">
-                                    '; 
-                                    //foreach($user in $users){
-                                    //    $card += '<option value="' . $user->UserFirstName . ' ' . $user->UserLastName . '">' . $user->UserFirstName . ' ' . $user->UserLastName . '</option>';
-                                    //}
-                                    $card += '
+                                    ';
+        //foreach($user in $users){
+        //    $card += '<option value="' . $user->UserFirstName . ' ' . $user->UserLastName . '">' . $user->UserFirstName . ' ' . $user->UserLastName . '</option>';
+        //}
+        $card += '
                                         </select>
                                 </div>
                             </div>
@@ -376,8 +378,22 @@ class Card
         return $card;
     }
 
-    public static function isUserActive($isActive){
-        return ($isActive) ? 'bg-success' : 'bg-danger';
+    private static function checkUserRole($uid, $role)
+    {
+        return ($uid == $_SESSION['UID'] || strpos($role, 'ADMIN') !== false) ? 'disabled' : '';
+    }
+
+    private static function isUserActive($isActive)
+    {
+        $btnAttribute = array();
+        if ($isActive) {
+            $btnAttribute['style'] = 'bg-success';
+            $btnAttribute['text'] = 'DISABLE';
+        } else {
+            $btnAttribute['style'] = 'bg-danger';
+            $btnAttribute['text'] = 'ENABLE';
+        }
+        return $btnAttribute;
     }
 
     private static function defineConfirmationStatus($status)

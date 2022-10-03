@@ -13,7 +13,8 @@ function displayUsers($rawData)
             $data->UserDOB,
             $data->UserEmail,
             $data->UserPhoneNo,
-            $data->UserRole
+            $data->UserRole,
+            $data->UserActive,
         ];
 
         echo Card::display('manageUserCard', $userData);
@@ -60,13 +61,31 @@ if (isset($_POST['editByUser'])) {
         $_POST['UserEmail'],
         $_POST['UserPhoneNo'],
         $_POST['UserRole'],
+        $_POST['UserActive'],
     );
 
     displayUsers($db->getAllUser());
 }
 
 if (isset($_POST['disableByUser'])) {
-    echo "<script>alert(1)</script>";
+    if($_POST['UserActive'] == 1){
+        $_POST['UserActive'] = 0;
+    } else {
+        $_POST['UserActive'] = 1;
+    }
+
+    $db->updateUser(
+        $_POST['UserId'],
+        $_POST['UserFirstName'],
+        $_POST['UserLastName'],
+        $_POST['UserDOB'],
+        $_POST['UserEmail'],
+        $_POST['UserPhoneNo'],
+        $_POST['UserRole'],
+        $_POST['UserActive'],
+    );
+
+    displayUsers($db->getAllUser());
 }
 
 if (isset($_POST['editBySubmission'])) {

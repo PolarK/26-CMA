@@ -1,8 +1,6 @@
 <?php
 require "./classes/dbAPI.class.php";
 
-date_default_timezone_set('Australia/Melbourne');
-
 $db = new Database();
 
 $event = $db->findConferenceById($_GET["eventid"]); 

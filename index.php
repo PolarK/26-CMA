@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Australia/Melbourne');
+
 include('./src/template/header.php');
 
 $request = $_SERVER['REQUEST_URI'];

@@ -5,8 +5,6 @@
     require "./classes/dbAPI.class.php";
     require_once "./classes/validator.class.php";
     require_once "./classes/idGenerator.class.php";
-    
-    date_default_timezone_set('Australia/Melbourne');
 
     $db = new Database(); 
     $err = ["comment" => "", "status" => ""];   
@@ -61,7 +59,8 @@
                         $timestamp, 
                         $comment, 
                         $status
-                    ); 
+                    );
+                    
                     $db->updateSubmission(
                         $subId,         
                         $submission[0]->UserId,

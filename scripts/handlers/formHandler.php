@@ -91,13 +91,6 @@ if (isset($_POST['disableByUser'])) {
 if (isset($_POST['editBySubmission'])) {
     $db->updateSubmission(
         $_POST['SubmissionId'],
-        $_POST['SubmissionFirstName'],
-        $_POST['SubmissionLastName'],
-        $_POST['SubmissionStatus'],
-        $_POST['SubmissionTimestamp'],
-        $_POST['SubmissionConferenceLocation'],
-        $_POST['SubmissionReviewBy'],
-        $_POST['SubmissionPath'],
     );
 
     displaySubmissions($db->getAllSubmission());

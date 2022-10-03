@@ -193,7 +193,7 @@ class Card
     private static function manageUserCard($id, $fname, $lname, $dob, $email, $phoneNo, $role, $isActive)
     {
         $userActiveAttribute = self::isUserActive($isActive);
-        
+
         return '
         <!--DISPLAY DATA START-->
         <div class="card bg-light border-dark ml-2 mr-2 mt-1">
@@ -210,7 +210,7 @@ class Card
                     </div>
                     <div id="box-disable-' . $id . '" class="col border-end">
                         <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger" ' . self::checkUserRole($id, $role) . '>
-                            <i class="fa fa-minus"></i> '. $userActiveAttribute['text'] .'
+                            <i class="fa fa-minus"></i> ' . $userActiveAttribute['text'] . '
                         </button>
                     </div>
                     <div class="col m-1">
@@ -276,7 +276,7 @@ class Card
         ';
     }
 
-    private static function manageSubmissionCard($id, $users, $status, $timestamp, $location, $reviewers, $filePath)
+    private static function manageSubmissionCard($id, $fname, $lname, $status, $timestamp, $location, $reviewers, $filePath)
     {
         $card = '
         <!--DISPLAY DATA START-->
@@ -313,13 +313,8 @@ class Card
                                             <i class="fa fa-user"></i>
                                         </div>
                                     </div>
-                                    <select class="form-select form-select-sm" id="authors-' . $id . '" aria-label="Default select">
-                                    ';
-        //foreach($user in $users){
-        //    $card += '<option value="' . $user->UserFirstName . ' ' . $user->UserLastName . '">' . $user->UserFirstName . ' ' . $user->UserLastName . '</option>';
-        //}
-        $card += '
-                                        </select>
+                                    <input id="sFName-' . $id . '" name="sFName-' . $id . '" type="text" class="form-control" value="' . $fname . '" disabled>
+                                    <input id="sLName-' . $id . '" name="sLName-' . $id . '" type="text" class="form-control" value="' . $lname . '" disabled>
                                 </div>
                             </div>
                             <div class="col">
@@ -329,7 +324,7 @@ class Card
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
-                                    <input id="sTimestamp-' . $id . '" name="sTimestamp-' . $id . '" type="text" class="form-control" value="' . $timestamp . '">
+                                    <input id="sTimestamp-' . $id . '" name="sTimestamp-' . $id . '" type="text" class="form-control" value="' .date("d M y \a\\t g:i A", strtotime($timestamp)) . '" disabled>
                                 </div>
                             </div>
                         </div>
@@ -341,7 +336,7 @@ class Card
                                             <i class="fa fa-map-marker"></i>
                                         </div>
                                     </div>
-                                    <input id="sConLocation-' . $id . '" name="sConLocation-' . $id . '" type="text" class="form-control" value="' . $location . '">
+                                    <input id="sConLocation-' . $id . '" name="sConLocation-' . $id . '" type="text" class="form-control" value="' . $location . '" disabled>
                                 </div>
                             </div>
                             <div class="col">
@@ -351,9 +346,11 @@ class Card
                                             <i class="fa fa-id-badge"></i>
                                         </div>
                                     </div>
-                                    <select class="form-select form-select-sm" id="reviewers-' . $id . '" aria-label="Default select">
-                                        <option value="' . $user->UserFirstName . ' ' . $user->UserLastName . '">' . $user->UserFirstName . ' ' . $user->UserLastName . '</option>
-                                    </select>
+                                    <select class="form-select form-select-sm" id="reviewers-' . $id . '" aria-label="Default select">';
+        foreach ($reviewers as $reviewer) {
+            $card .= '<option value="' . $reviewer->UserFirstName . ' ' . $reviewer->UserLastName . '">' . $reviewer->UserFirstName . ' ' . $reviewer->UserLastName . '</option>';
+        }
+        $card .= '</select>
                                 </div>
                             </div>
                         </div>
@@ -365,7 +362,7 @@ class Card
                                             <i class="fa fa-file"></i>
                                         </div>
                                     </div>
-                                    <input id="sPath-' . $id . '" name="sPath-' . $id . '" type="text" class="form-control" value="' . $filePath . '">
+                                    <input id="sPath-' . $id . '" name="sPath-' . $id . '" type="text" class="form-control" value="' . $filePath . '" disabled>
                                 </div>
                             </div>
                         </div>
@@ -374,7 +371,6 @@ class Card
             </fieldset>
         </div>
         <!--DISPLAY DATA END-->';
-
         return $card;
     }
 

@@ -5,7 +5,7 @@ class Database
 {
     public function __construct()
     {
-        $this->baseUrl = "https://csms-api-env.herokuapp.com/api/index.php/";
+        $this->baseUrl = "http://localhost/26-CMA/api/index.php/";
         $this->baseHeader = 'Content-Type: application/json; charset=UTF-8';
     }
     
@@ -261,10 +261,11 @@ class Database
         $fields = [
             'SubmissionId' => $arg_0,
             'UserId' => $arg_1,
-            'ConferenceId' => $arg_2, 
-            'SubmissionTimestamp' => $arg_3, 
-            'SubmissionPath' => $arg_4, 
-            'SubmissionStatus' => $arg_5 
+            'ReviewerId' => $arg_2,
+            'ConferenceId' => $arg_3, 
+            'SubmissionTimestamp' => $arg_4, 
+            'SubmissionPath' => $arg_5, 
+            'SubmissionStatus' => $arg_6 
         ];
 
         return API::request(
@@ -280,10 +281,11 @@ class Database
         $fields = [
             'SubmissionId' => $arg_0,
             'UserId' => $arg_1,
-            'ConferenceId' => $arg_2, 
-            'SubmissionTimestamp' => $arg_3, 
-            'SubmissionPath' => $arg_4, 
-            'SubmissionStatus' => $arg_5 
+            'ReviewerId' => $arg_2,
+            'ConferenceId' => $arg_3, 
+            'SubmissionTimestamp' => $arg_4, 
+            'SubmissionPath' => $arg_5, 
+            'SubmissionStatus' => $arg_6 
         ];
 
         return API::request(

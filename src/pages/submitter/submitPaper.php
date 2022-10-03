@@ -1,7 +1,4 @@
 <?php
-
-// include "../others/template/functions.php";
-//include_once("./src/template/notification.php");
 require "./classes/dbAPI.class.php";
 
 date_default_timezone_set('Australia/Melbourne');
@@ -9,9 +6,13 @@ date_default_timezone_set('Australia/Melbourne');
 $db = new Database();
 
 $event = $db->findConferenceById($_GET["eventid"]); 
-$eId = $event[0]->ConferenceId; 
-$eTitle = $event[0]->ConferenceTitle; 
+$cid = $event[0]->ConferenceId; 
+$cTitle = $event[0]->ConferenceTitle; 
 $userid = $_SESSION["UID"]; 
+
+$rids = $db->findUserByRole('REVIEWER');
+$rid = $rids[array_rand($rids)]->UserId;
+
 
 if ($event) {
 
@@ -28,12 +29,12 @@ if ($event) {
                 $file_ext = pathinfo($file_submitted, PATHINFO_EXTENSION);      // get file format
 
                 $folder_path = __DIR__ . "/submissions/" . $userid;
-                $filename_no_ext = $eId . "_" . $eTitle;        // Filename -> EventId_EventTitle
+                $filename_no_ext = $cid . "_" . $cTitle;        // Filename -> EventId_EventTitle
   				$filepath_no_ext = $folder_path . "/" . $filename_no_ext;
                 $file_path = $filepath_no_ext . "." . $file_ext; 
 
                 if (!file_exists($folder_path)) {          // create user file if it does not exist
-                    mkdir($folder_path);
+                    mkdir($folder_path, 0777, true);
                 }
 
                 foreach ($valid_exts as $ext) {        // delete file submitted for related conference regardless of extension
@@ -45,7 +46,7 @@ if ($event) {
                 $filetmp = $_FILES["SubmitPaper"]["tmp_name"];
                 move_uploaded_file($filetmp, $file_path);    
             
-                $submissionid = $eId . "_" . $userid; 
+                $submissionid = $cid . "_" . $userid; 
                 $timestamp = date('Y-m-d h:i:s');
                 $status = "Not Reviewed"; 
                  
@@ -54,25 +55,31 @@ if ($event) {
                     $db->updateSubmission(
                         $submissionid,          
                         $userid,
-                        $eId, 
+                        $_SESSION['rid'],
+                        $cid, 
                         $timestamp, 
                         $filename_no_ext . "." . $file_ext, 
                         $status
                     ); 
                 }
                 else {
-                    $db->createSubmission(
-                        $submissionid,         
-                        $userid,
-                        $eId, 
-                        $timestamp, 
-                        $filename_no_ext . "." . $file_ext, 
-                        $status
-                    ); 
+                    //if(!isset($_SESSION['rid'])){
+                    //    $_SESSION['rid'] = $rid;
+                    //}
+
+                   $db->createSubmission(
+                       $submissionid,         
+                       $userid,
+                       $rid,
+                       $cid,
+                       $timestamp, 
+                       $filename_no_ext . "." . $file_ext, 
+                       $status
+                   ); 
                 }     
 
                 // needs to redirect to successful submission screen
-                header('Location: /dashboard');         
+                //header('Location: /dashboard');         
             }
         }
     }

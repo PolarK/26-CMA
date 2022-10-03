@@ -18,8 +18,8 @@ class Card
             case 'userProfileCard':
                 return self::userProfileCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
 
-            case 'displayEvent':
-                return self::displayEvent($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+            case 'displayEventCard':
+                return self::displayEventCard($data[0], $data[1], $data[2], $data[3], $data[4]);
 
             case 'manageUserCard':
                 return self::manageUserCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
@@ -35,8 +35,8 @@ class Card
         <div class="card">
             <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Submission ' . $status . '</span>
             <div class="card-body">
-                <h5 class="card-title">' . $title . '</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</h6>
+                <p class="card-title">' . $title . '</p>
+                <p class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</p>
                 <a href="./viewSubmission?filepath=' . $filePath . '" class="card-link">View My Paper</a> 
             </div>
         </div>
@@ -171,19 +171,15 @@ class Card
         ';
     }
 
-    //? Should be changed to displayEventCard and not displayEvent
-    private static function displayEvent($id, $title, $location, $date, $time, $fee, $status)
+    private static function displayEventCard($id, $title, $location, $timestamp, $status)
     {
         return '
         <div class="card">
-            <span class="badge ' . ' text-dark">' . $title . '</span>
             <div class="card-body">
-                <h5 class="card-title">Title: ' . $title . '</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Date: ' . $date . ' </h6>
-                <h6 class="card-subtitle mb-2 text-muted">Time: ' . $time . ' </h6>
-                <h6 class="card-subtitle mb-2 text-muted">Location: ' . $location . ' </h6>
-                <h6 class="card-subtitle mb-2 text-muted">Registration Fee: $' . $fee . ' </h6>
-                <a href="./submitPaper?eventid=' . $id . '" class="card-link">' . $status . '</a> 
+                <h5 class="card-title">' . $title . '</h5>
+                <h6 class="card-subtitle mb-2">Date: <a class="text-muted"> ' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '</a> </h6>
+                <h6 class="card-subtitle mb-2">Location: <a href="' . $location . '">' . $location . ' </a> </h6>
+                <a href="./submitPaper?eventid=' . $id . '" class="btn btn-primary"">' . $status . '</a> 
             </div>
         </div>
         <br>
@@ -324,7 +320,7 @@ class Card
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
-                                    <input id="sTimestamp-' . $id . '" name="sTimestamp-' . $id . '" type="text" class="form-control" value="' .date("d M y \a\\t g:i A", strtotime($timestamp)) . '" disabled>
+                                    <input id="sTimestamp-' . $id . '" name="sTimestamp-' . $id . '" type="text" class="form-control" value="' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '" disabled>
                                 </div>
                             </div>
                         </div>

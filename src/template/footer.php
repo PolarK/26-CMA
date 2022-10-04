@@ -1,4 +1,4 @@
-<hr>
+<br class="mt-4">
 <footer class="footer font-small bg-light py-3 fixed-bottom">
     <div class="container-fluid">
         <div class="text-center">

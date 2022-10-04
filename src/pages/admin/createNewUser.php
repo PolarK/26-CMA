@@ -49,10 +49,10 @@ if (isset($_POST['register'])) {
                     <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
                     <pre>';
         $message .= '   email   : ' . $email .
-                    '   password: ' . $password .
-                    '</pre>';
+            '   password: ' . $password .
+            '</pre>';
 
-                    $message .= ' <p> - Regards, C-SMS Team.</p>'; 
+        $message .= ' <p> - Regards, C-SMS Team.</p>';
 
         mail($to, $subject, $message, $headers);
 
@@ -63,44 +63,44 @@ if (isset($_POST['register'])) {
 
 <!--CONTENT START-->
 <div id="content" class="container-fluid p-5">
-    <div class="d-flex flex-column justify-content-center align-items-center text-left h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
         <h1 class="display-4">Create New User</h1>
         <p class="lead">You have the power to create new Admin / Reviwer user account!</p>
-
         <br>
-        <!--Start New User Register Form-->
-        <form class="form" id="registerNewAccount" action="/createNewUser" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <h6 class="form-group ">Role </h6>
-                <div class="dropdown">
-                    <select id="role" name="role" class="form-select form-select-sm" aria-label="Default select">
-                        <option value="REVIEWER"><a class="dropdown-item" name="roleReviewer" id="roleReviewer" href="#">REVIEWER</a></option>
-                        <option value="ADMIN"><a class="dropdown-item" name="roleAdmin" id="roleAdmin" href="#">ADMIN</a></option>
-                    </select>
+        <div style="margin: auto; width: <?php echo (!Mobile::isActive() ? '36rem' : '100%') ?>;">
+            <!--Start New User Register Form-->
+            <form class="form" id="registerNewAccount" action="/createNewUser" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <h6 class="form-group ">Role </h6>
+                    <div class="dropdown">
+                        <select id="role" name="role" class="form-select form-select-sm" aria-label="Default select">
+                            <option value="REVIEWER"><a class="dropdown-item" name="roleReviewer" id="roleReviewer" href="#">REVIEWER</a></option>
+                            <option value="ADMIN"><a class="dropdown-item" name="roleAdmin" id="roleAdmin" href="#">ADMIN</a></option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <h6 class="form-group">Email </h6>
-                <input id="uEmail" name="uEmail" placeholder="Email" type="email" required class="form-control">
-            </div>
+                <div class="form-group">
+                    <h6 class="form-group">Email </h6>
+                    <input id="uEmail" name="uEmail" placeholder="Email" type="email" required class="form-control">
+                </div>
 
-            <div class="form-group">
-                <h6 class="form-group">First Name </h6>
-                <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control">
-            </div>
+                <div class="form-group">
+                    <h6 class="form-group">First Name </h6>
+                    <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control">
+                </div>
 
-            <div class="form-group">
-                <h6 class="form-group">Last Name </h6>
-                <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control">
-            </div>
+                <div class="form-group">
+                    <h6 class="form-group">Last Name </h6>
+                    <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control">
+                </div>
 
-            <div class="form-group btn-group d-grid gap-2">
-                <button name="register" type="submit" class="btn btn-primary">Register New User</button>
-            </div>
-        </form>
-        <!--End New User Register Form-->
-
+                <div class="form-group btn-group d-grid gap-2">
+                    <button name="register" type="submit" class="btn btn-primary">Register New User</button>
+                </div>
+            </form>
+            <!--End New User Register Form-->
+        </div>
     </div>
 </div>
 <!--CONTENT END-->

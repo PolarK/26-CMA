@@ -89,7 +89,7 @@ if ($event) {
         <div class="card-body">
             <h1 class="display-4">Submit Your New Finding!</h1>
             <p class="lead">We would love to see what you've come up with! So why not submit your paper here and well review it ASAP!</p>
-            <div style="margin: auto; width: 100%;">
+            <div style="margin: auto; width: <?php echo (!Mobile::isActive()? '36rem' : '100%') ?>;">
                 <br>
                 <!--Start Event Register Form-->
                 <form id="SubmitPaperForm" action="#" method="post" enctype="multipart/form-data">
@@ -109,13 +109,13 @@ if ($event) {
                             <div class="col">
                                 <input class="form-check-input" type="checkbox" name="submitCheck" id="submitCheck" type="checkbox" required>
                                 <label class="form-check-label" for="submitCheck">
-                                    By submitting, you are agreeing to to our <a href="">Privacy Policies</a>
+                                    By submitting, you are agreeing to to our <a href="/privacyPolicy">Privacy Policies</a>
                                 </label>
                             </div>
                             <div class="col">
                                 <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
                                 <label class="form-check-label" for="TermsConditions">
-                                    By submitting, you are agreeing to our <a href="">Terms & Conditions</a>
+                                    By submitting, you are agreeing to our <a href="/terms&conditions">Terms & Conditions</a>
                                 </label>
                             </div>
                         </div>

@@ -69,7 +69,7 @@ if (isset($_POST['register'])) {
         <br>
 
         <!--Start User Register Form-->
-        <?php if (!Mobile::isMobile()) { ?>
+        <?php if (!Mobile::isActive()) { ?>
             <form id="UserRegisterForm" action="/register" method="POST" enctype="multipart/form-data">
                 <div class="form-group mb-2 mr-2">
                     <div class="row">

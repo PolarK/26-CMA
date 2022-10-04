@@ -75,7 +75,7 @@ if (isset($_POST['login'])) {
             </div>
             <br>
             <div class="form-group btn-group-lg d-grid gap-2">
-                <button name="login" type="submit" class="btn btn-primary" onclick="showToast()">Login</button>
+                <button name="login" type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
         <!--End Login Form-->

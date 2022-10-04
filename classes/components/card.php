@@ -95,80 +95,130 @@ class Card
 
     private static function userProfileCard($id, $fName, $lName, $email, $phoneNo, $dob, $password)
     {
-        return '
+        if (!Mobile::isActive()) {
+            return '
         <div class="card bg-gradient-light">
-            <fieldset id="field-edit-' . $id . '" disabled>
-                <form class="form-inline">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <strong>First Name</strong>
-                            </div>
-                            <div class="col text-secondary">
-                                <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fName . '">
-                            </div>
+        <fieldset id="field-edit-' . $id . '" disabled>
+            <form class="form-inline">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <strong>First Name</strong>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <strong>Last Name</strong>
-                            </div>
-                            <div class="col text-secondary">
-                                <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lName . '">
-                            </div>
+                        <div class="col text-secondary">
+                            <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fName . '">
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <strong>Email</strong>
-                            </div>
-                            <div class="col text-secondary">
-                                <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <strong>Phone No.</strong>
-                            </div>
-                            <div class="col text-secondary">
-                                <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <strong>Date of Birth</strong>
-                            </div>
-                            <div class="col text-secondary">
-                                <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <strong>Password</strong>
-                            </div>
-                            <div class="col text-secondary">
-                                ' . $password . '
-                                <!-- <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">-->
-                            </div>
-                            
-                        </div>                 
                     </div>
-                    <p id="uID-' . $id . '" name="uID-' . $id . '">' . $id . '</p>
-                </form>
-            </fieldset>
-            <div class="row">
-                <div id="box-edit-' . $id . '" class="col border-end d-flex justify-content-center">
-                    <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success">
-                        <i class="fas fa-edit"></i> EDIT
-                    </button>
+                    <hr>
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <strong>Last Name</strong>
+                        </div>
+                        <div class="col text-secondary">
+                            <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lName . '">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <strong>Email</strong>
+                        </div>
+                        <div class="col text-secondary">
+                            <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <strong>Phone No.</strong>
+                        </div>
+                        <div class="col text-secondary">
+                            <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <strong>Date of Birth</strong>
+                        </div>
+                        <div class="col text-secondary">
+                            <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <strong>Password</strong>
+                        </div>
+                        <div class="col text-secondary">
+                            ' . $password . '
+                            <!-- <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">-->
+                        </div>
+
+                    </div>
                 </div>
+            </form>
+        </fieldset>
+        <div class="form-group btn-group-sm d-grid gap-2 box-edit-' . $id . '">
+            <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success ml-3 mr-3">
+                <i class="fas fa-edit"></i> EDIT
+            </button>
             </div>
         </div>
         <br>
         ';
+        } else {
+            return '
+        <fieldset id="field-edit-' . $id . '" disabled>
+                        <form class="form-inline">
+                            <div class="card-body">
+                                <div class="col d-flex align-items-center">
+                                    <strong>First Name</strong>
+                                </div>
+                                <div class="col text-secondary">
+                                    <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fName . '">
+                                </div>
+                                <div class="col d-flex align-items-center mt-3">
+                                    <strong>Last Name</strong>
+                                </div>
+                                <div class="col text-secondary">
+                                    <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lName . '">
+                                </div>
+                                <div class="col d-flex align-items-center mt-3">
+                                    <strong>Email</strong>
+                                </div>
+                                <div class="col text-secondary">
+                                    <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
+                                </div>
+                                <div class="col d-flex align-items-center mt-3">
+                                    <strong>Phone No.</strong>
+                                </div>
+                                <div class="col text-secondary">
+                                    <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
+                                </div>
+                                <div class="col d-flex align-items-center mt-3">
+                                    <strong>Date of Birth</strong>
+                                </div>
+                                <div class="col text-secondary">
+                                    <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
+                                </div>
+                                <div class="col d-flex align-items-center mt-3">
+                                    <strong>Password</strong>
+                                </div>
+                                <div class="col text-secondary">
+                                    ' . $password . '
+                                    <!-- <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">-->
+                                </div>
+                            </div>
+                        </form>
+                    </fieldset>
+                    <div class="form-group btn-group-sm d-grid gap-2 box-edit-' . $id . '">
+                        <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success ml-3 mr-3">
+                            <i class="fas fa-edit"></i> EDIT
+                        </button>
+                    </div>
+                <br>';
+        }
     }
 
     private static function displayEventCard($id, $title, $location, $timestamp, $status)
@@ -189,38 +239,118 @@ class Card
     private static function manageUserCard($id, $fname, $lname, $dob, $email, $phoneNo, $role, $isActive)
     {
         $userActiveAttribute = self::isUserActive($isActive);
-
-        return '
-        <!--DISPLAY DATA START-->
-        <div class="card bg-light border-dark ml-2 mr-2 mt-1">
-            <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
-                <div class="row ml-1 mr-1">
-
-                    <div class="col border-end m-1">
-                        <p id="uID-' . $id . '" name="uID-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $id . ' </span></p>
-                    </div>
-                    <div id="box-edit-' . $id . '" class="col border-end">
-                        <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success" ' . self::checkUserRole($id, $role) . '>
-                            <i class="fas fa-edit"></i> EDIT
-                        </button>
-                    </div>
-                    <div id="box-disable-' . $id . '" class="col border-end">
-                        <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger" ' . self::checkUserRole($id, $role) . '>
-                            <i class="fa fa-minus"></i> ' . $userActiveAttribute['text'] . '
-                        </button>
-                    </div>
-                    <div class="col m-1">
-                    <p id="uRole-' . $id . '" name="uRole-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $role . ' </span></p>
-                    
-                    <p hidden id="uActive-' . $id . '" name="uActive-' . $id . '">' . $isActive . '</p>
+        if (!Mobile::isActive()) {
+            return '
+            <!--DISPLAY DATA START-->
+            <div class="card bg-light border-dark ml-2 mr-2 mt-1">
+                <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
+                    <div class="row ml-1 mr-1">
+    
+                        <div class="col border-end m-1">
+                            <p id="uID-' . $id . '" name="uID-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $id . ' </span></p>
+                        </div>
+                        <div id="box-edit-' . $id . '" class="col border-end">
+                            <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success" ' . self::checkUserRole($id, $role) . '>
+                                <i class="fas fa-edit"></i> EDIT
+                            </button>
+                        </div>
+                        <div id="box-disable-' . $id . '" class="col border-end">
+                            <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger" ' . self::checkUserRole($id, $role) . '>
+                                <i class="fa fa-minus"></i> ' . $userActiveAttribute['text'] . '
+                            </button>
+                        </div>
+                        <div class="col m-1">
+                        <p id="uRole-' . $id . '" name="uRole-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $role . ' </span></p>
+                        
+                        <p hidden id="uActive-' . $id . '" name="uActive-' . $id . '">' . $isActive . '</p>
+                        </div>
                     </div>
                 </div>
+                <fieldset id="field-edit-' . $id . '" disabled>
+                    <form class="form-inline">
+                        <div class="card-body align-items-left align-text-left p-1">
+                            <div class="row ml-1 mr-1">
+                                <div class="col border-end border-dark">
+                                    <div class="input-group input-group-sm p-1">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fname . '">
+                                        <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lname . '">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-sm p-1">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-envelope"></i>
+                                            </div>
+                                        </div>
+                                        <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ml-1 mr-1">
+                                <div class="col border-end border-dark">
+                                    <div class="input-group input-group-sm p-1">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-mobile"></i>
+                                            </div>
+                                        </div>
+                                        <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="input-group input-group-sm p-1">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
             </div>
-            <fieldset id="field-edit-' . $id . '" disabled>
-                <form class="form-inline">
-                    <div class="card-body align-items-left align-text-left p-1">
-                        <div class="row ml-1 mr-1">
-                            <div class="col border-end border-dark">
+            <!--DISPLAY DATA END-->
+            <br>
+            ';
+        } else {
+            return '
+            <!--DISPLAY DATA START-->
+            <div class="card bg-light border-dark mt-1">
+                <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
+                    <div class="row">
+                        <div class="col border-end m-1">
+                            <p id="uID-' . $id . '" name="uID-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $id . ' </span></p>
+                        </div>
+                        <div id="box-edit-' . $id . '" class="col border-end">
+                            <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success" ' . self::checkUserRole($id, $role) . '>
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        <div id="box-disable-' . $id . '" class="col border-end">
+                            <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger" ' . self::checkUserRole($id, $role) . '>
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <div class="col m-1">
+                            <p id="uRole-' . $id . '" name="uRole-' . $id . '"><span class="badge bg-secondary ' . $userActiveAttribute['style'] . '">' . $role . ' </span></p>
+
+                            <p hidden id="uActive-' . $id . '" name="uActive-' . $id . '">' . $isActive . '</p>
+                        </div>
+                    </div>
+                </div>
+                <fieldset id="field-edit-' . $id . '" disabled>
+                    <form class="form-inline">
+                        <div class="card-body align-items-left align-text-left p-1">
+                            <div class="row ml-1 mr-1">
                                 <div class="input-group input-group-sm p-1">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -230,8 +360,6 @@ class Card
                                     <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fname . '">
                                     <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lname . '">
                                 </div>
-                            </div>
-                            <div class="col">
                                 <div class="input-group input-group-sm p-1">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -241,9 +369,7 @@ class Card
                                     <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row ml-1 mr-1">
-                            <div class="col border-end border-dark">
+                            <div class="row ml-1 mr-1">
                                 <div class="input-group input-group-sm p-1">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -252,8 +378,6 @@ class Card
                                     </div>
                                     <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
                                 </div>
-                            </div>
-                            <div class="col">
                                 <div class="input-group input-group-sm p-1">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -264,12 +388,13 @@ class Card
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </fieldset>
-        </div>
-        <!--DISPLAY DATA END-->
-        ';
+                    </form>
+                </fieldset>
+                </div>
+                <!--DISPLAY DATA END-->
+                <br>
+            ';
+        }
     }
 
     private static function manageSubmissionCard($id, $fname, $lname, $status, $timestamp, $location, $reviewers, $filePath)

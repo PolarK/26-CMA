@@ -51,11 +51,11 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Manage Users & Submissions
+                            Manage Users
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/manageUsers">Users</a></li>
-                            <li><a class="dropdown-item" href="/manageSubmissions">Submissions</a></li>
+                            <li><a class="dropdown-item" href="/createNewUser">Create New User</a></li>
+                            <li><a class="dropdown-item" href="/manageUsers">Edit Existing Users</a></li>
                         </ul>
                     </li>
 

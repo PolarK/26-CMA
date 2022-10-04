@@ -1,4 +1,6 @@
 <?php
+//! UNUSED FEATURE / FOR FUTURE DEVELOPMENT
+
 include_once("./classes/components/card.php");
 include_once("./classes/dbAPI.class.php");
 
@@ -21,7 +23,7 @@ $submissions = $db->getAllSubmission();
                         <option value="FirstName"><a class="dropdown-item" name="searchAuthFName" id="searchAuthFName" href="#">Author's First Name</a></option>
                         <option value="LastName"><a class="dropdown-item" name="searchAuthLName" id="searchAuthLName" href="#">Author's Last Name</a></option>
                         <option value="Timestamp"><a class="dropdown-item" name="searchDate" id="searchDate" href="#">Date</a></option>
-                        <option value="File"><a class="dropdown-item" name="searchFile" id="searchFile" href="#">File Name</a></option>
+                        <option value="Path"><a class="dropdown-item" name="searchFile" id="searchFile" href="#">File Name</a></option>
                     </select>
                 </div>
                 <input type="input" class="form-control form-control-sm" name="searchSubmissionParam" id="searchSubmissionParam" placeholder="Search" onkeydown="return (event.keyCode!=13);">
@@ -37,7 +39,8 @@ $submissions = $db->getAllSubmission();
                 
                     foreach ($submissions as $submission) {
                         $users = $db->findUserById($submission->UserId);
-                        $reviewers = $db->findUserByRole('REVIEWER');
+                        //$reviewers = $db->findUserByRole('REVIEWER');
+                        $reviewers = $db->findUserById($submission->ReviewerId);
                         $conference = $db->findConferenceById($submission->ConferenceId);
                 
                         echo Card::display(

@@ -342,7 +342,7 @@ class Card
                                             <i class="fa fa-id-badge"></i>
                                         </div>
                                     </div>
-                                    <select class="form-select form-select-sm" id="reviewers-' . $id . '" aria-label="Default select">';
+                                    <select class="form-select form-select-sm" id="sReviewers-' . $id . '" aria-label="Default select">';
         foreach ($reviewers as $reviewer) {
             $card .= '<option value="' . $reviewer->UserFirstName . ' ' . $reviewer->UserLastName . '">' . $reviewer->UserFirstName . ' ' . $reviewer->UserLastName . '</option>';
         }

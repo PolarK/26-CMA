@@ -21,6 +21,7 @@ function displayUsers($rawData)
     }
 }
 
+//! UNUSED FEATURE / FOR FUTURE DEVELOPMENT
 function displaySubmissions($rawData)
 {
     foreach ($rawData as $data) {

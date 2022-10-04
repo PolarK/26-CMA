@@ -135,14 +135,18 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/logout.php';
                 break;
 
+            case '/createNewUser':
+                require $publicPath . '/admin/createNewUser.php';
+                break;
+
             case '/manageUsers':
                 require $publicPath . '/admin/manageUsers.php';
                 break;
-
+                /* //! UNUSED FEATURE / FOR FUTURE DEVELOPMENT
             case '/manageSubmissions':
                 require $publicPath . '/admin/manageSubmissions.php';
                 break;
-
+            */
             case '/createNewEvent':
                 require $publicPath . '/admin/createNewEvent.php';
                 break;

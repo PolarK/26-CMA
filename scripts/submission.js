@@ -1,3 +1,5 @@
+//! UNUSED FEATURE / FOR FUTURE DEVELOPMENT
+
 // similar to import function but jQuery style 
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
@@ -32,7 +34,7 @@ function editSubmissionData(rawID, tableID) {
             SubmissionStatus: $('#sStatus'.concat(id)).text(),
             SubmissionTimestamp: $('#sTimestamp'.concat(id)).val(),
             SubmissionConferenceLocation: $('#sConLocation'.concat(id)).val(),
-            SubmissionReviewBy: $('#sReviewBy'.concat(id)).val(),
+            SubmissionReviewBy: $('#sReviewers'.concat(id)).val(),
             SubmissionPath: $('#sPath'.concat(id)).val(),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work

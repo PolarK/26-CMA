@@ -23,15 +23,22 @@ function displayUsers($rawData)
 
 function displaySubmissions($rawData)
 {
+    global $db;
+
+
     foreach ($rawData as $data) {
+        $users = $db->findUserById($data->UserId);
+        $reviewers = $db->findUserByRole('REVIEWER');
+        $conferences = $db->findConferenceById($data->ConferenceId);
+
         $userData = [
             $data->SubmissionId,
-            $data->UserFirstName,
-            $data->UserLastName,
+            $users[0]->UserFirstName,
+            $users[0]->UserLastName,
             $data->SubmissionStatus,
             $data->SubmissionTimestamp,
-            $data->ConferenceLocation,
-            "Anee Janee", // need to linked 'reviewer's ID'
+            $conferences[0]->ConferenceLocation,
+            $reviewers,
             $data->SubmissionPath,
         ];
 
@@ -65,10 +72,17 @@ if (isset($_POST['searchByUserParam'])) {
 /* END USER SEARCH */
 
 
+//! UNUSED FEATURE / FOR FUTURE DEVELOPMENT
 /* START SUBMISSION SEARCH */
 if (isset($_POST['searchBySubmissionParam'])) {
+    $rawData = array();
+
+    //$searchByOption = 'findSubmissionBy' . $_POST['searchByOption'];
     $searchByOption = (strpos($_POST['searchByOption'], 'Name') != false ? 'findUserBy' : 'findSubmissionBy') . $_POST['searchByOption'];
+
     displaySubmissions($db->$searchByOption($_POST['searchBySubmissionParam']));
+
+    //displaySubmissions($db->$searchByOption($_POST['searchBySubmissionParam']));
 }
 /* END SUBMISSION SEARCH */
 

@@ -12,7 +12,21 @@ if (isset($_POST['login'])) {
 
     $uRawData = $db->findUserByEmail($email);
 
-    if (!empty($uRawData)) {
+    if (empty($uRawData)) {
+        echo '
+        <script>
+        $.toast({
+            heading: \'Failed to Login!\',
+            text: \'It may be that you do not have an account with us. If so, <a href="/register">Register your account here! </a>\',
+            icon:  \'info\',
+            position: {
+                left: 10,
+                top: 10
+            },
+            hideAfter: 6000,
+        });
+        </script>';
+    } else {
         foreach ($uRawData as $uData) {
             $uid = $uData->UserId;
             $fname = $uData->UserFirstName;
@@ -21,9 +35,23 @@ if (isset($_POST['login'])) {
             $email = $uData->UserEmail;
             $phoneno = $uData->UserPhoneNo;
             $role = $uData->UserRole;
+            $isActive = $uData->UserActive;
         }
-
-        if (Validator::validateAccount($db, $uid, $pwd)) {
+        if (!Validator::validateAccount($db, $uid, $pwd) ||  !$isActive) {
+            echo '
+            <script>
+            $.toast({
+                heading: \'Failed to Login!\',
+                text: \'Either email / password is invalid or your account may be disabled. If you belive this was a mistake, please contact us.\',
+                icon:  \'info\',
+                position: {
+                    left: 10,
+                    top: 10
+                },
+                hideAfter: 6000,
+            });
+            </script>';
+        } else {
             $_SESSION['valid'] = true;
             $_SESSION['UID'] = $uid;
             $_SESSION['uRole'] = $role;
@@ -33,14 +61,8 @@ if (isset($_POST['login'])) {
             $_SESSION['uEmail'] = $email;
             $_SESSION['uPhone'] = $phoneno;
 
-            //! \/ parse data to toast notification
-            echo '<script>alert("Success!");</script>';
             header('Location: /dashboard');
-        } else {
-            echo '<script>alert("Failed! Either email or password is invalid");</script>';
-        } 
-    } else{
-        echo '<script>alert("Failed! Cannot fetch account");</script>';
+        }
     }
 }
 

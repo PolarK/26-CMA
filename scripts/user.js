@@ -42,14 +42,14 @@ function editUserData(rawID, tableID) {
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
             editByUser: event.target.id,
-            UserId: $('#uID'.concat(id)).text(),
-            UserFirstName: $('#uFName'.concat(id)).val(),
-            UserLastName: $('#uLName'.concat(id)).val(),
-            UserDOB: $('#uDOB'.concat(id)).val(),
-            UserEmail: $('#uEmail'.concat(id)).val(),
-            UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
-            UserRole: $('#uRole'.concat(id)).text(),
-            UserActive: $('#uActive'.concat(id)).val(),
+            UserId: $('#uID'.concat(id)).text().trim(),
+            UserFirstName: $('#uFName'.concat(id)).val().trim(),
+            UserLastName: $('#uLName'.concat(id)).val().trim(),
+            UserDOB: $('#uDOB'.concat(id)).val().trim(),
+            UserEmail: $('#uEmail'.concat(id)).val().trim(),
+            UserPhoneNo: $('#uPhoneNo'.concat(id)).val().trim(),
+            UserRole: $('#uRole'.concat(id)).text().trim(),
+            UserActive: $('#uActive'.concat(id)).val().trim(),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);
@@ -94,14 +94,14 @@ function disableUserData(rawID) {
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
             disableByUser: event.target.id,
-            UserId: $('#uID'.concat(id)).text(),
-            UserFirstName: $('#uFName'.concat(id)).val(),
-            UserLastName: $('#uLName'.concat(id)).val(),
-            UserDOB: $('#uDOB'.concat(id)).val(),
-            UserEmail: $('#uEmail'.concat(id)).val(),
-            UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
-            UserRole: $('#uRole'.concat(id)).text(),
-            UserActive: $('#uActive'.concat(id)).text(),
+            UserId: $('#uID'.concat(id)).text().trim(),
+            UserFirstName: $('#uFName'.concat(id)).val().trim(),
+            UserLastName: $('#uLName'.concat(id)).val().trim(),
+            UserDOB: $('#uDOB'.concat(id)).val().trim(),
+            UserEmail: $('#uEmail'.concat(id)).val().trim(),
+            UserPhoneNo: $('#uPhoneNo'.concat(id)).val().trim(),
+            UserRole: $('#uRole'.concat(id)).text().trim(),
+            UserActive: $('#uActive'.concat(id)).text().trim(),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);

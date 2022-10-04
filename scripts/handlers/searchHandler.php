@@ -14,7 +14,8 @@ function displayUsers($rawData)
             $data->UserDOB,
             $data->UserEmail,
             $data->UserPhoneNo,
-            $data->UserRole
+            $data->UserRole,
+            $data->UserActive,
         ];
 
         echo Card::display('manageUserCard', $userData);
@@ -24,7 +25,6 @@ function displayUsers($rawData)
 function displaySubmissions($rawData)
 {
     global $db;
-
 
     foreach ($rawData as $data) {
         $users = $db->findUserById($data->UserId);

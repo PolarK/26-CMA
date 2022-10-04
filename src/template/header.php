@@ -15,6 +15,7 @@ include "./classes/mobile.class.php";
     <link rel="stylesheet" href="scripts\libraries\jquery-toast-plugin\dist\jquery.toast.min.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="scripts\libraries\jquery-toast-plugin\dist\jquery.toast.min.js"></script>
     <script src="scripts\main.js"></script>
 </head>
 

@@ -143,7 +143,7 @@ if (isset($_POST['register'])) {
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
                         <label class="form-check-label" for="flexCheckDefault">
-                            By signing up, you've agreed to our <a href="/t&c">Terms & Conditions</a>
+                            By signing up, you've agreed to our <a href="/terms&conditions">Terms & Conditions</a>
                         </label>
                     </div>
                 </div>
@@ -201,7 +201,7 @@ if (isset($_POST['register'])) {
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
                         <label class="form-check-label" for="flexCheckDefault">
-                            By signing up, you've agreed to our <a href="/t&c">Terms & Conditions</a>
+                            By signing up, you've agreed to our <a href="/terms&conditions">Terms & Conditions</a>
                         </label>
                     </div>
                 </div>

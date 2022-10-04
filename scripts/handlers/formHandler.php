@@ -100,8 +100,18 @@ if (isset($_POST['editBySubmission'])) {
 //! UPDATE THE PROFILE POR FAVOR! 
 if (isset($_POST['editByProfile'])) {
     $user = new User('');
-
     $newPass = $user->generatePassword($_POST['UserId'], $_POST['pwd']);
+
+    $fname = Validator::sanitise($_POST["UserFirstName"]);
+    $lname = Validator::sanitise($_POST["UserLastName"]);
+    $dob = Validator::sanitise($_POST["UserDOB"]);
+    $email = Validator::sanitise($_POST["UserEmail"]);
+    $phoneno = Validator::sanitise($_POST["UserPhoneNo"]);
+    $pwd = Validator::sanitise($newPass);
+    $cpwd = Validator::sanitise($newPass);
+
+    $validiser = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, array()); 
+    $validiser->validateUserRegister();
 
     $db->updateUser(
         $_POST['UserId'],
@@ -115,7 +125,7 @@ if (isset($_POST['editByProfile'])) {
     $db->updatePassword(
         $_POST['UserId'],
         $newPass['salt'],
-        $newPass['hash']
+        $newPass['hash'],
     );
 
 

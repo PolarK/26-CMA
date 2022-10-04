@@ -152,10 +152,8 @@ class Card
                             <strong>Password</strong>
                         </div>
                         <div class="col text-secondary">
-                            ' . $password . '
-                            <!-- <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">-->
+                            <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">
                         </div>
-
                     </div>
                 </div>
             </form>
@@ -171,54 +169,53 @@ class Card
         } else {
             return '
         <fieldset id="field-edit-' . $id . '" disabled>
-                        <form class="form-inline">
-                            <div class="card-body">
-                                <div class="col d-flex align-items-center">
-                                    <strong>First Name</strong>
-                                </div>
-                                <div class="col text-secondary">
-                                    <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fName . '">
-                                </div>
-                                <div class="col d-flex align-items-center mt-3">
-                                    <strong>Last Name</strong>
-                                </div>
-                                <div class="col text-secondary">
-                                    <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lName . '">
-                                </div>
-                                <div class="col d-flex align-items-center mt-3">
-                                    <strong>Email</strong>
-                                </div>
-                                <div class="col text-secondary">
-                                    <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
-                                </div>
-                                <div class="col d-flex align-items-center mt-3">
-                                    <strong>Phone No.</strong>
-                                </div>
-                                <div class="col text-secondary">
-                                    <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
-                                </div>
-                                <div class="col d-flex align-items-center mt-3">
-                                    <strong>Date of Birth</strong>
-                                </div>
-                                <div class="col text-secondary">
-                                    <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
-                                </div>
-                                <div class="col d-flex align-items-center mt-3">
-                                    <strong>Password</strong>
-                                </div>
-                                <div class="col text-secondary">
-                                    ' . $password . '
-                                    <!-- <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">-->
-                                </div>
-                            </div>
-                        </form>
-                    </fieldset>
-                    <div class="form-group btn-group-sm d-grid gap-2 box-edit-' . $id . '">
-                        <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success ml-3 mr-3">
-                            <i class="fas fa-edit"></i> EDIT
-                        </button>
+            <form class="form-inline">
+                <div class="card-body">
+                    <div class="col d-flex align-items-center">
+                        <strong>First Name</strong>
                     </div>
-                <br>';
+                    <div class="col text-secondary">
+                        <input id="uFName-' . $id . '" name="uFName-' . $id . '" type="text" class="form-control" value="' . $fName . '">
+                    </div>
+                    <div class="col d-flex align-items-center mt-3">
+                        <strong>Last Name</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        <input id="uLName-' . $id . '" name="uLName-' . $id . '" type="text" class="form-control" value="' . $lName . '">
+                    </div>
+                    <div class="col d-flex align-items-center mt-3">
+                        <strong>Email</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        <input id="uEmail-' . $id . '" name="uEmail-' . $id . '" type="text" class="form-control" value="' . $email . '">
+                    </div>
+                    <div class="col d-flex align-items-center mt-3">
+                        <strong>Phone No.</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        <input id="uPhoneNo-' . $id . '" name="uPhoneNo-' . $id . '" type="text" class="form-control" value="' . $phoneNo . '">
+                    </div>
+                    <div class="col d-flex align-items-center mt-3">
+                        <strong>Date of Birth</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
+                    </div>
+                    <div class="col d-flex align-items-center mt-3">
+                        <strong>Password</strong>
+                    </div>
+                    <div class="col text-secondary">
+                        <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+        <div id="box-edit-' . $id . '" class="form-group btn-group-sm d-grid gap-2">
+            <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success ml-3 mr-3">
+                <i class="fas fa-edit"></i> EDIT
+            </button>
+        </div>
+        <br>';
         }
     }
 

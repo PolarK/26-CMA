@@ -2,6 +2,16 @@
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
+function enableButtonClicks() {
+    $("button").click(function (event) {
+        var rawID = event.target.id;
+        var tableID = "#field-".concat(rawID);
+        
+        if (rawID.includes('edit')) {
+            editProfileData(rawID, tableID);
+        }
+    });
+};
 
 function editProfileData(rawID, tableID) {
     let editBox = "#box-".concat(rawID);
@@ -14,6 +24,7 @@ function editProfileData(rawID, tableID) {
 
     // when '✓' is clicked, update the table, show message, and revert button to original state 
     $("#accept-".concat(rawID)).click(function () {
+        let id = rawID.replace('edit-', '-');
         userToast([
             'Action Completed!',
             'Your profile was successfully changed.',
@@ -32,9 +43,11 @@ function editProfileData(rawID, tableID) {
             UserDOB: $('#uDOB'.concat(id)).val(),
             UserEmail: $('#uEmail'.concat(id)).val(),
             UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
+            UserPassword: $('#uPass'.concat(id).val()),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);
+            enableButtonClicks();
         });
     });
 

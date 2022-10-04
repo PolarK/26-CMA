@@ -256,7 +256,7 @@ class Card
                             </button>
                         </div>
                         <div id="box-disable-' . $id . '" class="col border-end">
-                            <button id="disable-' . $id . '" type="button" class="btn btn-sm ' . $userActiveAttribute['style'] . '" ' . self::checkUserRole($id, $role) . '>
+                            <button id="disable-' . $id . '" type="button" class="btn btn-sm ' . $userActiveAttribute['button'] . '" ' . self::checkUserRole($id, $role) . '>
                                 <i class="fa ' . $userActiveAttribute['icon'] . '"></i> ' . $userActiveAttribute['text'] . '
                             </button>
                         </div>
@@ -506,11 +506,13 @@ class Card
         $btnAttribute = array();
         if ($isActive) {
             $btnAttribute['icon'] = 'fa-minus';
-            $btnAttribute['style'] = 'btn-danger';
+            $btnAttribute['style'] = 'bg-success';            
+            $btnAttribute['button'] = 'btn-danger';
             $btnAttribute['text'] = 'DISABLE';
         } else {
             $btnAttribute['icon'] = 'fa-check';
-            $btnAttribute['style'] = 'btn-success';
+            $btnAttribute['style'] = 'bg-danger';            
+            $btnAttribute['button'] = 'btn-success';
             $btnAttribute['text'] = 'ENABLE';
         }
         return $btnAttribute;

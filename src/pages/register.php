@@ -97,7 +97,7 @@ if (isset($_POST['register'])) {
                                 <div class="text-start"><small class="text-danger">
                                         <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
                                     </small></div>
-                                <input id="uDob" name="uDob" placeholder="Date of Birth" type="date" required class="form-control" value="<?php echo $dob; ?>">
+                                <input id="uDob" name="uDob" placeholder="Date of Birth" type="text" required class="form-control" onfocus="(this.type='date')" value="<?php echo $dob; ?>">
                             </div>
                         </div>
                         <div class="col">
@@ -171,7 +171,7 @@ if (isset($_POST['register'])) {
                         <div class="text-start"><small class="text-danger">
                                 <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
                             </small></div>
-                        <input id="uDob" name="uDob" placeholder="Date of Birth" type="date" required class="form-control" value="<?php echo $dob; ?>">
+                        <input id="uDob" name="uDob" placeholder="Date of Birth" type="text" required class="form-control" onfocus="(this.type='date')" value="<?php echo $dob; ?>">
                     </div>
                     <div class="form-group">
                         <div class="text-start"><small class="text-danger">

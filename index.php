@@ -183,6 +183,10 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             require $publicPath . '/register.php';
             break;
 
+            case '/t&c':
+                require $publicPath . '/../template/privacyPolicy.html';
+            break;
+
         default:
             http_response_code(404);
             require $publicPath . '/errors/404.php';

@@ -8,6 +8,10 @@ class IDGenerator
         return $id;
     }
 
+    static function password($fName, $lName){
+        return self::unqid(4) . substr($lName, 0, 1) . self::unqid(4) . substr($fName, 0, 1);
+    }
+
     static function submission()
     {
         return self::unqid(8);

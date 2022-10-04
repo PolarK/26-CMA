@@ -158,7 +158,7 @@ class Card
                 </div>
             </form>
         </fieldset>
-        <div class="form-group btn-group-sm d-grid gap-2 box-edit-' . $id . '">
+        <div id="box-edit-' . $id . '" class="form-group btn-group-sm d-grid gap-2">
             <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success ml-3 mr-3">
                 <i class="fas fa-edit"></i> EDIT
             </button>

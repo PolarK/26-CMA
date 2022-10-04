@@ -13,7 +13,6 @@ $(document).ready(function () {
     });
 
     dynamicUserSearch();
-    console.log("/\\ ");
     dynamicSubmissionSearch();
 
     $("button").click(function (event) {
@@ -21,8 +20,6 @@ $(document).ready(function () {
 
         var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
-
-        console.log(rawID);
 
         if (rawID.includes('edit')) {
             switch (curentPath) {
@@ -33,6 +30,7 @@ $(document).ready(function () {
                 case "/manageSubmissions":
                     editSubmissionData(rawID, tableID);
                     break;
+
                 case "/profile":
                     editProfileData(rawID, tableID);
                     break;

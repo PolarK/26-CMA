@@ -1,5 +1,5 @@
 <?php
-require_once ROOT_DIR . "API.class.php";
+require_once "API.class.php";
 
 class Database
 {

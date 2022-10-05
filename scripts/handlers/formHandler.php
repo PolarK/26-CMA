@@ -1,8 +1,8 @@
 <?php
-include_once ROOT_DIR . 'classes/components/card.php';
-include_once ROOT_DIR . 'classes/dbAPI.class.php';
-include_once ROOT_DIR . 'classes/validator.class.php';
-include_once ROOT_DIR . 'classes/user.class.php';
+include_once "../../classes/components/card.php";
+include_once '../../classes/dbAPI.class.php';
+include_once '../../classes/validator.class.php';
+include_once '../../classes/user.class.php';
 $db = new Database();
 
 function displayUsers($rawData)

@@ -1,4 +1,5 @@
 <?php if (session_status() == PHP_SESSION_NONE) session_start();
+require_once __DIR__ . '/../mobile.class.php';
 class Card
 {
     public static function display($type = '', $data = array())

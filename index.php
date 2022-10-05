@@ -1,6 +1,8 @@
 <?php
 date_default_timezone_set('Australia/Melbourne');
 
+require __DIR__ . '/inc/bootstrap.php';
+
 include('./src/template/header.php');
 
 $request = $_SERVER['REQUEST_URI'];

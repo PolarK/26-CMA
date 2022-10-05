@@ -1,6 +1,6 @@
 <?php
-include_once __DIR__ . "../validator.class.php";
-include_once __DIR__ . "../dbAPI.class.php";
+include_once ROOT_DIR . "classes/validator.class.php";
+include_once ROOT_DIR . "classes/dbAPI.class.php";
 
 class ErrorHandler extends Validator
 {

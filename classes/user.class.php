@@ -1,7 +1,7 @@
 <?php
 
-require_once "dbAPI.class.php";
-require_once "errorHandler.class.php";
+require_once ROOT_DIR . "dbAPI.class.php";
+require_once ROOT_DIR . "errorHandler.class.php";
 
 class User
 {

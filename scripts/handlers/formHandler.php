@@ -57,48 +57,6 @@ function displayProfile($rawData)
 }
 
 if (isset($_POST['editByUser'])) {
-    $fname = Validator::sanitise($_POST["UserFirstName"]);
-    $lname = Validator::sanitise($_POST["UserLastName"]);
-    $dob = Validator::sanitise($_POST["UserDOB"]);
-    $phoneno = Validator::sanitise($_POST["UserPhoneNo"]);
-    $email = Validator::sanitise($_POST["UserEmail"]);
-
-    $user = new User($fname, $lname, $dob, $email, $phoneno, 'Temp@Pass123', 'Temp@Pass123', array());
-    $user->validateUserUpdate();
-
-    if (!Validator::validate($user->get_err())) {
-        echo '
-        <script>
-        $.toast({
-            heading: \'Action Failed!\',
-            text: \'One or more action resulted in this error. Please correct them.\'. 
-            icon:  \'info\',
-            position: {
-                left: 10,
-                top: 110
-            },
-            hideAfter: 6000,
-        });
-        </script>';
-
-        displayUsers($db->getAllUser());
-        exit;
-    }
-
-    echo '
-        <script>
-        $.toast({
-            heading: \'Action Success!\',
-            text: \'User with the ID of ' . str_replace('accept-edit-', '', $_POST['editByUser']) . ' was successfully changed.\',
-            icon:  \'success\',
-            position: {
-                left: 10,
-                top: 110
-            },
-            hideAfter: 6000,
-        });
-        </script>';
-
     $db->updateUser(
         $_POST['UserId'],
         $_POST['UserFirstName'],
@@ -154,7 +112,6 @@ if (isset($_POST['editByProfile'])) {
     $user->validateUserUpdate();
 
     if (!Validator::validate($user->get_err())) {
-        //! need to have more dynamic approach and only show errors. 
         $errFname = $user->get_err()['fname'];
         $errLname = $user->get_err()['lname'];
         $errEmail = $user->get_err()['email'];
@@ -166,7 +123,7 @@ if (isset($_POST['editByProfile'])) {
         <script>
         $.toast({
             heading: \'Action Failed!\',
-            text: \'Your profile was not changed. Check the following error and make sure that: \t' .
+            text: \'Your profile was not changed. Check the following error and make sure that: \t' . 
             $errEmail . ' \',
             icon:  \'info\',
             position: {

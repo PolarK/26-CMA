@@ -30,6 +30,11 @@ function editUserData(rawID, tableID) {
     // when '✓' is clicked, update the table, show message, and revert button to original state 
     $("#accept-".concat(rawID)).click(function () {
         let id = rawID.replace('edit-', '-');
+        userToast([
+            'Action Completed!',
+            'User with the ID of ' + id.replace('-', '') + ' was successfully changed.',
+            'success'
+        ]);
 
         removeButton("#accept-", rawID, tableID);
         removeButton("#cancel-", rawID, tableID);

@@ -6,6 +6,8 @@ include('./src/template/header.php');
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
 
+echo __DIR__;
+
 //! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
 //! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
 //! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'

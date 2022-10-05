@@ -8,17 +8,6 @@ include('./src/template/header.php');
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
 
-echo __DIR__;
-
-//! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
-//! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
-//! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
-
-//$_SESSION['uRole'] = 'ADMIN';
-
-//! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
-
-
 //! Where most of pages will be on
 if (isset($_SESSION['valid']) && $_SESSION['valid']) {
     include('./src/template/navbar.php');

@@ -3,6 +3,10 @@ date_default_timezone_set('Australia/Melbourne');
 
 include('./src/template/header.php');
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
 
@@ -69,7 +73,6 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
             case '/terms&conditions':
                 require $publicPath . '/../template/termConditions.html';
                 break;
-
 
             default:
                 http_response_code(404);

@@ -10,9 +10,10 @@
  *                                                                                         | |           __/ |         
  *                                                                                         |_|          |___/          
  */
+// YES IM PRETTY SURE WE STILL NEED IT
 //! * * * * * * * * * * * * * * * * * *
 
-$fname = $lname = $affiliation = $email = $date = $time = "";
+$date = $time = "";
 ?>
 
 <?php
@@ -23,25 +24,21 @@ require_once "./classes/idGenerator.class.php";
 
 $db = new Database();
 
-$fname = $lname = $affiliation = $email = $date = $time = "";
+$date = $time = "";
 
-if (isset($_POST['register'])) {
+if (isset($_POST['registerNewEvent'])) {
     //! Role will be changed once the basic registration is completed.
     $role = "SUBMITTER";
-    $fname = Validator::sanitise($_POST["uFirstName"]);
-    $lname = Validator::sanitise($_POST["uLastName"]);
-    $affiliation = Validator::sanitise($_POST["Uaffiliation"]);
-    $email = Validator::sanitise($_POST["uEmailAddress"]);
     $date = Validator::sanitise($_POST["aDate"]);
     $time = Validator::sanitise($_POST["aTime"]);
+
+    $fname = $_SESSION['uFName'];
 
     $regId = IDGenerator::conference();
     $userId = $_SESSION['UID'];
     $confId = IDGenerator::conference();
 
-    // merges Date and time into DateTime format
-    $merge = new DateTime($date->format('Y-m-d') . ' ' . $time->format('H:i:s'));
-    $dateTime = $merge->format('Y-m-d H:i:s'); // Outputs '2222-22-22 22:22:22' format
+    $dateTime =  $date . ' ' . $time . ':00';
 
     $db->createNewEvent(
         $regId,
@@ -51,7 +48,7 @@ if (isset($_POST['register'])) {
     );
 
     echo '<script>alert("Success!");</script>';
-    header('Location: /dashboard');
+    header('Location: /manageMyEvents');
 }
 ?>
 
@@ -64,17 +61,32 @@ if (isset($_POST['register'])) {
             <div style="margin: auto; width: <?php echo (!Mobile::isActive() ? '36rem' : '100%') ?>;">
 
                 <!--Start Event Register Form-->
-                <form id="EventRegisterForm" action="registerAppointment.php" method="post">
+                <form id="EventRegisterForm" action="/registerNewEvent" method="post">
 
                     <div class="form-group mb-2 mr-2">
-                        <div class="row">
+                    <div class="row">
                             <!-- First name and last name -->
                             <div class="col">
                                 <div class="form-group">
                                     <div class="text-start"><small class="text-danger">
                                             <?php echo (isset($event)) ? $event->err['fname'] : ' ' ?>
                                         </small></div>
-                                    <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
+                                    <!-- <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>"> -->
+                                    <p>I would Like to register for an event</p>
+                                </div>
+                            </div>
+                        </div>
+    
+                    
+                    <div class="row">
+                            <!-- First name and last name -->
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="text-start"><small class="text-danger">
+                                            <?php echo (isset($event)) ? $event->err['fname'] : ' ' ?>
+                                        </small></div>
+                                    <!-- <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>"> -->
+                                    <?php echo $_SESSION['uFName'] ?>
                                 </div>
                             </div>
                             <div class="col">
@@ -82,14 +94,15 @@ if (isset($_POST['register'])) {
                                     <div class="text-start"><small class="text-danger">
                                             <?php echo (isset($event)) ? $event->err['lname'] : ' ' ?>
                                         </small></div>
-                                    <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" min="09:00" max="17:00" required class="form-control" value="<?php echo $lname; ?>">
+                                    <!-- <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" min="09:00" max="17:00" required class="form-control" value="<?php echo $lname; ?>"> -->
+                                    <?php echo $_SESSION['uLName'] ?>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- Affiliation -->
-                            <div class="col">
+                            <!-- <div class="col">
                                 <div class="form-group">
                                     <div class="text-start"><small class="text-danger">
                                             <?php echo (isset($event)) ? $event->err['affiliation'] : ' ' ?>
@@ -97,13 +110,15 @@ if (isset($_POST['register'])) {
                                     <input id="uAffiliation" name="uAffiliation" placeholder="Department" type="text" required class="form-control" value="<?php echo $affiliation; ?>">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col"> -->
+
                                 <!-- Email Address -->
                                 <div class="form-group">
                                     <div class="text-start"><small class="text-danger">
                                             <?php echo (isset($event)) ? $event->err['email'] : ' ' ?>
                                         </small></div>
-                                    <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
+                                    <!-- <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>"> -->
+                                    <?php echo $_SESSION['uEmail'] ?>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +161,7 @@ if (isset($_POST['register'])) {
                     </div>
                     <br>
                     <div class="form-group btn-group-lg d-grid gap-2">
-                        <button name="register" type="submit" class="btn btn-primary">Register</button>
+                        <button name="registerNewEvent" type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </form>
             </div>

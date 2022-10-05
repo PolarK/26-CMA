@@ -25,11 +25,7 @@ function editProfileData(rawID, tableID) {
     // when '✓' is clicked, update the table, show message, and revert button to original state 
     $("#accept-".concat(rawID)).click(function () {
         let id = rawID.replace('edit-', '-');
-        userToast([
-            'Action Completed!',
-            'Your profile was successfully changed.',
-            'success'
-        ]);
+
 
         removeButton("#accept-", rawID, tableID);
         removeButton("#cancel-", rawID, tableID);
@@ -43,7 +39,7 @@ function editProfileData(rawID, tableID) {
             UserDOB: $('#uDOB'.concat(id)).val(),
             UserEmail: $('#uEmail'.concat(id)).val(),
             UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
-            UserPassword: $('#uPass'.concat(id).val()),
+            UserPassword: $('#uPass'.concat(id)).val(),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);

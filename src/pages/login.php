@@ -60,6 +60,7 @@ if (isset($_POST['login'])) {
             $_SESSION['uDob'] = $dob;
             $_SESSION['uEmail'] = $email;
             $_SESSION['uPhone'] = $phoneno;
+            $_SESSION['uActive'] = $isActive;
 
             header('Location: /dashboard');
         }

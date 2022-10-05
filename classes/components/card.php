@@ -143,16 +143,16 @@ class Card
                             <strong>Date of Birth</strong>
                         </div>
                         <div class="col text-secondary">
-                            <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
+                            <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '" onfocus="(this.type=\'date\')">
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col d-flex align-items-center">
-                            <strong>Password</strong>
+                            <strong>New Password</strong>
                         </div>
                         <div class="col text-secondary">
-                            <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">
+                            <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="password" class="form-control" value="' . $password . '" onclick="this.value =\'\'">
                         </div>
                     </div>
                 </div>
@@ -199,13 +199,13 @@ class Card
                         <strong>Date of Birth</strong>
                     </div>
                     <div class="col text-secondary">
-                        <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '">
+                        <input id="uDOB-' . $id . '" name="uDOB-' . $id . '" type="text" class="form-control" value="' . $dob . '" onfocus="(this.type=\'date\')">
                     </div>
                     <div class="col d-flex align-items-center mt-3">
-                        <strong>Password</strong>
+                        <strong>New Password</strong>
                     </div>
                     <div class="col text-secondary">
-                        <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="text" class="form-control" value="' . $password . '">
+                        <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="password" class="form-control" value="' . $password . '" onclick="this.value =\'\'">
                     </div>
                 </div>
             </form>

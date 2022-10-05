@@ -100,4 +100,13 @@ class User
         $this->err['phoneno'] = ErrorHandler::validatePhoneno($this->phoneno);
         $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
     }
+
+    function validateUserUpdate()
+    {
+        $this->err['fname'] = ErrorHandler::validateFname($this->fname);
+        $this->err['lname'] = ErrorHandler::validateLname($this->lname);
+        $this->err['dob'] = ErrorHandler::validateDob($this->dob);
+        $this->err['phoneno'] = ErrorHandler::validatePhoneno($this->phoneno);
+        $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
+    }
 }

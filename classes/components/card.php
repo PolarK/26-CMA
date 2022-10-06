@@ -27,6 +27,10 @@ class Card
 
             case 'manageSubmissionCard':
                 return self::manageSubmissionCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
+            
+            case 'manageConferenceCard':
+                return self::manageConferenceCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
+
         }
     }
 
@@ -493,9 +497,130 @@ class Card
         return $card;
     }
 
+    private static function manageConferenceCard($id, $title, $sdate, $stime, $edate, $etime, $location, $isActive)
+    {
+        $status = ($isActive)? "Active" : "Inactive"; 
+        if ($isActive) {
+            $activeDiv = '<div id="box-disable-' . $id . '" class="col border-end">
+                            <button id="disable-' . $id . '" type="button" class="btn btn-sm btn-danger">
+                                <i class="fa fa-minus"></i> DISABLE
+                            </button>
+                        </div>'; 
+        }
+        else {
+            $activeDiv = '<div id="box-enable-' . $id . '" class="col border-end">
+                            <button id="enable-' . $id . '" type="button" class="btn btn-sm btn-success">
+                                <i class="fa fa-check"></i> ENABLE
+                            </button>
+                        </div>'; 
+        }
+
+        return '
+        <!--DISPLAY DATA START-->
+        <div class="card bg-light border-dark ml-2 mr-2 mt-1">
+            <div class="badge text-dark border-bottom border-dark bg-gradient-secondary">
+                <div class="row ml-1 mr-1 ">
+                    <div class="col border-end m-1">
+                        <p id="cID-' . $id . '" name="cID-' . $id . '">' . $id . '</p>
+                    </div>
+                    <div id="box-edit-' . $id . '" class="col border-end">
+                        <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success"' . self::checkConferenceStatus($isActive) . '>
+                            <i class="fas fa-edit"></i> EDIT
+                        </button>
+                    </div>' . $activeDiv . '
+                    <div class="col m-1">
+                        <p id="cActive-' . $id . '" name="cActive-' . $id . '"><span class="badge bg-secondary '. self::isActive($isActive) .'">' . $status . '</span></p>
+                        
+                        <p hidden id="cStatus-' . $id . '" name="cStatus-' . $id . '">' . $isActive . '</p>
+                    </div>
+                
+                </div>
+            </div>
+            <fieldset id="field-edit-' . $id . '" disabled>
+                <form class="form-inline">
+                    <div class="card-body align-items-left align-text-left p-1">
+                        <div class="row ml-1 mr-1">
+                            <div class="col border-end border-dark">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <input id="cTitle-' . $id . '" name="cTitle-' . $id . '" type="text" class="form-control" value="' . $title . '">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                    </div>
+                                    <input id="cLocation-' . $id . '" name="cLocation-' . $id . '" type="text" class="form-control" value="' . $location . '">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-1 mr-1">
+                            <div class="col border-end border-dark">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-mobile"></i>
+                                        </div>
+                                    </div>
+                                    <input id="cSDate-' . $id . '" name="cSDate-' . $id . '" type="date" class="form-control" value="' . $sdate . '">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <input id="cSTime-' . $id . '" name="cSTime-' . $id . '" type="time" class="form-control" value="' . $stime . '">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ml-1 mr-1">
+                            <div class="col border-end border-dark">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-mobile"></i>
+                                        </div>
+                                    </div>
+                                    <input id="cEDate-' . $id . '" name="cEDate-' . $id . '" type="date" class="form-control" value="' . $edate . '">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group input-group-sm p-1">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <input id="cETime-' . $id . '" name="cETime-' . $id . '" type="time" class="form-control" value="' . $etime . '">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+        <!--DISPLAY DATA END-->
+        ';
+    }
+
     private static function checkUserRole($uid, $role)
     {
         return ($uid == $_SESSION['UID'] || strpos($role, 'ADMIN') !== false) ? 'disabled' : '';
+    }
+
+    private static function checkConferenceStatus($status)
+    {
+        return ($status == "0")? 'disabled' : '';
     }
 
     private static function isUserActive($isActive)
@@ -513,6 +638,10 @@ class Card
             $btnAttribute['text'] = 'ENABLE';
         }
         return $btnAttribute;
+    }
+
+    public static function isActive($isActive){
+        return ($isActive) ? 'bg-success' : 'bg-danger';
     }
 
     private static function defineConfirmationStatus($status)

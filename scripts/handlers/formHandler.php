@@ -1,8 +1,15 @@
 <?php
+
+use FTP\Connection;
+
 include_once "../../classes/components/card.php";
 include_once '../../classes/dbAPI.class.php';
 include_once '../../classes/validator.class.php';
 include_once '../../classes/user.class.php';
+include_once '../../classes/conference.class.php';
+include_once "../../classes/components/timeProcessor.php";
+include_once "../../classes/components/toast.php";
+
 $db = new Database();
 
 function displayUsers($rawData)
@@ -54,6 +61,30 @@ function displayProfile($rawData)
     ];
 
     echo Card::display('userProfileCard', $subData);
+}
+
+function displayConferences($rawData)
+{
+    foreach ($rawData as $data) {
+        $start = strtotime($data->ConferenceStartTimestamp); 
+        $end = strtotime($data->ConferenceEndTimestamp); 
+       
+        $sdatetime = TimeProcessor::getDateTime($start); 
+        $edatetime = TimeProcessor::getDateTime($end); 
+
+        $subData = [
+            $data->ConferenceId,
+            $data->ConferenceTitle,
+            $sdatetime["date"], 
+            $sdatetime["time"], 
+            $edatetime["date"], 
+            $edatetime["time"],  
+            $data->ConferenceLocation,
+            $data->ConferenceStatus
+        ];
+
+        echo Card::display('manageConferenceCard', $subData);
+    }
 }
 
 if (isset($_POST['editByUser'])) {
@@ -226,4 +257,113 @@ if (isset($_POST['editByProfile'])) {
             hideAfter: 6000,
         });
         </script>';
+}
+
+if (isset($_POST['editByConference'])) {
+
+    // work in progress
+    $errs = [
+        "cTitle" => "", 
+        "cLocation" => "", 
+        "cSDate" => "", 
+        "cSTime" => "",
+        "cEDate" => "", 
+        "cETime" => "", 
+        "cSTimestamp" => "",
+        "cETimestamp" => ""
+    ];
+
+    $title = Validator::sanitise($_POST["ConferenceTitle"]);
+    $sDate = Validator::sanitise($_POST["ConferenceSDate"]);
+    $sTime = Validator::sanitise($_POST["ConferenceSTime"]);
+    $eDate = Validator::sanitise($_POST["ConferenceEDate"]);
+    $eTime = Validator::sanitise($_POST["ConferenceETime"]);
+    $location = Validator::sanitise($_POST["ConferenceLocation"]);
+    $status = Validator::sanitise($_POST["ConferenceStatus"]);
+
+    $conference = $db->findConferenceById($_POST['ConferenceId']); 
+    $titleChange = false; 
+
+    if (strtolower($conference[0]->ConferenceTitle) != strtolower($title)) {             // check if title has been changed
+        $titleChange = true; 
+    }
+
+    $conference = new Conference($title, $sDate, $sTime, $eDate, $eTime, $location, $status, $errs);
+    $conference->validateConferenceUpdate($titleChange);
+    $errs = $conference->get_err(); 
+
+    if (Validator::validate($errs)) {
+        $db->updateConference(
+            $_POST['ConferenceId'],
+            $title,
+            $sDate . " " . $sTime, 
+            $eDate . " " . $eTime, 
+            $location, 
+            $status
+        );
+
+        displayConferences($db->getConferences());
+    
+    } 
+    else {
+        foreach($errs as $err) {
+            if (!empty($err)) {
+                echo Toast::errorToast($err); 
+            }            
+        }     
+        echo "<p id='err'>Error<p>";    
+    }
+}
+
+if (isset($_POST['editConferenceStatus'])) {
+
+    $errs = [
+        "cTitle" => "", 
+        "cLocation" => "", 
+        "cSDate" => "", 
+        "cSTime" => "",
+        "cEDate" => "", 
+        "cETime" => "", 
+        "cSTimestamp" => "",
+        "cETimestamp" => ""
+    ];
+
+    $conference = $db->findConferenceById($_POST['ConferenceId']); 
+    $title = $conference->ConferenceTitle;
+    $location = $conference->ConferenceTitle;
+    $status = $_POST['ConferenceStatus'];
+
+    $sDate = Validator::sanitise($_POST["ConferenceSDate"]);
+    $sTime = Validator::sanitise($_POST["ConferenceSTime"]);
+    $eDate = Validator::sanitise($_POST["ConferenceEDate"]);
+    $eTime = Validator::sanitise($_POST["ConferenceETime"]);
+    
+    if ($_POST['ConferenceStatus'] == "1") {
+        $tempConference = new Conference($title, $sDate, $sTime, $eDate, $eTime, $location, $status, $errs);
+        $tempConference->validateTimestamps();
+        $errs = $tempConference->get_err();  
+    }
+
+    if (Validator::validate($errs)) {
+        $db->updateConference(
+            $conference[0]->ConferenceId,
+            $conference[0]->ConferenceTitle,
+            $sDate . " " . $sTime, 
+            $eDate . " " . $eTime, 
+            $conference[0]->ConferenceLocation, 
+            $status
+        );
+        
+        displayConferences($db->getConferences());
+    }
+    else {
+        echo Toast::infoToast("The conference needs to be updated before being enabled. "); 
+        foreach($errs as $err) {
+            if (!empty($err)) {
+                echo Toast::errorToast($err); 
+            }            
+        }     
+        echo "<p id='err'>Error<p>";   
+    }
+    
 }

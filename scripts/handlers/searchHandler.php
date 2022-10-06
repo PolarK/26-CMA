@@ -1,6 +1,7 @@
 <?php
 include_once "../../classes/components/card.php";
 include_once "../../classes/dbAPI.class.php";
+include_once "../../classes/components/timeProcessor.php";
 
 $db = new Database();
 
@@ -64,6 +65,30 @@ function rDisplaySubmissions($rawData)
     }
 }
 
+function displayConferences($rawData)
+{     
+    foreach ($rawData as $data) {
+        $start = strtotime($data->ConferenceStartTimestamp); 
+        $end = strtotime($data->ConferenceEndTimestamp); 
+
+        $sdatetime = TimeProcessor::getDateTime($start); 
+        $edatetime = TimeProcessor::getDateTime($end); 
+
+        $cData = [
+            $data->ConferenceId,
+            $data->ConferenceTitle,
+            $sdatetime["date"], 
+            $sdatetime["time"], 
+            $edatetime["date"], 
+            $edatetime["time"], 
+            $data->ConferenceLocation, 
+            $data->ConferenceStatus
+        ];
+
+        echo Card::display('manageConferenceCard', $cData);
+    }
+}
+
 /* START USER SEARCH */
 if (isset($_POST['searchByUserParam'])) {
     $searchByOption = 'findUserBy' . $_POST['searchByOption'];
@@ -85,6 +110,14 @@ if (isset($_POST['searchBySubmissionParam'])) {
     //displaySubmissions($db->$searchByOption($_POST['searchBySubmissionParam']));
 }
 /* END SUBMISSION SEARCH */
+
+
+/* START CONFERENCE SEARCH */
+if (isset($_POST['searchByCParam'])) {
+    $searchByOption = 'findConferenceBy' . $_POST['searchByCOption'];
+    displayConferences($db->$searchByOption($_POST['searchByCParam']));
+}
+/* END CONFERENCE SEARCH */
 
 
 /* START OF VIEW SUBMISSION SEARCH */

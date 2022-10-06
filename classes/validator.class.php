@@ -1,4 +1,6 @@
 <?php
+include_once __DIR__ . "/../classes/components/toast.php";
+
 class Validator
 {
     /* constant global variable that can only be used within the class. */
@@ -7,6 +9,7 @@ class Validator
     protected const REGEX_PHONE = "[0-9]{10}";
     // Min 8 chars, at least 1 letter, 1 number, 1 special char [Qw3rty@123]
     protected const REGEX_PASSWORD = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
+    protected const REGEX_DATE = "\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])"; 
 
     /* method to check whether the value is valid or not. */
     static function isValid($regex, $var): bool
@@ -46,4 +49,16 @@ class Validator
 
         return hash('SHA512', $salt . $uid . $pwd) == $hash;
     }
+
+    static function displayErrorToasts($errs)
+    {
+        echo Toast::infoToast("Errors found in data entered"); 
+        foreach($errs as $err) {
+            if (!empty($err)) {
+                echo Toast::errorToast($err); 
+            }            
+        }   
+    }
+
+
 }

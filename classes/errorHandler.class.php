@@ -62,4 +62,83 @@ class ErrorHandler extends Validator
             return "Both password need to match";
         }
     }
+
+    
+    static function validatecTitle($cTitle)
+    {
+        if (empty($cTitle)) {
+            return "Please enter a conference title";
+        } else {
+            $db = new Database; 
+            $conferences = $db->findConferenceByTitle($cTitle);
+
+            if (count($conferences) > 0) {
+                foreach($conferences as $conference)
+                {
+                    if(strtolower($conference->ConferenceTitle) == strtolower($cTitle)) {
+                        return "This conference title has already been used. Please enter a different title. "; 
+                    }
+                }
+            }
+        }
+    }
+
+    static function validatecTitleUpdate($cTitle)
+    {
+        if (empty($cTitle)) {
+            return "Please enter a conference title";
+        } 
+    }
+
+    static function validatecLocation($cLocation)
+    {
+        if (empty($cLocation)) {
+            return "Please enter a conference location/link";
+        } 
+    }
+
+    static function validateDate($date)
+    {
+        if (empty($date)) {
+            return "Please enter a date";
+        } else if (!self::isValid(self::REGEX_DATE, $date)) {
+            return "Please enter a valid date";
+        }
+    }
+
+    static function validateTime($time)
+    {
+        if (empty($time)) {
+            return "Please enter a time";
+        } 
+    }
+
+    static function validateCStartTime($timestamp)
+    {
+        $start = strtotime($timestamp);
+        
+        if (self::invalidCTime($start)) {
+            return "Please enter a valid start date and time"; 
+        }
+    }
+
+    static function validateCEndTime($sTimestamp, $eTimestamp)
+    {
+        $start = strtotime($sTimestamp);
+        $end = strtotime($eTimestamp);
+
+        if (self::invalidCTime($end) || self::invalidCSETime($start, $end)) {
+            return "Please enter a valid end date and time"; 
+        }
+    }
+
+    static function invalidCTime($timestamp)
+    {
+        return $timestamp < strtotime(date('Y-m-d H:i:s')); 
+    }
+
+    static function invalidCSETime($start, $end)
+    {
+        return $start > $end;        
+    }
 }

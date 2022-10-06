@@ -65,8 +65,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/createNewEvent">Create New Event</a></li>
-                            <li><a class="dropdown-item" href="/manageUpcomingEvents">Manage Upcoming Events</a></li>
-                            <li><a class="dropdown-item" href="/checkUpcomingEvents">Upcoming Events</a></li>
+                            <li><a class="dropdown-item" href="/manageEvents">Manage Events</a></li>
                         </ul>
                     </li>
 

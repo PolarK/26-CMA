@@ -150,16 +150,13 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/admin/manageSubmissions.php';
                 break;
             */
+
+            case '/manageEvents':
+                require $publicPath . '/admin/manageEvents.php';
+                break; 
+
             case '/createNewEvent':
                 require $publicPath . '/admin/createNewEvent.php';
-                break;
-
-            case '/manageUpcomingEvents':
-                require $publicPath . '/admin/manageUpcomingEvents.php';
-                break;
-
-            case '/checkUpcomingEvents':
-                require $publicPath . '/admin/checkUpcomingEvents.php';
                 break;
 
             default:

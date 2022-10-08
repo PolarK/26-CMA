@@ -13,10 +13,12 @@ if (isset($_POST['register'])) {
     $lname = Validator::sanitise($_POST["uLastName"]);
     $pwd = IDGenerator::password($fname, $lname);
 
+    // Ill leave the prefilled fields unless we want have the admin manually put them in
     $user = new User($fname, $lname, '1970-01-01', $email, '0441234567', $pwd, $pwd, array());
-    $user->validateUserRegister();
+    $user->validateAdminCreateUser();
+    $errs = $user->get_err();
 
-    if (Validator::validate($user->get_err())) {
+    if (Validator::validate($errs)) {
         $id = IDGenerator::user($role, $fname, $lname);
         $hashedPwd = $user->generatePassword($id, $pwd);
 
@@ -38,6 +40,8 @@ if (isset($_POST['register'])) {
             );
         }
 
+        // For now the email bit will be commented out to test the toasts by themselves
+        /*
         $to = $_POST['email'];
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -57,6 +61,12 @@ if (isset($_POST['register'])) {
         mail($to, $subject, $message, $headers);
 
         echo $email, $password;
+        */
+
+        Validator::displaySuccessfulToast();
+    }
+    else {
+        Validator::displayErrorToasts($errs);
     }
 }
 ?>

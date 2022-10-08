@@ -109,4 +109,11 @@ class User
         $this->err['phoneno'] = ErrorHandler::validatePhoneno($this->phoneno);
         $this->err['pwd'] = ErrorHandler::validatePwd($this->pwd, $this->cpwd);
     }
+
+    function validateAdminCreateUser()
+    {
+        $this->err['fname'] = ErrorHandler::validateFname($this->fname);
+        $this->err['lname'] = ErrorHandler::validateLname($this->lname);
+        $this->err['email'] = ErrorHandler::validateEmail($this->email);
+    }
 }

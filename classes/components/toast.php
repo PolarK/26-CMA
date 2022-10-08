@@ -34,6 +34,22 @@
                         });
                     </script>";             
         }
+
+        public static function successToast($text) {
+
+            return "<script>
+                        $.toast({                            
+                            text: '". $text. "',
+                            icon: 'success',
+                            loader: false,
+                            hideAfter: 6000,
+                            position: {
+                                left: 10,
+                                top: 110
+                            },
+                        });
+                    </script>";
+        }
     }
 
 ?>

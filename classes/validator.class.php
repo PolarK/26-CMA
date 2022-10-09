@@ -60,5 +60,10 @@ class Validator
         }   
     }
 
+    static function displaySuccessfulToast()
+    {
+        echo Toast::successToast("Successfully created new account");
+    }
+
 
 }

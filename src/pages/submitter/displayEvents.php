@@ -1,9 +1,26 @@
 <?php
-include_once("./classes/components/card.php");
-require_once "./classes/dbAPI.class.php";
+    include_once("./classes/components/card.php");
+    include_once("./classes/components/timeProcessor.php");
+    require_once "./classes/dbAPI.class.php";
 
-$db = new Database();
-$events = $db->getConferences();
+    $db = new Database();
+    $events = $db->getConferences();
+
+    foreach($events as $event) {
+        // check if conference has expired and update status
+        if (TimeProcessor::cmpETimeandCTime($event->ConferenceEndTimestamp)) {
+            $db->updateConference(
+                $event->ConferenceId, 
+                $event->ConferenceTitle, 
+                $event->ConferenceStartTimestamp, 
+                $event->ConferenceEndTimestamp, 
+                $event->ConferenceLocation, 
+                "0"
+            ); 
+        }
+    }
+
+    $events = $db->findConferenceByStatus("1");
 ?>
 
 <!--CONTENT START-->
@@ -29,9 +46,10 @@ $events = $db->getConferences();
 
                     $subData = [
                         $event->ConferenceId,
-                        $event->ConferenceTitle,
+                        $event->ConferenceTitle,                        
+                        $event->ConferenceStartTimestamp, 
+                        $event->ConferenceEndTimestamp, 
                         $event->ConferenceLocation,
-                        $event->ConferenceTimestamp,
                         $status
                     ];
                     echo Card::display("displayEventCard", $subData);

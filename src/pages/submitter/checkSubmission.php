@@ -23,6 +23,7 @@ $submissions = $db->findSubmissionByUserId($_SESSION['UID']);
                 }
                 else {
                     foreach ($submissions as $sub) {
+                        $conference = $db->findConferenceById($sub->ConferenceId); 
                         
                         $review = $db->findReviewBySubmissionId($sub->SubmissionId); 
                         $reviewStatus = ($review)? $review[0]->ReviewStatus : ""; 
@@ -45,11 +46,12 @@ $submissions = $db->findSubmissionByUserId($_SESSION['UID']);
                         $date = date('d/m/Y', $timestamp);
                         $time = date('H:i', $timestamp);
                         $subData = [
-                            $sub->SubmissionId,
+                            $conference[0]->ConferenceTitle,
                             $sub->SubmissionPath, 
                             $status, 
                             $date, 
-                            $time,                            
+                            $time,   
+                            $sub->SubmissionId                         
                         ];
                         echo Card::display("submission", $subData);
                     }

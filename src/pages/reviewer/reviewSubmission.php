@@ -5,6 +5,25 @@
     require "./classes/dbAPI.class.php";
     require_once "./classes/validator.class.php";
     require_once "./classes/idGenerator.class.php";
+    include_once "./submission.php"; 
+
+    function getFilePath($uId) {
+
+        $filename = $_GET["filepath"]; 
+
+        $folder_path = dirname(__DIR__, 1) . "/submitter/submissions/" . $uId;
+
+        if (!file_exists($folder_path)) {          // create user file if it does not exist
+            mkdir($folder_path, 0777, true);
+        }      
+        
+        getFile($uId, $filename, $folder_path);         
+
+        $tempPath = "./src/pages/submitter/submissions/" . $uId . "/" . $filename; 
+
+        return $tempPath; 
+    }
+
 
     $db = new Database(); 
     $err = ["comment" => "", "status" => ""];   
@@ -16,6 +35,9 @@
     if (count($submission) == 1) {
 
         $subId = $submission[0]->SubmissionId; 
+        $uId = $submission[0]->UserId; 
+
+        $tempPath = getFilePath($uId); 
 
         $review = $db->findReviewBySubmissionId($subId); 
 
@@ -25,8 +47,7 @@
             $buttonState = "Update Review"; 
         }
 
-        $filepath = "./src/pages/submitter/submissions/" . $_SESSION["UID"] . "/" . $_GET["filepath"]; 
-
+        
         if (isset($_POST['submitReview'])) {    
     
             if (empty($_POST['rComment'])) {
@@ -74,12 +95,13 @@
                 header('Location: /dashboard');
             }
         }
+        
 ?>
 
 <div class="container-fluid" style="width:100%">
   <div class="row vh-100">
     <div class="col-sm-6 col-md-8 border bg-light embed-responsive embed-responsive-21by9">
-        <iframe class="p-3 embed-responsive-item" src= "<?php echo $filepath; ?>"></iframe>
+        <iframe class="p-3 embed-responsive-item" src= "<?php echo $tempPath; ?>"></iframe>
     </div>
     <div class="col-6 col-md-4 border">
         <form id="reviewForm" action="#" method="post">

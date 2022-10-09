@@ -8,7 +8,7 @@ class Card
 
         switch ($type) {
             case 'submission':
-                return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4]);
+                return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
             case 'event':
                 return self::eventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
@@ -20,8 +20,14 @@ class Card
                 return self::userProfileCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
 
             case 'displayEventCard':
-                return self::displayEventCard($data[0], $data[1], $data[2], $data[3], $data[4]);
+                return self::displayEventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
+            case 'viewSubTableHeadCard': 
+                return self::displaySubTableHeadCard(); 
+
+            case 'viewSubmissionCard': 
+                return self::viewSubmissionCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]); 
+                
             case 'manageUserCard':
                 return self::manageUserCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]);
 
@@ -34,15 +40,15 @@ class Card
         }
     }
 
-    private static function submissionCard($title, $filePath, $status, $date, $time)
+    private static function submissionCard($cTitle, $filePath, $status, $date, $time, $subId)
     {
         return '
         <div class="card">
             <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Submission ' . $status . '</span>
             <div class="card-body">
-                <p class="card-title">' . $title . '</p>
+                <p class="card-title">' . $cTitle . '</p>
                 <p class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</p>
-                <a href="./viewSubmission?filepath=' . $filePath . '" class="card-link">View My Paper</a> 
+                <a href="./viewSubmission?filepath=' . $filePath .  '&subId=' . $subId . '" class="card-link">View My Paper</a> 
             </div>
         </div>
         <br>
@@ -223,19 +229,81 @@ class Card
         }
     }
 
-    private static function displayEventCard($id, $title, $location, $timestamp, $status)
+    private static function displayEventCard($id, $title, $sTimestamp, $eTimestamp, $location,  $status)
     {
         return '
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
-                <h6 class="card-subtitle mb-2">Date: <a class="text-muted"> ' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '</a> </h6>
+                <h6 class="card-subtitle mb-2">Start Date: <a class="text-muted"> ' . date("d M y \a\\t g:i A", strtotime($sTimestamp)) . '</a> </h6>
+                <h6 class="card-subtitle mb-2">End Date: <a class="text-muted"> ' . date("d M y \a\\t g:i A", strtotime($eTimestamp)) . '</a> </h6>
                 <h6 class="card-subtitle mb-2">Location: <a href="' . $location . '">' . $location . ' </a> </h6>
                 <a href="./submitPaper?eventid=' . $id . '" class="btn btn-primary"">' . $status . '</a> 
             </div>
         </div>
         <br>
         ';
+    }
+
+    private static function displaySubTableHeadCard() {      
+        
+        return '
+                <table id="rViewSubmissions" class="table">
+                    <thead class="bg-light" style="position: sticky; top: 0;">
+                        <tr>                                                      
+                            <th scope="row">
+                                <div class="mb-2 mr-2">
+                                    First Name
+                                </div>                                        
+                            </th>   
+                            <th scope="row">
+                                <div class="mb-2 mr-2">
+                                    Last Name
+                                </div>                                        
+                            </th> 
+                            <th scope="row">
+                                <div class="mb-2 mr-2">
+                                    Conference Title
+                                </div>                                        
+                            </th>    
+                            <th scope="row">
+                                <div class="mb-2 mr-2">
+                                    Timestamp
+                                </div>                                        
+                            </th>  
+                            <th scope="row">
+                                <div class="mb-2 mr-2">
+                                    Status
+                                </div>                                        
+                            </th>  
+                            <th scope="row">
+                                <div class="mb-2 mr-2">
+                                    Comments
+                                </div>                                        
+                            </th>
+                            <th scope="row">
+                                <div class="mb-2 mr-2">                                    
+                                </div>                                        
+                            </th>                                 
+                        </tr>
+                    </thead>'; 
+    }
+
+    private static function viewSubmissionCard($subId, $userFName, $userLName, $cTitle, $timestamp, $status, $comments, $subPath) {
+        
+        return '
+                <tbody id="rSearchResult">                            
+                    <tr>
+                        <td>' . $userFName . '</td>
+                        <td>' . $userLName . '</td>
+                        <td>' . $cTitle . '</td>
+                        <td>' . $timestamp . '</td>
+                        <td>' . $status . '</td>
+                        <td>' . $comments . '</td>
+                        <td><a href= "./reviewSubmission?filepath=' . $subPath . '&rSubId=' . $subId . '">Review</a></td>
+                    </tr>
+                </tbody>'; 
+
     }
 
     private static function manageUserCard($id, $fname, $lname, $dob, $email, $phoneNo, $role, $isActive)

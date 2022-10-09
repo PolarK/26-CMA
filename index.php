@@ -46,7 +46,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/submitter/submitPaper.php';
                 break;
 
-            case (preg_match('/viewSubmission\?filepath=.*/', $request) ? true : false):
+            case (preg_match('/viewSubmission\?filepath=.*&subId=.*/', $request) ? true : false):
                 require $publicPath . '/submitter/viewSubmission.php';
                 break;
 

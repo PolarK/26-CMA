@@ -4,7 +4,7 @@
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
-function editSubmissionData(rawID, tableID) {
+/*function editSubmissionData(rawID, tableID) {
     let editBox = "#box-".concat(rawID);
 
     // create buttons inside 'editBox' element's id
@@ -90,28 +90,27 @@ function disableSubmissionData(rawID) {
         removeButton("#accept-", rawID);
         removeButton("#cancel-", rawID);
     });
-}
+}*/
 
 function dynamicSubmissionSearch() {
-    $('#searchSubmissionParam').keyup(function () {
-        var searchParam = $('#searchSubmissionParam').val();
-        var searchOption = $('#searchOption').val();
 
-        $.post('./scripts/handlers/searchHandler.php', { searchBySubmissionParam: searchParam, searchByOption: searchOption }, function (data) {
-            $('#searchResult').html(data);
+    $("#searchSOption").on('change', function() {
+        var searchOption = $('#searchSOption').val();
+        if (searchOption == "sub-Timestamp") {
+            $('#searchSParam').get(0).type = 'date';
+        }        
+        else {
+            $('#searchSParam').get(0).type = 'text';
+        }      
+    });
 
-            $("button").click(function (event) {
-                var rawID = event.target.id;
-                var tableID = "#field-".concat(rawID);
 
-                if (rawID.includes('edit')) {
-                    editSubmissionData(rawID, tableID);
-                }
+    $('#searchSParam').on("keyup change", function () {
+        var searchParam = $('#searchSParam').val();
+        var searchOption = $('#searchSOption').val();
 
-                if (rawID.includes('disable')) {
-                    disableSubmissionData(rawID);
-                }
-            });
+        $.post('./scripts/handlers/searchHandler.php', { searchBySParam: searchParam, searchBySOption: searchOption }, function (data) {
+            $('#searchSResult').html(data);
         });
     });
 }

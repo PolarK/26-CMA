@@ -237,6 +237,15 @@ class Database
         );
     }
 
+    public function findSubmissionByStatus($status)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByStatus?status=' . $status,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
     public function findSubmissionByPath($path)
     {
         return API::request(

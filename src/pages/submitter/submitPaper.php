@@ -1,5 +1,6 @@
 <?php
 require "./classes/dbAPI.class.php";
+include_once "./submission.php"; 
 
 $db = new Database();
 
@@ -8,8 +9,7 @@ $cid = $event[0]->ConferenceId;
 $cTitle = $event[0]->ConferenceTitle; 
 $userid = $_SESSION["UID"]; 
 
-$rids = $db->findUserByRole('REVIEWER');
-$rid = $rids[array_rand($rids)]->UserId;
+
 
 
 if ($event) {
@@ -21,63 +21,45 @@ if ($event) {
         if (in_array('.', $err_msgs) == FALSE) {
             if (isset($_FILES['SubmitPaper']['name'])) {
 
-                $valid_exts = array("pdf", "doc", "docx"); 
-                
-                $file_submitted = $_FILES["SubmitPaper"]["name"]; 
-                $file_ext = pathinfo($file_submitted, PATHINFO_EXTENSION);      // get file format
+                $filename = $cid . "-" . $cTitle . ".pdf";      //filename = ConferenceId + ConferenceTitle
 
-                $folder_path = __DIR__ . "/submissions/" . $userid;
-                $filename_no_ext = $cid . "_" . $cTitle;        // Filename -> EventId_EventTitle
-  				$filepath_no_ext = $folder_path . "/" . $filename_no_ext;
-                $file_path = $filepath_no_ext . "." . $file_ext; 
-
-                if (!file_exists($folder_path)) {          // create user file if it does not exist
-                    mkdir($folder_path, 0777, true);
-                }
-
-                foreach ($valid_exts as $ext) {        // delete file submitted for related conference regardless of extension
-                    if (is_file($filepath_no_ext . "." . $ext)) {
-                        unlink($filepath_no_ext . "." . $ext);
-                    }
-                }                
-            
-                $filetmp = $_FILES["SubmitPaper"]["tmp_name"];
-                move_uploaded_file($filetmp, $file_path);    
+                uploadFile($userid, $filename, $_FILES['SubmitPaper']['tmp_name']); 
             
                 $submissionid = $cid . "_" . $userid; 
                 $timestamp = date('Y-m-d h:i:s');
                 $status = "Not Reviewed"; 
+                $submission = $db->findSubmissionById($submissionid); 
                  
-                if ($db->findSubmissionById($submissionid)) {
+                if ($submission) {
 
                     $db->updateSubmission(
                         $submissionid,          
                         $userid,
-                        $_SESSION['rid'],
+                        $submission[0]->ReviewerId,
                         $cid, 
                         $timestamp, 
-                        $filename_no_ext . "." . $file_ext, 
+                        $filename, 
                         $status
                     ); 
                 }
-                else {
-                    //if(!isset($_SESSION['rid'])){
-                    //    $_SESSION['rid'] = $rid;
-                    //}
+                else {     
+                    
+                    $rids = $db->findUserByRole('REVIEWER');
+                    $rid = $rids[array_rand($rids)]->UserId;
 
-                   $db->createSubmission(
-                       $submissionid,         
-                       $userid,
-                       $rid,
-                       $cid,
-                       $timestamp, 
-                       $filename_no_ext . "." . $file_ext, 
-                       $status
-                   ); 
+                    $db->createSubmission(
+                        $submissionid,         
+                        $userid,
+                        $rid,
+                        $cid,
+                        $timestamp, 
+                        $filename, 
+                        $status
+                    ); 
                 }     
 
                 // needs to redirect to successful submission screen
-                //header('Location: /dashboard');         
+                //header('Location: /dashboard');       
             }
         }
     }

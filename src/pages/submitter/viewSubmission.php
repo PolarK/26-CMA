@@ -19,7 +19,7 @@
         
         getFile($_SESSION["UID"], $filename, $folder_path); 
 
-        $tempPath = "./src/pages/submitter/submissions/" . $_SESSION["UID"] . "/" . $filename; 
+        $tempPath = "http://" . $_SERVER['SERVER_NAME'] . "/src/pages/submitter/submissions/" . $_SESSION["UID"] . "/" . $filename; 
 
         $review = $db->findReviewBySubmissionId($_GET["subId"]); 
 

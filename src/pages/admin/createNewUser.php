@@ -73,7 +73,7 @@ if (isset($_POST['register'])) {
 
 <!--CONTENT START-->
 <div id="content" class="container-fluid p-5">
-    <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center text-center h-100 mb-5">
         <h1 class="display-4">Create New User</h1>
         <p class="lead">You have the power to create new Admin / Reviwer user account!</p>
         <br>

@@ -25,7 +25,7 @@
 
 <!--CONTENT START-->
 <div id="content" class="container-fluid p-5">
-    <div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center text-center h-100 mb-5">
         <h1 class="display-4">Upcoming Events</h1>
         <p class="lead">Check all of our upcoming events here! Register to the one you are most interested in!</p>
         <div style="margin: auto; width: <?php echo (!Mobile::isActive()? '36rem' : '100%') ?>;">

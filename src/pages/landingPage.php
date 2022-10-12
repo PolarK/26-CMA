@@ -1,4 +1,4 @@
-<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100 mb-5">
     <div style="margin: auto; width: 18rem;">
         <img src="src\images\CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>

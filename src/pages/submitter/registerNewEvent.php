@@ -39,7 +39,7 @@ if (isset($_POST['registerNewEvent'])) {
 
 <div id="content" class="container-fluid p-5">
 
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100 mb-5">
         <div class="card-body">
             <h1 class="display-4">Conference Submission Management System</h1>
             <p class="lead">Congrats on the offer, we were very hapy with your submission and would like to hear about it more! So please, register here to talk about your finding to us. We cant wait to hear it from you!</p>

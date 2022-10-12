@@ -70,7 +70,7 @@ if ($event) {
 
 <div id="content" class="container-fluid p-5">
 
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100 mb-5">
         <div class="card-body">
             <h1 class="display-4">Submit Your New Finding!</h1>
             <p class="lead">We would love to see what you've come up with! So why not submit your paper here and well review it ASAP!</p>

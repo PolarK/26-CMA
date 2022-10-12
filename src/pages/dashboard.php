@@ -1,6 +1,6 @@
     
     <!--CONTENT START-->
-    <div id="content" class="container-fluid p-5">
+    <div id="content" class="container-fluid p-5 mb-5">
         <h1 class="display-4 text-center">Conference Submission Management Software</h1>
         <p class="lead text-center p-3">This software proposes an architecture and research paper model of a conference management software that performs a precise and accurate automatic assignment of reviewers to research paper.</p>
         <hr class="my-4">

@@ -1,6 +1,22 @@
 <?php
-include_once("./classes/components/card.php");
-include_once("./classes/dbAPI.class.php");
+    include_once("./classes/components/card.php");
+    include_once("./classes/components/timeProcessor.php");
+    require_once "./classes/dbAPI.class.php";
+
+
+    //
+    //
+    //
+    //
+    // We can possibly delete this page as it can be implemented within the manageMyEvents.php page
+    // We can also use it to show un-accepted registered comnferences, and use manageMyEvents to only show accepted conferences
+    //
+    //  
+    //
+    //
+
+
+
 ?>
 
 <!--CONTENT START-->

@@ -1,7 +1,26 @@
 <?php
-include_once("./classes/components/card.php");
-include_once("./classes/dbAPI.class.php");
+    include_once("./classes/components/card.php");
+    include_once("./classes/components/timeProcessor.php");
+    require_once "./classes/dbAPI.class.php";
 
+    $db = new Database();
+    $events = $db->getConferences();
+    $submissions = $db->getAllSubmission();
+
+    foreach($events as $event) {
+        if (TimeProcessor::cmpETimeandCTime($event->ConferenceEndTimestamp)) {
+            $db->updateConference(
+                $event->ConferenceId, 
+                $event->ConferenceTitle, 
+                $event->ConferenceStartTimestamp, 
+                $event->ConferenceEndTimestamp, 
+                $event->ConferenceLocation, 
+                "0"
+            ); 
+        }
+    }
+
+    $events = $db->findConferenceByStatus("1");
 ?>
 
 <!--CONTENT START-->
@@ -12,19 +31,38 @@ include_once("./classes/dbAPI.class.php");
         <div style="margin: auto; width: <?php echo (!Mobile::isActive()? '36rem' : '100%') ?>;">
 
             <?php
-            // !testing only, will have to get data from the db
-            $subData = [
-                'Future of IoT by John S.',
-                'https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTA1ZWUzNjktNjA3NS00YjhjLWJiMWMtM2VhYzMyMzcyZTlk%40thread.v2/0?context=%7b%22Tid%22%3a%22df7f7579-3e9c-4a7e-b844-420280f53859%22%2c%22Oid%22%3a%2221771f7c-ddc4-448c-b7d9-4b4e0c5sebe%22%7d',
-                '29-10-2022',
-                '12:30 PM AEST',
-                '/file/' . $_SESSION['UID'] . '/Future-of-IoT.pdf',
-                'Jhon S.',
-                'Accepted',
-            ];
+                if (!$events) {
+                    echo '
+                    <div class="d-flex align-items-center justify-content-center vh-50 bg-secondary">
+                        <h1 class="display-6 fw-bold text-white">No current events available</h1>
+                    </div>';
+                } else {
+                    foreach ($events as $event) {
+                        $submissionByID = $db->findSubmissionByConferenceId($event->ConferenceId);
 
-            echo Card::display("event", $subData);
+                        if (in_array($_SESSION["UID"], array_column($submissionByID, 'UserId'))) {
+                        
+                            // This wil needs fixing
+                            // This line checks, if a submission path for the current conference exists, assign it to $file, otherwise display 'file is not available'
+                            if (in_array($event->ConferenceId, array_column($submissions, 'SubmissionPath'))) {
+                                $file = in_array($event->ConferenceId, array_column($submissions, 'SubmissionPath'));
+                            } else {
+                                $file = 'Not available yet';
+                            }
+                            
+                            $subData = [
+                                $event->ConferenceTitle,
+                                $event->ConferenceLocation,               
+                                $event->ConferenceStartTimestamp,
+                                $file,
+                                $_SESSION['uFName'] . " " . $_SESSION['uLName'],
+                                'status unknown'
+                            ];
 
+                            echo Card::display("event", $subData);
+                        }
+                    }
+                }
             ?>
             
         </div>

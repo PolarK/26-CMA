@@ -30,7 +30,10 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/manageMyEvents">Manage My Events</a></li>
-                            <li><a class="dropdown-item" href="/myUpcomingEvents">My Upcoming Events</a></li>
+
+                            <!-- This section can be implemented within the Manage My Events Page -->
+                            <!-- <li><a class="dropdown-item" href="/myUpcomingEvents">My Upcoming Events</a></li> -->
+                            
                             <li><a class="dropdown-item" href="/registerNewEvent">Register for An Event</a></li>
                         </ul>
                     </li>

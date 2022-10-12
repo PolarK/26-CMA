@@ -1,22 +1,4 @@
 <?php
-//! * * * * * * * * * * * * * * * * * *
-/*
- *  _____                             _   _ _ _                       _   _   _     _                             ___  
- * |  __ \                           | | (_) | |                     | | | | | |   (_)                           |__ \ 
- * | |  | | ___   __      _____   ___| |_ _| | |  _ __   ___  ___  __| | | |_| |__  _ ___   _ __   __ _  __ _  ___  ) |
- * | |  | |/ _ \  \ \ /\ / / _ \ / __| __| | | | | '_ \ / _ \/ _ \/ _` | | __| '_ \| / __| | '_ \ / _` |/ _` |/ _ \/ / 
- * | |__| | (_) |  \ V  V /  __/ \__ \ |_| | | | | | | |  __/  __/ (_| | | |_| | | | \__ \ | |_) | (_| | (_| |  __/_|  
- * |_____/ \___/    \_/\_/ \___| |___/\__|_|_|_| |_| |_|\___|\___|\__,_|  \__|_| |_|_|___/ | .__/ \__,_|\__, |\___(_)  
- *                                                                                         | |           __/ |         
- *                                                                                         |_|          |___/          
- */
-// YES IM PRETTY SURE WE STILL NEED IT
-//! * * * * * * * * * * * * * * * * * *
-
-$date = $time = "";
-?>
-
-<?php
 require_once "./classes/dbAPI.class.php";
 require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
@@ -40,11 +22,14 @@ if (isset($_POST['registerNewEvent'])) {
 
     $dateTime =  $date . ' ' . $time . ':00';
 
+    $attendance = 'To Be Confirmed';
+
     $db->createNewEvent(
         $regId,
         $userId,
         $confId,
-        $dateTime
+        $dateTime,
+        $attendance
     );
 
     echo '<script>alert("Success!");</script>';

@@ -478,8 +478,9 @@ class Database
         $fields = [
             'RegId' => $arg_0,
             'UserId' => $arg_1,
-            'ConferenceId' => $arg_1,
-            'RegDateTime' => $arg_2,
+            'ConferenceId' => $arg_2,
+            'RegDateTime' => $arg_3,
+            'Attendance' => $arg_4
         ];
 
         return API::request(

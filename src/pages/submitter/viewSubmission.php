@@ -21,7 +21,7 @@
 
         $url_filename = str_replace(" ", "%20", $filename); 
 
-        $tempPath = "http://" . $_SERVER['SERVER_NAME'] . $_SESSION["UID"] . "/" . $url_filename; 
+        $tempPath = "https://" . $_SERVER['SERVER_NAME'] . "/src/pages/submitter/submissions/" . $_SESSION["UID"] . "/" . $url_filename; 
 
         $review = $db->findReviewBySubmissionId($_GET["subId"]); 
 

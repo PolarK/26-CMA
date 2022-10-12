@@ -65,6 +65,9 @@ if ($event) {
     }
 
 ?>
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+
 <div id="content" class="container-fluid p-5">
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
@@ -103,7 +106,7 @@ if ($event) {
                         </div>
                     </div>
                     <br>
-                    <div class="form-group btn-group-lg d-grid gap-2">
+                    <div class="form-group btn-group-lg d-grid gap-2" onmousedown="party.confetti(this)">
                         <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>

@@ -48,7 +48,7 @@ class Card
             <div class="card-body">
                 <p class="card-title">' . $cTitle . '</p>
                 <p class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</p>
-                <a href="./viewSubmission?filepath=' . $filePath .  '&subId=' . $subId . '" class="card-link">View My Paper</a> 
+                <a href="./viewSubmission?filepath=' . rawurlencode($filePath) .  '&subId=' . $subId . '" class="card-link">View My Paper</a> 
             </div>
         </div>
         <br>
@@ -297,7 +297,7 @@ class Card
                         <td>' . $timestamp . '</td>
                         <td>' . $status . '</td>
                         <td>' . $comments . '</td>
-                        <td><a href= "./reviewSubmission?filepath=' . $subPath . '&rSubId=' . $subId . '">Review</a></td>
+                        <td><a href= "./reviewSubmission?filepath=' . rawurlencode($subPath) . '&rSubId=' . $subId . '">Review</a></td>
                     </tr>
                 </tbody>'; 
 

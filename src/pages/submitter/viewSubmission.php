@@ -19,9 +19,7 @@
         
         getFile($_SESSION["UID"], $filename, $folder_path); 
 
-        $url_filename = str_replace(" ", "%20", $filename); 
-
-        $tempPath = "https://" . $_SERVER['SERVER_NAME'] . "/src/pages/submitter/submissions/" . $_SESSION["UID"] . "/" . $url_filename; 
+        $tempPath = "https://" . $_SERVER['SERVER_NAME'] . "/src/pages/submitter/submissions/" . $_SESSION["UID"] . "/" . rawurlencode($filename); 
 
         $review = $db->findReviewBySubmissionId($_GET["subId"]); 
 

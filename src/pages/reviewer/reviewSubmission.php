@@ -17,11 +17,11 @@
             mkdir($folder_path, 0777, true);
         }      
         
-        getFile($uId, $filename, $folder_path);         
+        getFile($uId, $filename, $folder_path);        
 
-        $tempPath = "./src/pages/submitter/submissions/" . $uId . "/" . $filename; 
+        $tempPath = "https://" . $_SERVER['SERVER_NAME'] . "/src/pages/submitter/submissions/" . $uId . "/" . rawurlencode($filename); 
 
-        return $tempPath; 
+        return $tempPath;; 
     }
 
 

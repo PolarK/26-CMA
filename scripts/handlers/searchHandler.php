@@ -1,11 +1,13 @@
 <?php
 include_once "../../classes/components/card.php";
 include_once "../../classes/dbAPI.class.php";
+include_once "../../classes/components/timeProcessor.php";
 
 $db = new Database();
 
 function displayUsers($rawData)
 {
+    
     foreach ($rawData as $data) {
         $userData = [
             $data->UserId,
@@ -14,113 +16,161 @@ function displayUsers($rawData)
             $data->UserDOB,
             $data->UserEmail,
             $data->UserPhoneNo,
-            $data->UserRole
+            $data->UserRole,
+            $data->UserActive,
         ];
 
         echo Card::display('manageUserCard', $userData);
     }
 }
 
-function displaySubmissions($rawData)
-{
-    foreach ($rawData as $data) {
-        $userData = [
-            $data->SubmissionId,
-            $data->UserFirstName,
-            $data->UserLastName,
-            $data->SubmissionStatus,
-            $data->SubmissionTimestamp,
-            $data->ConferenceLocation,
-            "Anee Janee", // need to linked 'reviewer's ID'
-            $data->SubmissionPath,
-        ];
-
-        echo Card::display('manageSubmissionCard', $userData);
-    }
-}
-
-function rDisplaySubmissions($rawData)
+function displaySubFromSubs($submissions)
 {
     global $db;
+
+    echo Card::display('viewSubTableHeadCard'); 
+
+    if ($submissions) {
+  
+        foreach ($submissions as $submission) {
+
+            $user = $db->findUserById($submission->UserId); 
+            $userFName = $user[0]->UserFirstName; 
+            $userLName = $user[0]->UserLastName; 
+    
+            $reviewer = $db->findReviewById($submission->ReviewerId); 
+
+            $conference = $db->findConferenceById($submission->ConferenceId); 
+    
+            $comments = "N/A"; 
+    
+            if ($reviewer) {
+                $comments = $reviewer->ReviewComments; 
+            }
+    
+            $data = 
+            [
+                $submission->SubmissionId, 
+                $userFName, 
+                $userLName,
+                $conference[0]->ConferenceTitle, 
+                $submission->SubmissionTimestamp,
+                $submission->SubmissionStatus, 
+                $comments, 
+                $submission->SubmissionPath
+            ]; 
+            
+            echo Card::display('viewSubmissionCard', $data);
+        }
+    }
+    else {
+        echo '<tbody id="rSearchResult"><tr><td colspan="6" style="text-align:center">No results<td></tr></tbody>';  
+    }
+
+}
+
+function displaySubFromUsers($users)
+{
+    global $db;
+
+    $submissions = array(); 
+
+    foreach ($users as $user) {
+        $subs = $db->findSubmissionByUserId($user->UserId); 
+
+        if ($subs) {
+            foreach($subs as $sub) {
+                array_push($submissions, $sub); 
+            }            
+        }
+    } 
+    
+    displaySubFromSubs($submissions); 
+}
+
+function displaySubFromConferences($conferences)
+{
+    global $db;
+
+    $submissions = array(); 
+    
+    foreach ($conferences as $conference) {
+
+        $subs = $db->findSubmissionByConferenceId($conference->ConferenceId); 
+
+        if ($subs) {
+            foreach($subs as $sub) {
+                array_push($submissions, $sub); 
+            }            
+        }
+    } 
+
+    displaySubFromSubs($submissions); 
+}
+
+
+function displayConferences($rawData)
+{     
     foreach ($rawData as $data) {
-        $user = $db->findUserById($data->UserId);
-        echo '
-        <tr>
-            <td>' . $data->ConferenceId . '</td>
-            <td>' . $data->UserId . '</td>
-            <td>' . $user[0]->UserFirstName . '</td>
-            <td>' . $user[0]->UserLastName . '</td>
-            <td>' . $data->SubmissionTimestamp . '</td>
-            <td>' . $data->SubmissionStatus . '</td>
-            <td><a href="./reviewSubmission?filepath=' . $data->SubmissionPath . '">Review</a></td>
-        </tr>';
+        $start = strtotime($data->ConferenceStartTimestamp); 
+        $end = strtotime($data->ConferenceEndTimestamp); 
+
+        $sdatetime = TimeProcessor::getDateTime($start); 
+        $edatetime = TimeProcessor::getDateTime($end); 
+
+        $cData = [
+            $data->ConferenceId,
+            $data->ConferenceTitle,
+            $sdatetime["date"], 
+            $sdatetime["time"], 
+            $edatetime["date"], 
+            $edatetime["time"], 
+            $data->ConferenceLocation, 
+            $data->ConferenceStatus
+        ];
+
+        echo Card::display('manageConferenceCard', $cData);
     }
 }
 
 /* START USER SEARCH */
 if (isset($_POST['searchByUserParam'])) {
     $searchByOption = 'findUserBy' . $_POST['searchByOption'];
-    displayUsers($db->$searchByOption($_POST['searchByParam']));
+    displayUsers($db->$searchByOption($_POST['searchByUserParam']));
 }
 /* END USER SEARCH */
 
 
 /* START SUBMISSION SEARCH */
-if (isset($_POST['searchBySubmissionParam'])) {
-    $searchByOption = (strpos($_POST['searchByOption'], 'Name') != false ? 'findUserBy' : 'findSubmissionBy') . $_POST['searchByOption'];
-    displaySubmissions($db->$searchByOption($_POST['searchByParam']));
+if (isset($_POST['searchBySParam'])) {
+    $option_array = explode("-", $_POST['searchBySOption']); 
+
+    switch ($option_array[0]) {
+        case "sub": 
+            $searchByOption = 'findSubmissionBy' . $option_array[1];
+            displaySubFromSubs($db->$searchByOption($_POST['searchBySParam'])); 
+            break; 
+
+        case "user": 
+            $searchByOption = 'findUserBy' . $option_array[1];
+            displaySubFromUsers($db->$searchByOption($_POST['searchBySParam']));
+            break; 
+
+        case "con": 
+            $searchByOption = 'findConferenceBy' . $option_array[1];
+            displaySubFromConferences($db->$searchByOption($_POST['searchBySParam']));
+            break; 
+    }
+
+
 }
+
 /* END SUBMISSION SEARCH */
 
 
-/* START OF VIEW SUBMISSION SEARCH */
-
-if (isset($_POST['rSearchByCID'])) {
-    $submissions = $db->findSubmissionByConferenceId($_POST['rSearchByCID']);
-    rDisplaySubmissions($submissions);
+/* START CONFERENCE SEARCH */
+if (isset($_POST['searchByCParam'])) {
+    $searchByOption = 'findConferenceBy' . $_POST['searchByCOption'];
+    displayConferences($db->$searchByOption($_POST['searchByCParam']));
 }
-
-if (isset($_POST['rSearchByUID'])) {
-    $submissions = $db->findSubmissionByUserId($_POST['rSearchByUID']);
-    rDisplaySubmissions($submissions);
-}
-
-if (isset($_POST['rSearchByUFName'])) {
-    $users = $db->findUserByFirstName($_POST['rSearchByUFName']);
-    $submissions = array();
-    foreach ($users as $user) {
-        if (str_contains(strtolower($user->UserFirstName), strtolower($_POST['rSearchByFUName']))) {
-            $userSubs = $db->findSubmissionByUserId($user->UserId);
-            foreach ($userSubs as $sub) {
-                array_push($submissions, $sub);
-            }
-        }
-    }
-    rDisplaySubmissions($submissions);
-}
-
-if (isset($_POST['rSearchByULName'])) {
-    $users = $db->findUserByLastName($_POST['rSearchByULName']);
-    $submissions = array();
-    foreach ($users as $user) {
-        if (str_contains(strtolower($user->UserLastName), strtolower($_POST['rSearchByULName']))) {
-            $userSubs = $db->findSubmissionByUserId($user->UserId);
-            foreach ($userSubs as $sub) {
-                array_push($submissions, $sub);
-            }
-        }
-    }
-    rDisplaySubmissions($submissions);
-}
-
-if (isset($_POST['rSearchBySubTime'])) {
-    $submissions = $db->findSubmissionByTimestamp($_POST['rSearchBySubTime']);
-    rDisplaySubmissions($submissions);
-}
-
-if (isset($_POST['rSearchBySubStatus'])) {
-    $submissions = $db->findSubmissionByStatus($_POST['rSearchBySubStatus']);
-    rDisplaySubmissions($submissions);
-}
-
-/* END OF VIEW SUBMISSION SEARCH */
+/* END CONFERENCE SEARCH */

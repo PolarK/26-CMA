@@ -27,7 +27,7 @@ if (isset($_POST['register'])) {
 
         $hashedPwd = $user->generatePassword($id, $pwd);
 
-        if(isset($hashedPwd['salt']) && isset($hashedPwd['hash'])){
+        if (isset($hashedPwd['salt']) && isset($hashedPwd['hash'])) {
             $db->createNewUser(
                 $id,
                 $fname,
@@ -35,9 +35,10 @@ if (isset($_POST['register'])) {
                 $dob,
                 strtolower($email),
                 $phoneno,
-                $role
+                $role,
+                '1',
             );
-    
+
             $db->createPassword(
                 $id,
                 $hashedPwd['salt'],
@@ -52,14 +53,16 @@ if (isset($_POST['register'])) {
         $_SESSION['uDob'] = $dob;
         $_SESSION['uEmail'] = $email;
         $_SESSION['uPhone'] = $phoneno;
+        $_SESSION['uActive'] = $isActive;
 
-        //header('Location: /dashboard');
+
+        header('Location: /dashboard');
     }
 }
 
 ?>
 
-<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100 mb-5">
     <div style="margin: auto; width: 18rem;">
         <img src="src\images\CSMS_Logo.png" class="card-img-top" alt="CMS Logo">
     </div>
@@ -67,91 +70,151 @@ if (isset($_POST['register'])) {
         <h1 class="card-title">Conference Submission Management System</h1>
         <h3 class="text-muted">Registration Page</h3>
         <br>
+
         <!--Start User Register Form-->
-        <form id="UserRegisterForm" action="/register" method="POST" enctype="multipart/form-data">
-
-            <div class="form-group mb-2 mr-2">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo (isset($user)) ? $user->err['fname'] : ' ' ?>
-                                </small></div>
-                            <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
+        <?php if (!Mobile::isActive()) { ?>
+            <form id="UserRegisterForm" action="/register" method="POST" enctype="multipart/form-data">
+                <div class="form-group mb-2 mr-2">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="text-start"><small class="text-danger">
+                                        <?php echo (isset($user)) ? $user->err['fname'] : ' ' ?>
+                                    </small></div>
+                                <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo (isset($user)) ? $user->err['lname'] : ' ' ?>
-                                </small></div>
-                            <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
-                                </small></div>
-                            <input id="uDob" name="uDob" placeholder="Date of Birth" type="date" required class="form-control" value="<?php echo $dob; ?>">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo (isset($user)) ? $user->err['email'] : ' ' ?>
-                                </small></div>
-                            <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo (isset($user)) ? $user->err['phoneno'] : ' ' ?>
-                                </small></div>
-                            <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="text-start"><small class="text-danger">
+                                        <?php echo (isset($user)) ? $user->err['lname'] : ' ' ?>
+                                    </small></div>
+                                <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
+                            </div>
                         </div>
                     </div>
 
-                </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="text-start"><small class="text-danger">
+                                        <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
+                                    </small></div>
+                                <input id="uDob" name="uDob" placeholder="Date of Birth" type="text" required class="form-control" onfocus="(this.type='date')" value="<?php echo $dob; ?>">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="text-start"><small class="text-danger">
+                                        <?php echo (isset($user)) ? $user->err['email'] : ' ' ?>
+                                    </small></div>
+                                <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
-                                </small></div>
-                            <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="text-start"><small class="text-danger">
+                                        <?php echo (isset($user)) ? $user->err['phoneno'] : ' ' ?>
+                                    </small></div>
+                                <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="text-start"><small class="text-danger">
+                                        <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
+                                    </small></div>
+                                <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="text-start"><small class="text-danger">
+                                        <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
+                                    </small></div>
+                                <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
+                            </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="text-start"><small class="text-danger">
-                                    <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
-                                </small></div>
-                            <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
-                        </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            By signing up, you've agreed to our <a href="/terms&conditions">Terms & Conditions</a>
+                        </label>
                     </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
-                    <label class="form-check-label" for="flexCheckDefault">
-                        By signing up, you've agreed to our <a href="">Terms & Conditions</a>
-                    </label>
+                <br>
+                <div class="form-group btn-group-lg d-grid gap-2">
+                    <button name="register" type="submit" class="btn btn-primary">Register</button>
                 </div>
-            </div>
-            <br>
-            <div class="form-group btn-group-lg d-grid gap-2">
-                <button name="register" type="submit" class="btn btn-primary">Register</button>
-            </div>
-        </form>
-        <!--End Login Form-->
+            </form>
+        <?php } else { ?>
+            <form id="UserRegisterForm" action="/register" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="text-start"><small class="text-danger">
+                                <?php echo (isset($user)) ? $user->err['fname'] : ' ' ?>
+                            </small></div>
+                        <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
+                    </div>
+                    <div class="form-group">
+                        <div class="text-start"><small class="text-danger">
+                                <?php echo (isset($user)) ? $user->err['lname'] : ' ' ?>
+                            </small></div>
+                        <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
+                    </div>
+                    <div class="form-group">
+                        <div class="text-start"><small class="text-danger">
+                                <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
+                            </small></div>
+                        <input id="uDob" name="uDob" placeholder="Date of Birth" type="text" required class="form-control" onfocus="(this.type='date')" value="<?php echo $dob; ?>">
+                    </div>
+                    <div class="form-group">
+                        <div class="text-start"><small class="text-danger">
+                                <?php echo (isset($user)) ? $user->err['email'] : ' ' ?>
+                            </small></div>
+                        <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="text-start"><small class="text-danger">
+                                <?php echo (isset($user)) ? $user->err['phoneno'] : ' ' ?>
+                            </small></div>
+                        <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
+                    </div>
+                    <div class="form-group">
+                        <div class="text-start"><small class="text-danger">
+                                <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
+                            </small></div>
+                        <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="text-start"><small class="text-danger">
+                                <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
+                            </small></div>
+                        <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            By signing up, you've agreed to our <a href="/terms&conditions">Terms & Conditions</a>
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group btn-group-lg d-grid gap-2">
+                    <button name="register" type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        <?php } ?>
+        <!--End User Register Form-->
         <p class="text-muted">Already registered? <a id="displayLoginForm" href="/login">Login</a></p>
     </div>
 </div>

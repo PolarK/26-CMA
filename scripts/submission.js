@@ -1,8 +1,10 @@
+//! UNUSED FEATURE / FOR FUTURE DEVELOPMENT
+
 // similar to import function but jQuery style 
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
-function editSubmissionData(rawID, tableID) {
+/*function editSubmissionData(rawID, tableID) {
     let editBox = "#box-".concat(rawID);
 
     // create buttons inside 'editBox' element's id
@@ -32,7 +34,7 @@ function editSubmissionData(rawID, tableID) {
             SubmissionStatus: $('#sStatus'.concat(id)).text(),
             SubmissionTimestamp: $('#sTimestamp'.concat(id)).val(),
             SubmissionConferenceLocation: $('#sConLocation'.concat(id)).val(),
-            SubmissionReviewBy: $('#sReviewBy'.concat(id)).val(),
+            SubmissionReviewBy: $('#sReviewers'.concat(id)).val(),
             SubmissionPath: $('#sPath'.concat(id)).val(),
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
@@ -88,15 +90,27 @@ function disableSubmissionData(rawID) {
         removeButton("#accept-", rawID);
         removeButton("#cancel-", rawID);
     });
-}
+}*/
 
 function dynamicSubmissionSearch() {
-    $('#searchParam').keyup(function () {
-        var searchParam = $('#searchParam').val();
-        var searchOption = $('#searchOption').val();
 
-        $.post('./scripts/handlers/searchHandler.php', { searchBySubmissionParam: searchParam, searchByOption: searchOption }, function (data) {
-            $('#searchResult').html(data);
+    $("#searchSOption").on('change', function() {
+        var searchOption = $('#searchSOption').val();
+        if (searchOption == "sub-Timestamp") {
+            $('#searchSParam').get(0).type = 'date';
+        }        
+        else {
+            $('#searchSParam').get(0).type = 'text';
+        }      
+    });
+
+
+    $('#searchSParam').on("keyup change", function () {
+        var searchParam = $('#searchSParam').val();
+        var searchOption = $('#searchSOption').val();
+
+        $.post('./scripts/handlers/searchHandler.php', { searchBySParam: searchParam, searchBySOption: searchOption }, function (data) {
+            $('#searchSResult').html(data);
         });
     });
 }

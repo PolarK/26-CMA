@@ -1,5 +1,6 @@
 {
     "require": {
-        "php": "^7.4.0"
+        "php": "^7.4.0|^8.1.10",
+        "pcloud/pcloud-php-sdk": "^3.0"
     }
 }

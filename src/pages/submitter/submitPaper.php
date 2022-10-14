@@ -1,17 +1,16 @@
 <?php
-
-// include "../others/template/functions.php";
-//include_once("./src/template/notification.php");
 require "./classes/dbAPI.class.php";
-
-date_default_timezone_set('Australia/Melbourne');
+include_once "./submission.php"; 
 
 $db = new Database();
 
 $event = $db->findConferenceById($_GET["eventid"]); 
-$eId = $event[0]->ConferenceId; 
-$eTitle = $event[0]->ConferenceTitle; 
+$cid = $event[0]->ConferenceId; 
+$cTitle = $event[0]->ConferenceTitle; 
 $userid = $_SESSION["UID"]; 
+
+
+
 
 if ($event) {
 
@@ -22,69 +21,60 @@ if ($event) {
         if (in_array('.', $err_msgs) == FALSE) {
             if (isset($_FILES['SubmitPaper']['name'])) {
 
-                $valid_exts = array("pdf", "doc", "docx"); 
-                
-                $file_submitted = $_FILES["SubmitPaper"]["name"]; 
-                $file_ext = pathinfo($file_submitted, PATHINFO_EXTENSION);      // get file format
+                $filename = $cid . "-" . $cTitle . ".pdf";      //filename = ConferenceId + ConferenceTitle
 
-                $folder_path = __DIR__ . "/submissions/" . $userid;
-                $filename_no_ext = $eId . "_" . $eTitle;        // Filename -> EventId_EventTitle
-  				$filepath_no_ext = $folder_path . "/" . $filename_no_ext;
-                $file_path = $filepath_no_ext . "." . $file_ext; 
-
-                if (!file_exists($folder_path)) {          // create user file if it does not exist
-                    mkdir($folder_path);
-                }
-
-                foreach ($valid_exts as $ext) {        // delete file submitted for related conference regardless of extension
-                    if (is_file($filepath_no_ext . "." . $ext)) {
-                        unlink($filepath_no_ext . "." . $ext);
-                    }
-                }                
+                uploadFile($userid, $filename, $_FILES['SubmitPaper']['tmp_name']); 
             
-                $filetmp = $_FILES["SubmitPaper"]["tmp_name"];
-                move_uploaded_file($filetmp, $file_path);    
-            
-                $submissionid = $eId . "_" . $userid; 
+                $submissionid = $cid . "_" . $userid; 
                 $timestamp = date('Y-m-d h:i:s');
                 $status = "Not Reviewed"; 
+                $submission = $db->findSubmissionById($submissionid); 
                  
-                if ($db->findSubmissionById($submissionid)) {
+                if ($submission) {
 
                     $db->updateSubmission(
                         $submissionid,          
                         $userid,
-                        $eId, 
+                        $submission[0]->ReviewerId,
+                        $cid, 
                         $timestamp, 
-                        $filename_no_ext . "." . $file_ext, 
+                        $filename, 
                         $status
                     ); 
                 }
-                else {
+                else {     
+                    
+                    $rids = $db->findUserByRole('REVIEWER');
+                    $rid = $rids[array_rand($rids)]->UserId;
+
                     $db->createSubmission(
                         $submissionid,         
                         $userid,
-                        $eId, 
+                        $rid,
+                        $cid,
                         $timestamp, 
-                        $filename_no_ext . "." . $file_ext, 
+                        $filename, 
                         $status
                     ); 
                 }     
 
                 // needs to redirect to successful submission screen
-                header('Location: /dashboard');         
+                //header('Location: /dashboard');       
             }
         }
     }
 
 ?>
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+
 <div id="content" class="container-fluid p-5">
 
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100 mb-5">
         <div class="card-body">
             <h1 class="display-4">Submit Your New Finding!</h1>
             <p class="lead">We would love to see what you've come up with! So why not submit your paper here and well review it ASAP!</p>
-            <div style="margin: auto; width: 100%;">
+            <div style="margin: auto; width: <?php echo (!Mobile::isActive()? '36rem' : '100%') ?>;">
                 <br>
                 <!--Start Event Register Form-->
                 <form id="SubmitPaperForm" action="#" method="post" enctype="multipart/form-data">
@@ -104,19 +94,19 @@ if ($event) {
                             <div class="col">
                                 <input class="form-check-input" type="checkbox" name="submitCheck" id="submitCheck" type="checkbox" required>
                                 <label class="form-check-label" for="submitCheck">
-                                    By submitting, you are agreeing to to our <a href="">Privacy Policies</a>
+                                    By submitting, you are agreeing to to our <a href="/privacyPolicy">Privacy Policies</a>
                                 </label>
                             </div>
                             <div class="col">
                                 <input class="form-check-input" type="checkbox" name="uRemember" id="TermsConditions" type="checkbox" required>
                                 <label class="form-check-label" for="TermsConditions">
-                                    By submitting, you are agreeing to our <a href="">Terms & Conditions</a>
+                                    By submitting, you are agreeing to our <a href="/terms&conditions">Terms & Conditions</a>
                                 </label>
                             </div>
                         </div>
                     </div>
                     <br>
-                    <div class="form-group btn-group-lg d-grid gap-2">
+                    <div class="form-group btn-group-lg d-grid gap-2" onmousedown="party.confetti(this)">
                         <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>

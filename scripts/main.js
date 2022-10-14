@@ -1,5 +1,7 @@
 $.getScript("./scripts/user.js");
 $.getScript("./scripts/submission.js");
+$.getScript("./scripts/profile.js");
+$.getScript("./scripts/conference.js");
 
 $(document).ready(function () {
     //Form input dynamic styling
@@ -13,6 +15,7 @@ $(document).ready(function () {
 
     dynamicUserSearch();
     dynamicSubmissionSearch();
+    dynamicConferenceSearch();
 
     $("button").click(function (event) {
         var curentPath = window.location.pathname;
@@ -29,6 +32,14 @@ $(document).ready(function () {
                 case "/manageSubmissions":
                     editSubmissionData(rawID, tableID);
                     break;
+
+                case "/profile":
+                    editProfileData(rawID, tableID);
+                    break;
+
+                case "/manageEvents": 
+                    editConferenceData(rawID, tableID);
+                break; 
             }
         }
 
@@ -41,62 +52,22 @@ $(document).ready(function () {
                 case "/manageSubmissions":
                     disableSubmissionData(rawID, tableID);
                     break;
+
+                case "/manageEvents":
+                    disableConferenceData(rawID, tableID, "disable", "0");
+                    break;
+            }
+        }
+
+        if (rawID.includes('enable')) {
+            switch (curentPath) {
+                case "/manageEvents":
+                    disableConferenceData(rawID, tableID, "enable", "1");
+                    break;
             }
         }
 
     });
-
-    /* START OF VIEW SUBMISSIONS */
-
-    $('#rSearchCID').keyup(function () {
-        var rSearchCID = $('#rSearchCID').val();
-
-        $.post('./scripts/handlers/searchHandler.php', { rSearchByCID: rSearchCID }, function (data) {
-            $('#rSearchResult').html(data);
-        });
-    });
-
-    $('#rSearchUID').keyup(function () {
-        var rSearchUID = $('#rSearchUID').val();
-
-        $.post('./scripts/handlers/searchHandler.php', { rSearchByUID: rSearchUID }, function (data) {
-            $('#rSearchResult').html(data);
-        });
-    });
-
-    $('#rSearchUFName').keyup(function () {
-        var rSearchUFName = $('#rSearchUFName').val();
-
-        $.post('./scripts/handlers/searchHandler.php', { rSearchByUFName: rSearchUFName }, function (data) {
-            $('#rSearchResult').html(data);
-        });
-    });
-
-    $('#rSearchULName').keyup(function () {
-        var rSearchULName = $('#rSearchULName').val();
-
-        $.post('./scripts/handlers/searchHandler.php', { rSearchByULName: rSearchULName }, function (data) {
-            $('#rSearchResult').html(data);
-        });
-    });
-
-    $('#rSearchSubTime').keyup(function () {
-        var rSearchSubTime = $('#rSearchSubTime').val();
-
-        $.post('./scripts/handlers/searchHandler.php', { rSearchBySubTime: rSearchSubTime }, function (data) {
-            $('#rSearchResult').html(data);
-        });
-    });
-
-    $('#rSearchSubStatus').keyup(function () {
-        var rSearchSubStatus = $('#rSearchSubStatus').val();
-
-        $.post('./scripts/handlers/searchHandler.php', { rSearchBySubStatus: rSearchSubStatus }, function (data) {
-            $('#rSearchResult').html(data);
-        });
-    });
-
-    /* END OF VIEW SUBMISSIONS */
 
 
 });

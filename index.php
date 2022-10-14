@@ -1,17 +1,14 @@
 <?php
+date_default_timezone_set('Australia/Melbourne');
+
 include('./src/template/header.php');
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 $request = $_SERVER['REQUEST_URI'];
 $publicPath = __DIR__ . '/src/pages';
-
-//! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
-//! FOR DEVELOPMENT ONLY, DELETE WHEN FINISH
-//! CHANGE THIS TO EITHER 'ADMIN' | 'REVIEWER' | 'SUBMITTER'
-
-//$_SESSION['uRole'] = 'ADMIN';
-
-//! *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
-
 
 //! Where most of pages will be on
 if (isset($_SESSION['valid']) && $_SESSION['valid']) {
@@ -45,13 +42,13 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/submitter/checkSubmission.php';
                 break;
 
-            case (preg_match('/submitPaper\?eventid=.*/', $request) ? true : false) : 
+            case (preg_match('/submitPaper\?eventid=.*/', $request) ? true : false):
                 require $publicPath . '/submitter/submitPaper.php';
-                break; 
+                break;
 
-            case (preg_match('/viewSubmission\?filepath=.*/', $request) ? true : false) : 
+            case (preg_match('/viewSubmission\?filepath=.*&subId=.*/', $request) ? true : false):
                 require $publicPath . '/submitter/viewSubmission.php';
-                break; 
+                break;
 
             case '/manageMyEvents':
                 require $publicPath . '/submitter/manageMyEvents.php';
@@ -67,6 +64,14 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
 
             case '/events':
                 require $publicPath . '/submitter/displayEvents.php';
+                break;
+
+            case '/privacyPolicy':
+                require $publicPath . '/../template/privacyPolicy.html';
+                break;
+
+            case '/terms&conditions':
+                require $publicPath . '/../template/termConditions.html';
                 break;
 
             default:
@@ -101,20 +106,8 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/reviewer/viewSubmissions.php';
                 break;
 
-            case (preg_match('/reviewSubmission\?filepath=.*&rSubId=.*/', $request) ? true : false) : 
+            case (preg_match('/reviewSubmission\?filepath=.*&rSubId=.*/', $request) ? true : false):
                 require $publicPath . '/reviewer/reviewSubmission.php';
-                break; 
-
-            case '/createNewEvent':
-                require $publicPath . '/reviewer/createNewEvent.php';
-                break;
-
-            case '/manageUpcomingEvents':
-                require $publicPath . '/reviewer/manageUpcomingEvents.php';
-                break;
-
-            case '/checkUpcomingEvents':
-                require $publicPath . '/reviewer/checkUpcomingEvents.php';
                 break;
 
             default:
@@ -145,16 +138,25 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/logout.php';
                 break;
 
+            case '/createNewUser':
+                require $publicPath . '/admin/createNewUser.php';
+                break;
+
             case '/manageUsers':
                 require $publicPath . '/admin/manageUsers.php';
                 break;
-
+                /* //! UNUSED FEATURE / FOR FUTURE DEVELOPMENT
             case '/manageSubmissions':
                 require $publicPath . '/admin/manageSubmissions.php';
                 break;
+            */
 
             case '/manageEvents':
                 require $publicPath . '/admin/manageEvents.php';
+                break; 
+
+            case '/createNewEvent':
+                require $publicPath . '/admin/createNewEvent.php';
                 break;
 
             default:
@@ -179,6 +181,10 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
 
         case '/register':
             require $publicPath . '/register.php';
+            break;
+
+        case '/terms&conditions':
+            require $publicPath . '/../template/termConditions.html';
             break;
 
         default:

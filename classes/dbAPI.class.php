@@ -113,7 +113,8 @@ class Database
             'UserDOB' => $arg_3,
             'UserEmail' => $arg_4,
             'UserPhoneNo' => $arg_5,
-            'UserRole' => $arg_6
+            'UserRole' => $arg_6,
+            'UserActive' => $arg_7
         ];
 
         return API::request(
@@ -236,6 +237,15 @@ class Database
         );
     }
 
+    public function findSubmissionByStatus($status)
+    {
+        return API::request(
+            $this->baseUrl . 'submission/findSubmissionByStatus?status=' . $status,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
     public function findSubmissionByPath($path)
     {
         return API::request(
@@ -245,10 +255,10 @@ class Database
         );
     }
 
-    public function findSubmissionByStatus($status)
+    public function findSubmissionByReviewerId($id)
     {
         return API::request(
-            $this->baseUrl . 'submission/findSubmissionByStatus?status=' . $status,
+            $this->baseUrl . 'submission/findSubmissionByReviewerId?id=' . $id,
             "GET_REQUEST",
             $this->baseHeader
         );
@@ -260,10 +270,11 @@ class Database
         $fields = [
             'SubmissionId' => $arg_0,
             'UserId' => $arg_1,
-            'ConferenceId' => $arg_2, 
-            'SubmissionTimestamp' => $arg_3, 
-            'SubmissionPath' => $arg_4, 
-            'SubmissionStatus' => $arg_5 
+            'ReviewerId' => $arg_2,
+            'ConferenceId' => $arg_3, 
+            'SubmissionTimestamp' => $arg_4, 
+            'SubmissionPath' => $arg_5, 
+            'SubmissionStatus' => $arg_6 
         ];
 
         return API::request(
@@ -279,10 +290,11 @@ class Database
         $fields = [
             'SubmissionId' => $arg_0,
             'UserId' => $arg_1,
-            'ConferenceId' => $arg_2, 
-            'SubmissionTimestamp' => $arg_3, 
-            'SubmissionPath' => $arg_4, 
-            'SubmissionStatus' => $arg_5 
+            'ReviewerId' => $arg_2,
+            'ConferenceId' => $arg_3, 
+            'SubmissionTimestamp' => $arg_4, 
+            'SubmissionPath' => $arg_5, 
+            'SubmissionStatus' => $arg_6 
         ];
 
         return API::request(
@@ -306,7 +318,7 @@ class Database
 
     /* START CONFERENCE API CONNECTION*/
 
-     public function getConferences()
+    public function getConferences()
     {
         return API::request(
             $this->baseUrl . 'conference/list',
@@ -323,6 +335,83 @@ class Database
         );
     }
 
+    public function findConferenceByTitle($title) {
+        return API::request(
+            $this->baseUrl . 'conference/findConferenceByTitle?title=' . $title,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findConferenceByStartTimestamp($timestamp) {
+        return API::request(
+            $this->baseUrl . 'conference/findConferenceByStartTimestamp?timestamp=' . $timestamp,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findConferenceByEndTimestamp($timestamp) {
+        return API::request(
+            $this->baseUrl . 'conference/findConferenceByEndTimestamp?timestamp=' . $timestamp,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findConferenceByLocation($location) {
+        return API::request(
+            $this->baseUrl . 'conference/findConferenceByLocation?location=' . $location,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findConferenceByStatus($status) {
+        return API::request(
+            $this->baseUrl . 'conference/findConferenceByStatus?status=' . $status,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function createConference()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'ConferenceId' => $arg_0,
+            'ConferenceTitle' => $arg_1,
+            'ConferenceStartTimestamp' => $arg_2,
+            'ConferenceEndTimestamp' => $arg_3,
+            'ConferenceLocation' => $arg_4, 
+            'ConferenceStatus' => $arg_5
+        ];
+
+        return API::request(
+            $this->baseUrl . 'conference/createConference',
+            "POST_REQUEST",
+            $fields
+        );
+    }
+
+    public function updateConference()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'ConferenceId' => $arg_0,
+            'ConferenceTitle' => $arg_1,
+            'ConferenceStartTimestamp' => $arg_2,
+            'ConferenceEndTimestamp' => $arg_3,
+            'ConferenceLocation' => $arg_4, 
+            'ConferenceStatus' => $arg_5
+        ];
+
+        return API::request(
+            $this->baseUrl . 'conference/updateConference',
+            "POST_REQUEST",
+            $fields
+        );
+    }
     /* END CONFERENCE API CONNECTION*/
     
     /* START REVIEW API CONNECTION*/
@@ -389,8 +478,9 @@ class Database
         $fields = [
             'RegId' => $arg_0,
             'UserId' => $arg_1,
-            'ConferenceId' => $arg_1,
-            'RegDateTime' => $arg_2,
+            'ConferenceId' => $arg_2,
+            'RegDateTime' => $arg_3,
+            'Attendance' => $arg_4
         ];
 
         return API::request(

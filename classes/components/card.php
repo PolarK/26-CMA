@@ -399,12 +399,12 @@ class Card
                         </div>
                         <div id="box-edit-' . $id . '" class="col border-end">
                             <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success" ' . self::checkUserRole($id, $role) . '>
-                                <i class="fas fa-edit"></i>
+                                <i class="fas fa-edit" style="font-size:12px"></i><span style="font-size:smaller;"> EDIT</span>
                             </button>
                         </div>
                         <div id="box-disable-' . $id . '" class="col border-end">
                             <button id="disable-' . $id . '" type="button" class="btn btn-sm ' . $userActiveAttribute['button'] . '" ' . self::checkUserRole($id, $role) . '>
-                                <i class="fa fa-minus"></i>
+                                <i class="fa fa-minus" style="font-size:12px"></i><span style="font-size:smaller;"> DISABLE</span>
                             </button>
                         </div>
                         <div class="col m-1">

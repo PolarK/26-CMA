@@ -4,6 +4,10 @@ $.getScript("./scripts/profile.js");
 $.getScript("./scripts/conference.js");
 
 $(document).ready(function () {
+    dynamicUserSearch();
+    dynamicSubmissionSearch();
+    dynamicConferenceSearch();
+
     //Form input dynamic styling
     $('form input').blur(function () {
         if (!$(this).val()) {
@@ -12,10 +16,6 @@ $(document).ready(function () {
             $(this).css('border', '1px solid green');
         }
     });
-
-    dynamicUserSearch();
-    dynamicSubmissionSearch();
-    dynamicConferenceSearch();
 
     $("button").click(function (event) {
         var curentPath = window.location.pathname;
@@ -27,10 +27,6 @@ $(document).ready(function () {
             switch (curentPath) {
                 case "/manageUsers":
                     editUserData(rawID, tableID);
-                    break;
-
-                case "/manageSubmissions":
-                    editSubmissionData(rawID, tableID);
                     break;
 
                 case "/profile":
@@ -47,10 +43,6 @@ $(document).ready(function () {
             switch (curentPath) {
                 case "/manageUsers":
                     disableUserData(rawID, tableID);
-                    break;
-
-                case "/manageSubmissions":
-                    disableSubmissionData(rawID, tableID);
                     break;
 
                 case "/manageEvents":

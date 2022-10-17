@@ -2,7 +2,7 @@
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
-function enableButtonClicks() {
+function enableConferenceButtonClicks() {
     $("button").click(function (event) {
         var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
@@ -54,7 +54,7 @@ function editConferenceData(rawID, tableID) {
                 err_contents.remove();       
                 
                 $('#searchCResult').html(data); 
-                enableButtonClicks();
+                enableConferenceButtonClicks();
 
                 userToast([
                     'Action Completed!',
@@ -110,7 +110,7 @@ function disableConferenceData(rawID, tableID, action, status) {
                 err_contents.remove();       
                 
                 $('#searchCResult').html(data); 
-                enableButtonClicks();
+                enableConferenceButtonClicks();
 
                 userToast([
                     'Action Completed!',
@@ -173,7 +173,7 @@ function dynamicConferenceSearch() {
 
         $.post('./scripts/handlers/searchHandler.php', { searchByCParam: searchParam, searchByCOption: searchOption }, function (data) {
             $('div #searchCResult').html(data);
-            enableButtonClicks();           
+            enableConferenceButtonClicks();           
         });
     }); 
 }

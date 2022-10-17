@@ -8,7 +8,7 @@ $users = $db->getAllUser();
 
 <!--CONTENT START-->
 <div id="content" class="container-fluid p-5">
-    <div class="d-flex flex-column justify-content-center align-items-center text-center h-100 mb-5">
+<div class="d-flex flex-column justify-content-center align-items-center text-center h-100 mb-5">
         <h1 class="display-4">Manage Existing Users</h1>
         <p class="lead">You have the power to manage all of the registered users!</p>
 
@@ -30,6 +30,7 @@ $users = $db->getAllUser();
         </form>
         <hr>
         <!--SEARCH END-->
+        <div id="err_user_container" class="d-none"></div>
         <?php if (!Mobile::isActive()) {
             echo '<div class="overflow-auto vw-75 vh-25 border rounded-3 border-secondary p-4" style="height: 32rem; width: 64rem;">';
         } ?>

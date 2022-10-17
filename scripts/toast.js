@@ -1,4 +1,4 @@
-var leftPos = 10;
+'[var leftPos = 10;
 var topPos = 110;
 
 function userToast(data) {

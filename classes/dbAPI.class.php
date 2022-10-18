@@ -93,7 +93,8 @@ class Database
             'UserDOB' => $arg_3,
             'UserEmail' => $arg_4,
             'UserPhoneNo' => $arg_5,
-            'UserRole' => $arg_6
+            'UserRole' => $arg_6,
+            'UserActive' => $arg_7,
         ];
 
         return API::request(

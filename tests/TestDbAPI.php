@@ -8,16 +8,21 @@ use PHPUnit\Framework\TestCase;
 
 final class TestDbAPI extends TestCase
 {
+    /**
+     * @dataProvider userData
+     */
     public function testCreateNewUser(): void
     {
-        $id = "SRJ-TEST";
-        $firstName = "Joseph";
-        $lastName = "Rodriges";
-        $dob = "01/01/1970";
-        $email = "josephinerodriges@gmail.com";
-        $phone = "0412456789";
-        $role = "SUBMITTER";
-        $active = 1;
+        $user = $this->userData();
+
+        $id = $user[0](0);
+        $firstName = $user[0](0);
+        $lastName = $user[0](0);
+        $dob = $user[0](0);
+        $email = $user[0](0);
+        $phone = $user[0](0);
+        $role = $user[0](0);
+        $active = $user[0](0);
 
         $this->assertTrue(
             ($this->dbAPI()->createNewUser($id, $firstName, $lastName, $dob, $email, $phone, $role, $active)) ? true : false
@@ -30,6 +35,7 @@ final class TestDbAPI extends TestCase
             ($this->dbAPI()->findUserById("SRJ-TEST")) ? true : false
         );
     }
+
     //user id: return False
     public function testFindSpecificUserUsingUserIDUnavailable(): void
     {
@@ -73,7 +79,7 @@ final class TestDbAPI extends TestCase
     public function testFindSpecificUserUsingDOBAvailable(): void
     {
         $this->assertTrue(
-            ($this->dbAPI()->findUserByDOB("01/01/1970")) ? true : false
+            ($this->dbAPI()->findUserByDOB("1990-12-12")) ? true : false
         );
     }
 
@@ -81,7 +87,7 @@ final class TestDbAPI extends TestCase
     public function testFindSpecificUserUsingDOBUnavailable(): void
     {
         $this->assertFalse(
-            ($this->dbAPI()->findUserByDOB("32/13/3090")) ? true : false
+            ($this->dbAPI()->findUserByDOB("3090-13-32")) ? true : false
         );
     }
 
@@ -133,13 +139,16 @@ final class TestDbAPI extends TestCase
         );
     }
 
+    /**
+     * @dataProvider userData
+     */
     //update user: return True
     public function testUpdateSpecificUser(): void
     {
         $id = "SRJ-TEST";
         $firstName = "Josephinia";
         $lastName = "Rodrigesia";
-        $Email = "12/12/1990";
+        $Email = "1990-12-12";
         $email = "josephiniarodrigesia@gmail.com";
         $phone = "0419987675";
         $role = "ADMIN";
@@ -166,12 +175,17 @@ final class TestDbAPI extends TestCase
         );
     }
 
+    /**
+     * @dataProvider passwordData
+     */
     //create password: return True
     public function testCreatePasswordForSpecificUser(): void
     {
-        $id = "SRJ-TEST";
-        $salt = "TEST-SALT";
-        $pass = "TEST-PASS";
+        $password = $this->passwordData();
+
+        $id = $password[0](0);
+        $salt = $password[0](1);
+        $pass = $password[0](2);
         $hash = hash('SHA512', $salt . $id . $pass);
 
         $this->assertTrue(
@@ -189,6 +203,9 @@ final class TestDbAPI extends TestCase
         );
     }
 
+    /**
+     * @dataProvider passwordData
+     */
     //update password: return True
     public function testUpdateSpecificUserPassword(): void
     {
@@ -211,16 +228,21 @@ final class TestDbAPI extends TestCase
         );
     }
 
-    //create password: return True
+    /**
+     * @dataProvider submissionData
+     */
+    //create Submission: return True
     public function testCreatSubmissionForSpecificUser(): void
     {
-        $sid = "SUBM-TEST";
-        $uid = "SRJ-TEST";
-        $rid = "RRJ-TEST";
-        $cid = "CONF-PASS";
-        $timestamp = "01/01/1970 - 01:00:00";
-        $path = "/test/pathing/to/non/existent/file";
-        $status = "pending";
+        $submission = $this->submissionData();
+
+        $sid = $submission[0](0);
+        $uid = $submission[0](1);
+        $rid = $submission[0](2);
+        $cid = $submission[0](3);
+        $timestamp = $submission[0](4);
+        $path = $submission[0](5);
+        $status = $submission[0](6);
 
         $this->assertTrue(
             ($this->dbAPI()->createSubmission($sid, $uid, $rid, $cid, $timestamp, $path, $status)) ? true : false
@@ -338,7 +360,7 @@ final class TestDbAPI extends TestCase
             ($this->dbAPI()->findSubmissionByReviewerId("000-TEST")) ? true : false
         );
     }
-
+    //! * * * * * * * * * * * * * * * * * * * * *
     //update user: return True
     public function testUpdateSpecificSubmission(): void
     {
@@ -364,6 +386,84 @@ final class TestDbAPI extends TestCase
         $this->assertTrue(
             ($this->dbAPI()->deleteUser($id)) ? true : false
         );
+    }
+
+    public function userData()
+    {
+        return $this->createUserStdObject(
+            "SRJ-TEST",
+            "Joseph",
+            "Rodriges",
+            "01/01/1970",
+            "josephinerodriges@gmail.com",
+            "0412456789",
+            "SUBMITTER",
+            1
+        );
+    }
+
+    public function passwordData()
+    {
+        return $this->createPasswordStdObject(
+            "SRJ-TEST",
+            "TEST-SALT",
+            "TEST-PASS"
+        );
+    }
+
+    public function submissionData()
+    {
+        return $this->createSubmissionStdObject(
+            "SUBM-TEST",
+            "SRJ-TEST",
+            "RRJ-TEST",
+            "CONF-PASS",
+            "01/01/1970 - 01:00:00",
+            "/test/pathing/to/non/existent/file",
+            "pending",
+        );
+    }
+
+    public function createUserStdObject($id, $firstName, $lastName, $dob, $email, $phone, $role, $active)
+    {
+        $user = new stdClass();
+
+        $user->$id = $id;
+        $user->$firstName = $firstName;
+        $user->$lastName = $lastName;
+        $user->$dob = $dob;
+        $user->$email = $email;
+        $user->$phone = $phone;
+        $user->$role = $role;
+        $user->$active = $active;
+
+        return $user;
+    }
+
+    public function createPasswordStdObject($id, $salt, $pass)
+    {
+        $password = new stdClass();
+
+        $password->$id = $id;
+        $password->$salt = $salt;
+        $password->$pass = $pass;
+
+        return $password;
+    }
+
+    public function createSubmissionStdObject($sid, $uid, $rid, $cid, $timestamp, $path, $status)
+    {
+        $submission = new stdClass();
+
+        $submission->$sid;
+        $submission->$uid;
+        $submission->$rid;
+        $submission->$cid;
+        $submission->$timestamp;
+        $submission->$path;
+        $submission->$status;
+
+        return $submission;
     }
 
     public function dbAPI(): Database

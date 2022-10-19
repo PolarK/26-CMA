@@ -16,8 +16,12 @@ class API
         extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
 
         // attempt to solve space issue in url arguments
-        $url = str_replace(" ","%20",$arg_0);
-        
+        $rawData = substr(basename($arg_0), strpos(basename($arg_0), "=")+1); 
+
+        $encodedData = rawurlencode(substr(basename($arg_0), strpos(basename($arg_0), "=")+1)); 
+
+        $url = str_replace($rawData, $encodedData, $arg_0); 
+    
         # initialised connection to API
         $conn = curl_init();
         curl_setopt($conn, CURLOPT_URL, $url);

@@ -60,7 +60,6 @@ if (isset($_POST['register'])) {
     }
     else {
         Validator::displayErrorToasts($errs);
-        print_r(' error '. $errs);
     }
 }
 ?>

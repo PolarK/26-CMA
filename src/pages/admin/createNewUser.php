@@ -4,6 +4,27 @@ require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 require_once "./classes/idGenerator.class.php";
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require './vendor/autoload.php';
+
+$mail = new PHPMailer(true);
+$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+$mail->isSMTP();
+$mail->Host = 'smtp-mail.outlook.com';
+$mail->SMTPAuth = true;
+$mail->Username = 'csms-26@outlook.com';
+$mail->Password = 'Qw3rty@123';
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 465;
+$mail->setFrom('csms-26@outlook.com');
+$mail->addAddress('102561444@student.swin.edu.au');
+$mail->isHTML(true);
+$mail->Subject = 'test';
+$mail->Body = 'test';
+$mail->send();
+
 $db = new Database();
 
 if (isset($_POST['register'])) {
@@ -39,30 +60,21 @@ if (isset($_POST['register'])) {
                 $hashedPwd['hash']
             );
         }
-
-        // For now the email bit will be commented out to test the toasts by themselves
         /*
-        $to = $_POST['email'];
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $subject = 'C-SMS Account';
-        $message = '
-                    <h5> Hi there! </h5>
-                    <p>Your new C-SMS account has been successfully created!</p>
-                    <p>Thank you for being a part of our ever growing community.</p>
-                    <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
-                    <pre>';
-        $message .= '   email   : ' . $email .
-            '   password: ' . $password .
-            '</pre>';
-
-        $message .= ' <p> - Regards, C-SMS Team.</p>';
-
-        mail($to, $subject, $message, $headers);
-
-        echo $email, $password;
+        $mail->addAddress($_POST['email']);
+        $mail->isHTML(true);
+        $mail->Subject = 'C_SMS Account';
+        $mail->Body =   '
+                        <h5> Hi there! </h5>
+                        <p>Your new C-SMS account has been successfully created!</p>
+                        <p>Thank you for being a part of our ever growing community.</p>
+                        <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
+                        <pre>   email   : ' . $email .'   password: ' . $password .'</pre>
+                        <p> - Regards, C-SMS Team.</p>
+                        ';
+        
+        $mail->send();
         */
-
         Validator::displaySuccessfulToast();
     }
     else {

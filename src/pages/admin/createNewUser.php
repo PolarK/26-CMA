@@ -17,7 +17,7 @@ $mail->SMTPAuth = true;
 $mail->Username = 'csms-26@outlook.com';
 $mail->Password = 'Qw3rty@123';
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 465;
+$mail->Port = 587;
 $mail->setFrom('csms-26@outlook.com');
 
 $db = new Database();
@@ -28,6 +28,8 @@ if (isset($_POST['register'])) {
     $fname = Validator::sanitise($_POST["uFirstName"]);
     $lname = Validator::sanitise($_POST["uLastName"]);
     $pwd = IDGenerator::password($fname, $lname);
+    $dob = '1970-01-01';
+    $phoneno = '0441234567';
 
     // Ill leave the prefilled fields unless we want have the admin manually put them in
     $user = new User($fname, $lname, '1970-01-01', $email, '0441234567', $pwd, $pwd, array());
@@ -46,7 +48,8 @@ if (isset($_POST['register'])) {
                 $dob,
                 strtolower($email),
                 $phoneno,
-                $role
+                $role,
+                '1'
             );
 
             $db->createPassword(
@@ -56,7 +59,7 @@ if (isset($_POST['register'])) {
             );
         }
         
-        $mail->addAddress($_POST['email']);
+        $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'C_SMS Account';
         $mail->Body =   '
@@ -64,7 +67,7 @@ if (isset($_POST['register'])) {
                         <p>Your new C-SMS account has been successfully created!</p>
                         <p>Thank you for being a part of our ever growing community.</p>
                         <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
-                        <pre>   email   : ' . $email .'   password: ' . $password .'</pre>
+                        <pre>   email   : ' . $email .'   password: ' . $pwd .'</pre>
                         <p> - Regards, C-SMS Team.</p>
                         ';
         
@@ -74,6 +77,7 @@ if (isset($_POST['register'])) {
     }
     else {
         Validator::displayErrorToasts($errs);
+        print_r(' error '. $errs);
     }
 }
 ?>

@@ -2,6 +2,7 @@
 require "./classes/dbAPI.class.php";
 require_once "./classes/components/toast.php";
 include_once "./submission.php"; 
+require_once "./classes/idGenerator.class.php";
 
 $db = new Database();
 
@@ -65,6 +66,16 @@ if ($event) {
                             $filename, 
                             $status
                         ); 
+
+                        $regid = IDGenerator::conference();
+
+                        $db->createNewEvent(
+                            $regid,
+                            $userid,
+                            $cid,
+                            $timestamp,
+                            "pending"
+                        );
                     }                       
                     
                 } 

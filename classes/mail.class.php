@@ -22,11 +22,10 @@ class Mail
 
     public function SendMail($address, $subject, $body)
     {
-        $this->$mail->addAddress($address);
-        $this->$mail->isHTML(true);
-        $this->$mail->Subject = $subject;
-        $this->$mail->Body = $body;
+        $this->mail->addAddress($address);
+        $this->mail->Subject = $subject;
+        $this->mail->Body = $body;
 
-        $this->$mail->send();
+        $this->mail->send();
     }
 }

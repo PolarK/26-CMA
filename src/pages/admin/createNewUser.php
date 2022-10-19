@@ -4,7 +4,10 @@ require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 require_once "./classes/idGenerator.class.php";
 require_once "./classes/mail.class.php";
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require './vendor/autoload.php';
 $db = new Database();
 $mail = new Mail();
 

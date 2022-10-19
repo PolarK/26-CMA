@@ -3,24 +3,10 @@ require_once "./classes/dbAPI.class.php";
 require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 require_once "./classes/idGenerator.class.php";
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-require './vendor/autoload.php';
-
-$mail = new PHPMailer(true);
-$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-$mail->isSMTP();
-$mail->Host = 'smtp-mail.outlook.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'csms-26@outlook.com';
-$mail->Password = 'Qw3rty@123';
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
-$mail->setFrom('csms-26@outlook.com');
+require_once "./classes/mail.class.php";
 
 $db = new Database();
+$mail = new Mail();
 
 if (isset($_POST['register'])) {
     $role = Validator::sanitise($_POST['role']);
@@ -59,19 +45,16 @@ if (isset($_POST['register'])) {
             );
         }
         
-        $mail->addAddress($email);
-        $mail->isHTML(true);
-        $mail->Subject = 'C_SMS Account';
-        $mail->Body =   '
-                        <h5> Hi there! </h5>
-                        <p>Your new C-SMS account has been successfully created!</p>
-                        <p>Thank you for being a part of our ever growing community.</p>
-                        <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
-                        <pre>   email   : ' . $email .'   password: ' . $pwd .'</pre>
-                        <p> - Regards, C-SMS Team.</p>
-                        ';
-        
-        $mail->send();
+        $subject = 'C_SMS Account';
+        $body = '
+                <h5> Hi there! </h5>
+                <p>Your new C-SMS account has been successfully created!</p>
+                <p>Thank you for being a part of our ever growing community.</p>
+                <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
+                <pre>   email   : ' . $email .'   password: ' . $pwd .'</pre>
+                <p> - Regards, C-SMS Team.</p>
+                ';
+        $mail->SendMail($email, $subject, $body);
         
         Validator::displaySuccessfulToast();
     }

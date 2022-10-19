@@ -6,18 +6,20 @@ require './vendor/autoload.php';
 
 class Mail
 {
+    private $mail;
+
     public function __construct()
     {
-        $mail = new PHPMailer(true);
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-        $mail->isSMTP();
-        $mail->Host = 'smtp-mail.outlook.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'csms-26@outlook.com';
-        $mail->Password = 'Qw3rty@123';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->setFrom('csms-26@outlook.com');
+        $this->mail = new PHPMailer(true);
+        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $this->mail->isSMTP();
+        $this->mail->Host = 'smtp-mail.outlook.com';
+        $this->mail->SMTPAuth = true;
+        $this->mail->Username = 'csms-26@outlook.com';
+        $this->mail->Password = 'Qw3rty@123';
+        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $this->mail->Port = 587;
+        $this->mail->setFrom('csms-26@outlook.com');
     }
 
     public function SendMail($address, $subject, $body)

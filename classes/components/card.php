@@ -11,7 +11,7 @@ class Card
                 return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
             case 'event':
-                return self::eventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+                return self::eventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
             case 'upcomingEvent':
                 return self::upcomingEventCard($data[0], $data[1], $data[2], $data[3]);
@@ -48,15 +48,14 @@ class Card
             <div class="card-body">
                 <p class="card-title">' . $cTitle . '</p>
                 <p class="card-subtitle mb-2 text-muted">Submitted at: ' . $date . ' ' . $time . '</p>
-                <a href="./viewSubmission?filepath=' . $filePath .  '&subId=' . $subId . '" class="card-link">View My Paper</a> 
+                <a href="./viewSubmission?filepath=' . rawurlencode($filePath) .  '&subId=' . $subId . '" class="card-link">View My Paper</a> 
             </div>
         </div>
         <br>
         ';
     }
 
-    //! $date & $time should be merge into $timestamp
-    private static function eventCard($title, $link, $date, $time, $filePath, $presenter, $status)
+    private static function eventCard($title, $link, $timestamp, $filePath, $presenter, $status)
     {
         return '
         <div class="card">
@@ -66,15 +65,13 @@ class Card
                 <h6 class="card-subtitle mb-2 text-muted">Presented by: ' . $presenter . ' </h6>
                 <div class="text-left">
                     <p class="card-text"> 
-                        <strong> Event Date </strong> : ' . $date . '</a><br>
-                        <strong> Event Time </strong> : ' . $time . '</a><br>
+                        <strong> Event Date </strong> : ' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '</a><br>
                         <strong> Meeting URL </strong> : <a href="' . $link . '">' . $link . '</a><br>
                         <strong> Paper to be presented </strong> : <a href="' . $filePath . '">' . $filePath . '</a>
                     </p>
                     <form>
-                        <select class="form-select">
+                        <select class="form-select" name="attendanceOption">
                             <option value="accept">Confirmed Attendance</option>
-                            <option value="reschedule">Request Another Time</option>
                             <option value="reject">Cancel Attendance</option>
                         </select>
                         <br>
@@ -300,7 +297,7 @@ class Card
                         <td>' . $timestamp . '</td>
                         <td>' . $status . '</td>
                         <td>' . $comments . '</td>
-                        <td><a href= "./reviewSubmission?filepath=' . $subPath . '&rSubId=' . $subId . '">Review</a></td>
+                        <td><a href= "./reviewSubmission?filepath=' . rawurlencode($subPath) . '&rSubId=' . $subId . '">Review</a></td>
                     </tr>
                 </tbody>'; 
 
@@ -402,12 +399,12 @@ class Card
                         </div>
                         <div id="box-edit-' . $id . '" class="col border-end">
                             <button id="edit-' . $id . '" type="button" class="btn btn-sm btn-success" ' . self::checkUserRole($id, $role) . '>
-                                <i class="fas fa-edit"></i>
+                                <i class="fas fa-edit" style="font-size:12px"></i><span style="font-size:smaller;"> EDIT</span>
                             </button>
                         </div>
                         <div id="box-disable-' . $id . '" class="col border-end">
                             <button id="disable-' . $id . '" type="button" class="btn btn-sm ' . $userActiveAttribute['button'] . '" ' . self::checkUserRole($id, $role) . '>
-                                <i class="fa fa-minus"></i>
+                                <i class="fa fa-minus" style="font-size:12px"></i><span style="font-size:smaller;"> DISABLE</span>
                             </button>
                         </div>
                         <div class="col m-1">

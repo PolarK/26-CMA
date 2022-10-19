@@ -50,6 +50,14 @@
                         });
                     </script>";
         }
+
+        public static function successSubmission($id) {
+
+            return "<script>
+                       party.confetti(document.getElementById('" . $id . "')); 
+                    </script>";
+        }
+    
     }
 
 ?>

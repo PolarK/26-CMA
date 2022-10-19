@@ -97,51 +97,34 @@ if (isset($_POST['editByUser'])) {
     $user = new User($fname, $lname, $dob, $email, $phoneno, 'Temp@Pass123', 'Temp@Pass123', array());
     $user->validateUserUpdate();
 
-    if (!Validator::validate($user->get_err())) {
-        echo '
-        <script>
-        $.toast({
-            heading: \'Action Failed!\',
-            text: \'One or more action resulted in this error. Please correct them.\'. 
-            icon:  \'info\',
-            position: {
-                left: 10,
-                top: 110
-            },
-            hideAfter: 6000,
-        });
-        </script>';
+    $errs = $user->get_err(); 
 
+    if (Validator::validate($errs)) {
+        $db->updateUser(
+            $_POST['UserId'],
+            $fname, 
+            $lname, 
+            $dob, 
+            $email, 
+            $phoneno,
+            $_POST['UserRole'],
+            $_POST['UserActive'],
+        );
+    
         displayUsers($db->getAllUser());
-        exit;
+        
+    }
+    else {
+
+        foreach($errs as $err) {
+            if (!empty($err)) {
+                echo Toast::errorToast($err); 
+            }            
+        }     
+        echo "<p id='err_user'>Error<p>"; 
     }
 
-    echo '
-        <script>
-        $.toast({
-            heading: \'Action Success!\',
-            text: \'User with the ID of ' . str_replace('accept-edit-', '', $_POST['editByUser']) . ' was successfully changed.\',
-            icon:  \'success\',
-            position: {
-                left: 10,
-                top: 110
-            },
-            hideAfter: 6000,
-        });
-        </script>';
-
-    $db->updateUser(
-        $_POST['UserId'],
-        $_POST['UserFirstName'],
-        $_POST['UserLastName'],
-        $_POST['UserDOB'],
-        $_POST['UserEmail'],
-        $_POST['UserPhoneNo'],
-        $_POST['UserRole'],
-        $_POST['UserActive'],
-    );
-
-    displayUsers($db->getAllUser());
+   
 }
 
 if (isset($_POST['disableByUser'])) {
@@ -261,7 +244,6 @@ if (isset($_POST['editByProfile'])) {
 
 if (isset($_POST['editByConference'])) {
 
-    // work in progress
     $errs = [
         "cTitle" => "", 
         "cLocation" => "", 
@@ -329,8 +311,8 @@ if (isset($_POST['editConferenceStatus'])) {
     ];
 
     $conference = $db->findConferenceById($_POST['ConferenceId']); 
-    $title = $conference->ConferenceTitle;
-    $location = $conference->ConferenceTitle;
+    $title = $conference[0]->ConferenceTitle;
+    $location = $conference[0]->ConferenceLocation;
     $status = $_POST['ConferenceStatus'];
 
     $sDate = Validator::sanitise($_POST["ConferenceSDate"]);

@@ -9,7 +9,7 @@
 
 <!--CONTENT START-->
 <div id="content" class="container-fluid p-5">
-    <div class="d-flex flex-column justify-content-center align-items-center text-left h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center text-left h-100 mb-5">
         <h1 class="display-4">Submissions</h1>
         <p class="lead">You have the power to manage all of the submissions!</p>
 

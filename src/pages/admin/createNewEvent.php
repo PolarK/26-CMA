@@ -54,7 +54,7 @@
 
 <div id="content" class="container-fluid p-5">
 
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100 mb-5">
         <div class="card-body">
             <h1 class="display-4">Register An Upcoming Conference</h1>            
             <br>

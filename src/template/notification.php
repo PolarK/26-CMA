@@ -66,7 +66,7 @@
             </button>
         </div>
         <div class="toast-body">
-        <i class="start-icon  fa fa-info-circle faa-shake animated"></i>        Heads up! This alert needs your attention
+        <i class="start-icon  fa fa-info-circle faa-shake animated"></i> Heads up! This alert needs your attention
         </div>
     </div>
 </div>

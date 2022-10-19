@@ -17,11 +17,11 @@
             mkdir($folder_path, 0777, true);
         }      
         
-        getFile($uId, $filename, $folder_path);         
+        getFile($uId, $filename, $folder_path);        
 
-        $tempPath = "./src/pages/submitter/submissions/" . $uId . "/" . $filename; 
+        $tempPath = "https://" . $_SERVER['SERVER_NAME'] . "/src/pages/submitter/submissions/" . $uId . "/" . rawurlencode($filename); 
 
-        return $tempPath; 
+        return $tempPath;; 
     }
 
 
@@ -99,7 +99,7 @@
 ?>
 
 <div class="container-fluid" style="width:100%">
-  <div class="row vh-100">
+  <div class="row vh-100 mb-5">
     <div class="col-sm-6 col-md-8 border bg-light embed-responsive embed-responsive-21by9">
         <iframe class="p-3 embed-responsive-item" src= "<?php echo $tempPath; ?>"></iframe>
     </div>

@@ -2,7 +2,7 @@
 $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
-function enableButtonClicks() {
+function enableProfileButtonClicks() {
     $("button").click(function (event) {
         var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
@@ -43,7 +43,7 @@ function editProfileData(rawID, tableID) {
         }, function (data) {
             // bugs where input successfully submitted, button doesnt work
             $('#searchResult').html(data);
-            enableButtonClicks();
+            enableProfileButtonClicks();
         });
     });
 

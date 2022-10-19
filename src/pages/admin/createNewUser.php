@@ -19,11 +19,6 @@ $mail->Password = 'Qw3rty@123';
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 465;
 $mail->setFrom('csms-26@outlook.com');
-$mail->addAddress('102561444@student.swin.edu.au');
-$mail->isHTML(true);
-$mail->Subject = 'test';
-$mail->Body = 'test';
-$mail->send();
 
 $db = new Database();
 
@@ -60,7 +55,7 @@ if (isset($_POST['register'])) {
                 $hashedPwd['hash']
             );
         }
-        /*
+        
         $mail->addAddress($_POST['email']);
         $mail->isHTML(true);
         $mail->Subject = 'C_SMS Account';
@@ -74,7 +69,7 @@ if (isset($_POST['register'])) {
                         ';
         
         $mail->send();
-        */
+        
         Validator::displaySuccessfulToast();
     }
     else {

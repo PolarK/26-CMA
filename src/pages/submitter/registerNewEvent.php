@@ -4,17 +4,6 @@ require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 require_once "./classes/idGenerator.class.php";
 
-    //
-    //
-    //
-    //
-    // We can possibly delete this page as it can be implemented within the manageMyEvents.php page
-    // We can also use it to show un-accepted registered comnferences, and use manageMyEvents to only show accepted conferences
-    //
-    //  
-    //
-    //
-
 $db = new Database();
 
 $date = $time = "";

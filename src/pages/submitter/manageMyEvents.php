@@ -6,7 +6,6 @@
     $db = new Database();
     $events = $db->getConferences();
     $submissions = $db->getAllSubmission();
-    $allEvents = $db->getEvents();
 
     foreach($events as $event) {
         if (TimeProcessor::cmpETimeandCTime($event->ConferenceEndTimestamp)) {
@@ -42,7 +41,7 @@
                         $submissionByID = $db->findSubmissionByConferenceId($event->ConferenceId);
 
                         if (in_array($_SESSION["UID"], array_column($submissionByID, 'UserId'))) {
-                            echo '<div class="card">';
+                        
                             // This wil needs fixing
                             // This line checks, if a submission path for the current conference exists, assign it to $file, otherwise display 'file is not available'
                             if (in_array($event->ConferenceId, array_column($submissions, 'SubmissionPath'))) {
@@ -57,38 +56,15 @@
                                 $event->ConferenceStartTimestamp,
                                 $file,
                                 $_SESSION['uFName'] . " " . $_SESSION['uLName'],
-                                'Active'
+                                'status unknown'
                             ];
 
-                            $displayEvent = Card::display("event", $subData);
-
-                            echo $displayEvent;
-
-                            if (in_array($event->ConferenceId, array_column($allEvents, 'ConferenceId')) and in_array($_SESSION["UID"], array_column($allEvents, 'UserId'))) {
-                                echo '
-                                <p>Attending status will be shown here</p>
-                                ';
-                            } else {
-                                echo '<form class="attendanceForm" action="" method="post">
-                                <select class="form-select" name="attendanceOption">
-                                    <option value="accept">Confirmed Attendance</option>
-                                    <option value="reject">Cancel Attendance</option>
-                                </select>
-                                <br>
-                                <div class="form-group btn-group-sm d-grid gap-2">
-                                    <button class="btn btn-primary" onclick="setAttendance()">Submit Attendance</button>
-                                </div>
-                                </form>';
-                            }
-
-
-                            echo '</div>';
-
-
+                            echo Card::display("event", $subData);
                         }
                     }
                 }
             ?>
+            
         </div>
     </div>
 </div>

@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once "./classes/dbAPI.class.php";
 require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
@@ -21,7 +18,7 @@ if (isset($_POST['register'])) {
     $phoneno = '0441234567';
 
     // Ill leave the prefilled fields unless we want have the admin manually put them in
-    $user = new User($fname, $lname, $dob, 'changeme@gg.com', $phoneno, $pwd, $pwd, array());
+    $user = new User($fname, $lname, $dob, $mail, $phoneno, $pwd, $pwd, array());
     $user->validateAdminCreateUser();
     $errs = $user->get_err();
 
@@ -47,7 +44,7 @@ if (isset($_POST['register'])) {
                 $hashedPwd['hash']
             );
         }
-        
+
         $subject = 'C_SMS Account';
         $body = '
                 <h5> Hi there! </h5>
@@ -56,14 +53,13 @@ if (isset($_POST['register'])) {
                 <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
                 <pre>   role    : ' . $role .
                 '       email   : ' . $email .
-                '       password: ' . $pwd .'</pre>
+                '       password: ' . $pwd . '</pre>
                 <p> - Regards, C-SMS Team.</p>
                 ';
         $mail->SendMail($email, $subject, $body);
-        
+
         Validator::displaySuccessfulToast();
-    }
-    else {
+    } else {
         Validator::displayErrorToasts($errs);
     }
 }

@@ -11,7 +11,6 @@ class Mail
     public function __construct()
     {
         $this->mail = new PHPMailer(true);
-        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $this->mail->isSMTP();
         $this->mail->Host = 'smtp-mail.outlook.com';
         $this->mail->SMTPAuth = true;

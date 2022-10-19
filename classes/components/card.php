@@ -58,30 +58,15 @@ class Card
     private static function eventCard($title, $link, $timestamp, $filePath, $presenter, $status)
     {
         return '
-        <div class="card">
             <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Event ' . $status . '</span>
-            <div class="card-body">
-                <h5 class="card-title">' . $title . '</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Presented by: ' . $presenter . ' </h6>
-                <div class="text-left">
-                    <p class="card-text"> 
-                        <strong> Event Date </strong> : ' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '</a><br>
-                        <strong> Meeting URL </strong> : <a href="' . $link . '">' . $link . '</a><br>
-                        <strong> Paper to be presented </strong> : <a href="' . $filePath . '">' . $filePath . '</a>
-                    </p>
-                    <form>
-                        <select class="form-select" name="attendanceOption">
-                            <option value="accept">Confirmed Attendance</option>
-                            <option value="reject">Cancel Attendance</option>
-                        </select>
-                        <br>
-                        <div class="form-group btn-group-sm d-grid gap-2">
-                            <button name="submitAttendance" type="submit" class="btn btn-primary" onclick="showToast()">Submit Attendance</button>
-                        </div>
-                    </form>
-                </div>
+            <h5 class="card-title">' . $title . '</h5>
+            <div class="text-left">
+                <p class="card-text"> 
+                    <strong> Event Date </strong> : ' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '</a><br>
+                    <strong> Meeting URL </strong> : <a href="' . $link . '">' . $link . '</a><br>
+                    <strong> Paper to be presented </strong> : <a href="' . $filePath . '">' . $filePath . '</a>
+                </p>
             </div>
-        </div>
         <br>
         ';
     }

@@ -30,7 +30,7 @@ $mail->send();
 $mail = new Mail();
 
 $mail->SendMail(
-    '102561444@student.swin.edu.au',
+    'widapi1643@haizail.com',
     'Whatz Cookin',
     'I am there for the test testing android servers and the test servers are running on different machines.'
 );

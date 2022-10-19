@@ -21,7 +21,7 @@ if (isset($_POST['register'])) {
     $phoneno = '0441234567';
 
     // Ill leave the prefilled fields unless we want have the admin manually put them in
-    $user = new User($fname, $lname, '1970-01-01', $email, '0441234567', $pwd, $pwd, array());
+    $user = new User($fname, $lname, $dob, 'changeme@gg.com', $phoneno, $pwd, $pwd, array());
     $user->validateAdminCreateUser();
     $errs = $user->get_err();
 
@@ -54,7 +54,9 @@ if (isset($_POST['register'])) {
                 <p>Your new C-SMS account has been successfully created!</p>
                 <p>Thank you for being a part of our ever growing community.</p>
                 <p>We have attached your credential below. Don\'t forget to change your password as soon as possible!</p>
-                <pre>   email   : ' . $email .'   password: ' . $pwd .'</pre>
+                <pre>   role    : ' . $role .
+                '       email   : ' . $email .
+                '       password: ' . $pwd .'</pre>
                 <p> - Regards, C-SMS Team.</p>
                 ';
         $mail->SendMail($email, $subject, $body);

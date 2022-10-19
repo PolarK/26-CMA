@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-require './vendor/autoload.php';
+require '../vendor/autoload.php';
 
 class Mail
 {
@@ -18,12 +18,12 @@ class Mail
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         $mail->setFrom('csms-26@outlook.com');
-        $mail->isHTML(true);
     }
 
     public function SendMail($address, $subject, $body)
     {
         $this->$mail->addAddress($address);
+        $this->$mail->isHTML(true);
         $this->$mail->Subject = $subject;
         $this->$mail->Body = $body;
 

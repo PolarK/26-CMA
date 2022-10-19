@@ -24,7 +24,7 @@ final class TestErrorHandler extends TestCase
     
     public function testValidFName() : void
     {
-        $this->assertTrue(ErrorHandler::validateFname("joe"));
+        $this->assertNull(ErrorHandler::validateFname("joe"));
     }
 
     public function testIncorrectLName() : void
@@ -42,7 +42,7 @@ final class TestErrorHandler extends TestCase
     
     public function testValidLName() : void
     {
-        $this->assertTrue(ErrorHandler::validateLname("anderson"));
+        $this->assertNull(ErrorHandler::validateLname("anderson"));
     }
     
     public function testIncorrectDOB() : void
@@ -55,7 +55,7 @@ final class TestErrorHandler extends TestCase
     public function testValidDOB() : void
     {
         // Error handler doesnt actually check isValid on dob
-        $this->assertTrue(ErrorHandler::validateDob("12/12/1212"));
+        $this->assertNull(ErrorHandler::validateDob("12/12/1212"));
     }
 
     public function testEmailEmpty() : void
@@ -90,7 +90,7 @@ final class TestErrorHandler extends TestCase
     
     public function testValidPhone() : void
     {
-        $this->assertTrue(ErrorHandler::validatePhoneno("0412345678"));
+        $this->assertNull(ErrorHandler::validatePhoneno("0412345678"));
     }
 
     public function testIncorrectPass() : void
@@ -113,7 +113,7 @@ final class TestErrorHandler extends TestCase
 
     public function testValidPass() : void
     {
-        $this->assertTrue(ErrorHandler::validatePwd("Qw3rty@123","Qw3rty@123"));
+        $this->assertNull(ErrorHandler::validatePwd("Qw3rty@123","Qw3rty@123"));
     }
 
     public function testIncorrectConferenceTitle() : void
@@ -130,7 +130,7 @@ final class TestErrorHandler extends TestCase
 
     public function testValidConferenceTitle() : void
     {
-        $this->assertTrue(ErrorHandler::validatecTitle("Title That Isnt Used"));
+        $this->assertNull(ErrorHandler::validatecTitle("Title That Isnt Used"));
     }
 
     public function testUpdateConferenceTitle() : void
@@ -141,7 +141,7 @@ final class TestErrorHandler extends TestCase
         $this->assertStringMatchesFormat($err, $actual);
 
         // Valid Conference Title
-        $this->assertTrue(ErrorHandler::validatecTitleUpdate("New ConferenceTitle"));
+        $this->assertNull(ErrorHandler::validatecTitleUpdate("New ConferenceTitle"));
     }
 
     public function testConferenceLocation() : void
@@ -153,7 +153,7 @@ final class TestErrorHandler extends TestCase
         $this->assertStringMatchesFormat($err, $actual);
 
         // Valid location
-        $this->assertTrue(ErrorHandler::validatecLocation("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+        $this->assertNull(ErrorHandler::validatecLocation("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
     }
 }
 

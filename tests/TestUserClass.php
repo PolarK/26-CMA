@@ -9,68 +9,122 @@ use PHPUnit\Framework\TestCase;
 
 final class TestUserClass extends TestCase
 {
-    
+    // public function createUserStdObject($id, $firstName, $lastName, $dob, $email, $phone, $role, $active)
+    // {
+    //     $user = new stdClass();
+
+    //     $user->$id = $id;
+    //     $user->$firstName = $firstName;
+    //     $user->$lastName = $lastName;
+    //     $user->$dob = $dob;
+    //     $user->$email = $email;
+    //     $user->$phone = $phone;
+    //     $user->$role = $role;
+    //     $user->$active = $active;
+
+    //     return $user;
+    // }
+
+    // public function userData()
+    // {
+    //     return $this->createUserStdObject(
+    //         "LALA-TEST",
+    //         "Lala",
+    //         "Popo",
+    //         "01/01/1970",
+    //         "lalapopo@gmail.com",
+    //         "0412456789",
+    //         "REVIEWER",
+    //         1);
+    // }
+
+
+    // Tests for perfect inputs
     public function testUserRegisterIsValid() : void
     {
-        $this->createNewUser("lala12", "lala", "popo", "1974-03-18", "lala@po.com", "0401020202", "ADMIN", 1);
+
+        $id = "LALA-TEST";
+        $firstName = "Lala";
+        $lastName = "Popo";
+        $dob = "01/01/1970";
+        $email = "lalapopo@gmail.com";
+        $phone = "0412456789";
+        $role = "REVIEWER";
+        $active = 1;
+        $pwd = "Qw3rty@123";
+
+        $this->dbAPI()->createNewUser($id, $firstName, $lastName, $dob, $email, $phone, $role, $active);
         $this->validateUserRegister();
-        $this->assertNull($this->$err);
+        assertNull($this->$err);
     }
     
     public function testUserUpdateIsValid() : void
     {
-        $this->assertContains(
-            User::class,
-            User::get_fname("Joseph")
-        );
+        $this->dbAPI()->updateUser($id, $firstName, "Pipi", $dob, "lalapipi@gmail.com", $phone, $role, $active);
+        $this->validateUserUpdate();
+        assertNull($this->$err);
     }
     
-    public function testLastnameIsValid() : void
+    public function testAdminCreateUserIsValid() : void
     {
-        $this->assertContains(
-            User::class,
-            User::get_fname("Ayala")
-        );
+        $this->dbAPI()->createNewUser("bob20", "Bob", "Popo", "1974-03-18", "bob@po.com", "0401020202", "REVIEWER", 1);
+        $this->validateAdminCreateUser();
+        assertNull($this->$err);
     }
 
-    public function testDOBIsValid() : void
+    // Test if Generate password works correctly (Pretty sure it's wrong the salt will be diff how do i access the same salt??)
+    public function testGeneratePasswordIsValid() : void
     {
-        $this->assertContains(
-            User::class,
-            User::get_fname("1974-03-18")
-        );
+        $salt = hash('SHA256', microtime(true) . mt_rand(1000, 9000));
+
+        $testpwd = [
+            'salt' => $salt,
+            'hash' => hash('SHA512', $salt . $id . $pwd)
+        ];
+        
+        $actualpwd = $this->dbAPI()->generatePassword($id, $pwd);
+
+        AssertEqual($testpwd, $actualpwd);
+    }
+    
+    
+    // Test with 1 wrong input to make sure class functions work
+    public function testUserRegisterIsInvalid() : void
+    {
+        $this->dbAPI()->createNewUser("LALI-TEST", "La92041+", $lastName, $dob, "lalipopo@gmail.com", "0401010101", $role, $active);
+        $this->validateUserRegister();
+        $this->assertStringMatchesFormat($err1, $this->$err);
     }
 
-    public function testEmailIsValid() : void
+    public function testUserUpdateIsInvalid() : void
     {
-        $this->assertContains(
-            User::class,
-            User::get_fname("1974-03-18")
-        );
+        $this->dbAPI()->createNewUser($id, "La92041+", $lastName, $dob, $email, $phone, $role, $active);
+        $this->validateUserUpdate();
+        $err1 = "Please enter a valid first name";
+        $this->assertStringMatchesFormat($err1, $this->$err);
     }
 
-    public function testPhoneIsValid() : void
+    public function testAdminCreateUserIsInvalid() : void
     {
-        $this->assertContains(
-            User::class,
-            User::get_fname("1974-03-18")
-        );
+        $this->dbAPI()->createNewUser("bob20", "Bd21490ob", "Popo", "1974-03-18", "bob@po.com", "0401020202", "REVIEWER", 1);
+        $this->validateAdminCreateUser();
+        $err1 = "Please enter a valid first name";
+        $this->assertStringMatchesFormat($err1, $this->$err);    
     }
 
-    public function testRoleIsValid() : void
+    // Test if Generate password works correctly (Pretty sure it's wrong the salt will be diff how do i access the same salt??)
+    public function testGeneratePasswordIsInvalid() : void
     {
-        $this->assertContains(
-            User::class,
-            User::get_fname("1974-03-18")
-        );
-    }
+        $salt = hash('SHA256', microtime(true) . mt_rand(1000, 9000));
+        $pwd = "diff@Pass123";
+        $testpwd = [
+            'salt' => $salt,
+            'hash' => hash('SHA512', $salt . $id . $pwd)
+        ];
+        
+        $actualpwd = $this->dbAPI()->generatePassword($id, $pwd);
 
-    public function TestRegisterIsValid() : void
-    {
-        $this->assertContains(
-            User::class,
-            User::get_fname("John")
-        );
+        AssertEqual($testpwd, $actualpwd);
     }
 }
 

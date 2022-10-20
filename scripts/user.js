@@ -3,8 +3,8 @@ $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
 function enableUserButtonClicks() {
-    $("button").click(function (conference) {
-        var rawID = conference.target.id;
+    $("button").click(function (event) {
+        var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
 
         if (rawID.includes('edit')) {
@@ -34,7 +34,7 @@ function editUserData(rawID, tableID) {
 
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
-            editByUser: conference.target.id,
+            editByUser: event.target.id,
             UserId: $('#uID'.concat(id)).text().trim(),
             UserFirstName: $('#uFName'.concat(id)).val().trim(),
             UserLastName: $('#uLName'.concat(id)).val().trim(),
@@ -98,7 +98,7 @@ function disableUserData(rawID) {
 
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
-            disableByUser: conference.target.id,
+            disableByUser: event.target.id,
             UserId: $('#uID'.concat(id)).text().trim(),
             UserFirstName: $('#uFName'.concat(id)).val().trim(),
             UserLastName: $('#uLName'.concat(id)).val().trim(),

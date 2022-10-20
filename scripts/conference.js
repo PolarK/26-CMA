@@ -3,8 +3,8 @@ $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
 function enableConferenceButtonClicks() {
-    $("button").click(function (conference) {
-        var rawID = conference.target.id;
+    $("button").click(function (event) {
+        var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
 
         if (rawID.includes('edit')) {
@@ -36,7 +36,7 @@ function editConferenceData(rawID, tableID) {
         let id = rawID.replace('edit-', '-');
 
         $.post('./scripts/handlers/formHandler.php', {
-            editByConference: conference.target.id,
+            editByConference: event.target.id,
             ConferenceId: $('#cID'.concat(id)).text(),
             ConferenceTitle: $('#cTitle'.concat(id)).val(),
             ConferenceSDate: $('#cSDate'.concat(id)).val(), 
@@ -94,7 +94,7 @@ function disableConferenceData(rawID, tableID, action, status) {
         let id = rawID.replace(action + "-", '-');
 
         $.post('./scripts/handlers/formHandler.php', {
-            editConferenceStatus: conference.target.id,
+            editConferenceStatus: event.target.id,
             ConferenceId: $('#cID'.concat(id)).text(),
             ConferenceSDate: $('#cSDate'.concat(id)).val(), 
             ConferenceSTime: $('#cSTime'.concat(id)).val(),

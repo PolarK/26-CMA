@@ -52,8 +52,8 @@
                             Manage Users
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/createNewUser">Create New User</a></li>
-                            <li><a class="dropdown-item" href="/manageUsers">Edit Existing Users</a></li>
+                            <li><a class="dropdown-item" href="/createNewUser">Create User</a></li>
+                            <li><a class="dropdown-item" href="/manageUsers">Edit Users</a></li>
                         </ul>
                     </li>
 
@@ -62,8 +62,8 @@
                             Manage Events
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/createNewEvent">Create New Event</a></li>
-                            <li><a class="dropdown-item" href="/manageEvents">Manage Events</a></li>
+                            <li><a class="dropdown-item" href="/createNewEvent">Create Event</a></li>
+                            <li><a class="dropdown-item" href="/manageEvents">Edit Events</a></li>
                         </ul>
                     </li>
 

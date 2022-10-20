@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+require_once './classes/dbAPI.class.php';
 require_once "./classes/user.class.php";
 
 use PHPUnit\Framework\TestCase;
@@ -9,16 +10,14 @@ use PHPUnit\Framework\TestCase;
 final class TestUserClass extends TestCase
 {
     
-    public function testAllIsValid() : void
+    public function testUserRegisterIsValid() : void
     {
-        User $allvalid = new User("lala12", "lala", "popo", "1974-03-18", "lala@po.com", "0401020202", "ADMIN", 1)
-        $this->assertContains(
-            User::class,
-            User::get_fname("AAJ29b8d")
-        );
+        $this->createNewUser("lala12", "lala", "popo", "1974-03-18", "lala@po.com", "0401020202", "ADMIN", 1);
+        $this->validateUserRegister();
+        $this->assertNull($this->$err);
     }
     
-    public function testFirstnameIsValid() : void
+    public function testUserUpdateIsValid() : void
     {
         $this->assertContains(
             User::class,

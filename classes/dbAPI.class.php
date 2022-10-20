@@ -5,7 +5,7 @@ class Database
 {
     public function __construct()
     {
-        $this->baseUrl = "https://csms-api-env.herokuapp.com/api/index.php/";
+        $this->baseUrl = "http://localhost/26-CMA/api/index.php/";
         $this->baseHeader = 'Content-Type: application/json; charset=UTF-8';
     }
     
@@ -473,7 +473,7 @@ class Database
 
    /* START EVENT API CONNECTION*/
 
-    public function createNewEvent()
+    public function createNewConference()
     {
         extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
         $fields = [
@@ -485,7 +485,7 @@ class Database
         ];
 
         return API::request(
-            $this->baseUrl . 'user/createNewEvent',
+            $this->baseUrl . 'user/createNewConference',
             "POST_REQUEST",
             $fields
         );

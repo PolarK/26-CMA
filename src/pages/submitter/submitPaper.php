@@ -5,14 +5,14 @@ include_once "./submission.php";
 
 $db = new Database();
 
-$event = $db->findConferenceById($_GET["eventid"]); 
-$cid = $event[0]->ConferenceId; 
-$cTitle = $event[0]->ConferenceTitle; 
+$conference = $db->findConferenceById($_GET["conferenceid"]); 
+$cid = $conference[0]->ConferenceId; 
+$cTitle = $conference[0]->ConferenceTitle; 
 $userid = $_SESSION["UID"]; 
 
 $isValid = false; 
 
-if ($event) {
+if ($conference) {
 
     $err_msgs = [];
 
@@ -85,7 +85,7 @@ if ($event) {
             <p class="lead">We would love to see what you've come up with! So why not submit your paper here and well review it ASAP!</p>
             <div style="margin: auto; width: <?php echo (!Mobile::isActive()? '36rem' : '100%') ?>;">
                 <br>
-                <!--Start Event Register Form-->
+                <!--Start Conference Register Form-->
                 <form id="SubmitPaperForm" action="#" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-2 mr-2">
                         <div class="row">

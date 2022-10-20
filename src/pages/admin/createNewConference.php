@@ -63,7 +63,7 @@
         <div class="card-body">
             <h1 class="display-4">Register An Upcoming Conference</h1>            
             <br>
-            <!--Start Event Register Form-->
+            <!--Start Conference Register Form-->
             <form id="registerConferenceForm" action="#" method="post">
 
                 <div class="form-group mb-2 mr-2">

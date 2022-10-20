@@ -17,10 +17,10 @@ $(document).ready(function () {
         }
     });
 
-    $("button").click(function (event) {
+    $("button").click(function (conference) {
         var curentPath = window.location.pathname;
 
-        var rawID = event.target.id;
+        var rawID = conference.target.id;
         var tableID = "#field-".concat(rawID);
 
         if (rawID.includes('edit')) {
@@ -33,7 +33,7 @@ $(document).ready(function () {
                     editProfileData(rawID, tableID);
                     break;
 
-                case "/manageEvents": 
+                case "/manageConferences": 
                     editConferenceData(rawID, tableID);
                 break; 
             }
@@ -45,7 +45,7 @@ $(document).ready(function () {
                     disableUserData(rawID, tableID);
                     break;
 
-                case "/manageEvents":
+                case "/manageConferences":
                     disableConferenceData(rawID, tableID, "disable", "0");
                     break;
             }
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
         if (rawID.includes('enable')) {
             switch (curentPath) {
-                case "/manageEvents":
+                case "/manageConferences":
                     disableConferenceData(rawID, tableID, "enable", "1");
                     break;
             }

@@ -27,7 +27,7 @@ $.getScript("./scripts/button.js");
 
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
-            editBySubmission: event.target.id,
+            editBySubmission: conference.target.id,
             SubmissionId: $('#sID'.concat(id)).text(),
             SubmissionFirstName: $('#sFName'.concat(id)).val(),
             SubmissionLastName: $('#sLName'.concat(id)).val(),

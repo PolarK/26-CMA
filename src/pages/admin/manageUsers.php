@@ -25,7 +25,7 @@ $users = $db->getAllUser();
                         <option value="PhoneNo"><a class="dropdown-item" name="searchPhoneNo" id="searchPhoneNo" href="#">Phone No.</a></option>
                     </select>
                 </div>
-                <input type="input" class="form-control form-control-sm" name="searchUserParam" id="searchUserParam" placeholder="Search" onkeydown="return (event.keyCode!=13);">
+                <input type="input" class="form-control form-control-sm" name="searchUserParam" id="searchUserParam" placeholder="Search" onkeydown="return (conference.keyCode!=13);">
             </div>
         </form>
         <hr>

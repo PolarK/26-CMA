@@ -10,17 +10,17 @@ class Card
             case 'submission':
                 return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
-            case 'event':
-                return self::eventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+            case 'conference':
+                return self::conferenceCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
-            case 'upcomingEvent':
-                return self::upcomingEventCard($data[0], $data[1], $data[2], $data[3]);
+            case 'upcomingConference':
+                return self::upcomingConferenceCard($data[0], $data[1], $data[2], $data[3]);
 
             case 'userProfileCard':
                 return self::userProfileCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
 
-            case 'displayEventCard':
-                return self::displayEventCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+            case 'displayConferenceCard':
+                return self::displayConferenceCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
             case 'viewSubTableHeadCard': 
                 return self::displaySubTableHeadCard(); 
@@ -55,17 +55,17 @@ class Card
         ';
     }
 
-    private static function eventCard($title, $link, $timestamp, $filePath, $presenter, $status)
+    private static function conferenceCard($title, $link, $timestamp, $filePath, $presenter, $status)
     {
         return '
         <div class="card">
-            <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Event ' . $status . '</span>
+            <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Conference ' . $status . '</span>
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Presented by: ' . $presenter . ' </h6>
                 <div class="text-left">
                     <p class="card-text"> 
-                        <strong> Event Date </strong> : ' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '</a><br>
+                        <strong> Conference Date </strong> : ' . date("d M y \a\\t g:i A", strtotime($timestamp)) . '</a><br>
                         <strong> Meeting URL </strong> : <a href="' . $link . '">' . $link . '</a><br>
                         <strong> Paper to be presented </strong> : <a href="' . $filePath . '">' . $filePath . '</a>
                     </p>
@@ -86,15 +86,15 @@ class Card
         ';
     }
 
-    private static function upcomingEventCard($title, $timestamp, $eventURL, $status)
+    private static function upcomingConferenceCard($title, $timestamp, $conferenceURL, $status)
     {
         return '
         <div class="card bg-gradient-light">
             <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">' . $status . '</span>
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Event at: ' . $timestamp . ' </h6>
-                <a class="stretched-link" href="' . $eventURL . '" class="card-link">View My Event in Details</a> 
+                <h6 class="card-subtitle mb-2 text-muted">Conference at: ' . $timestamp . ' </h6>
+                <a class="stretched-link" href="' . $conferenceURL . '" class="card-link">View My Conference in Details</a> 
             </div>
         </div>
         <br>
@@ -226,7 +226,7 @@ class Card
         }
     }
 
-    private static function displayEventCard($id, $title, $sTimestamp, $eTimestamp, $location,  $status)
+    private static function displayConferenceCard($id, $title, $sTimestamp, $eTimestamp, $location,  $status)
     {
         return '
         <div class="card">
@@ -235,7 +235,7 @@ class Card
                 <h6 class="card-subtitle mb-2">Start Date: <a class="text-muted"> ' . date("d M y \a\\t g:i A", strtotime($sTimestamp)) . '</a> </h6>
                 <h6 class="card-subtitle mb-2">End Date: <a class="text-muted"> ' . date("d M y \a\\t g:i A", strtotime($eTimestamp)) . '</a> </h6>
                 <h6 class="card-subtitle mb-2">Location: <a href="' . $location . '">' . $location . ' </a> </h6>
-                <a href="./submitPaper?eventid=' . $id . '" class="btn btn-primary"">' . $status . '</a> 
+                <a href="./submitPaper?conferenceid=' . $id . '" class="btn btn-primary"">' . $status . '</a> 
             </div>
         </div>
         <br>

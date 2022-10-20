@@ -26,7 +26,7 @@ $submissions = $db->getAllSubmission();
                         <option value="Path"><a class="dropdown-item" name="searchFile" id="searchFile" href="#">File Name</a></option>
                     </select>
                 </div>
-                <input type="input" class="form-control form-control-sm" name="searchSubmissionParam" id="searchSubmissionParam" placeholder="Search" onkeydown="return (event.keyCode!=13);">
+                <input type="input" class="form-control form-control-sm" name="searchSubmissionParam" id="searchSubmissionParam" placeholder="Search" onkeydown="return (conference.keyCode!=13);">
             </div>
         </form>
         <hr>

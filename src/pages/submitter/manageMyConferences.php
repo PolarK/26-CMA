@@ -6,6 +6,7 @@
     $db = new Database();
     $conferences = $db->getConferences();
     $submissions = $db->getAllSubmission();
+    $allAttendance = $db->getAttendance();
 
     foreach($conferences as $conference) {
         if (TimeProcessor::cmpETimeandCTime($conference->ConferenceEndTimestamp)) {
@@ -21,6 +22,20 @@
     }
 
     $conferences = $db->findConferenceByStatus("1");
+
+    if (isset($_POST['manageMyConferences'])) { 
+        $attendanceOption = $_POST["attendanceOption"];
+
+        $db->createAttendance(
+            $regId,
+            $_SESSION["UID"],
+            $conference->ConferenceId,
+            '',
+            $_POST["attendanceOption"]
+        );
+
+        header('Location: /dashboard');
+    }
 ?>
 
 <!--CONTENT START-->
@@ -38,10 +53,13 @@
                     </div>';
                 } else {
                     foreach ($conferences as $conference) {
+                        echo '<div class="card">';
                         $submissionByID = $db->findSubmissionByConferenceId($conference->ConferenceId);
+                        $regId = $conference->ConferenceId . '_' . $_SESSION["UID"];
+                        $attendanceByID = $db->findAttendanceById($regId);
 
                         if (in_array($_SESSION["UID"], array_column($submissionByID, 'UserId'))) {
-                        
+        
                             // This wil needs fixing
                             // This line checks, if a submission path for the current conference exists, assign it to $file, otherwise display 'file is not available'
                             if (in_array($conference->ConferenceId, array_column($submissions, 'SubmissionPath'))) {
@@ -49,6 +67,9 @@
                             } else {
                                 $file = 'Not available yet';
                             }
+
+                            //This needs to get the submission status from submissions
+                            $status = "unkown";
                             
                             $subData = [
                                 $conference->ConferenceTitle,
@@ -56,10 +77,31 @@
                                 $conference->ConferenceStartTimestamp,
                                 $file,
                                 $_SESSION['uFName'] . " " . $_SESSION['uLName'],
-                                'status unknown'
+                                $status
                             ];
 
                             echo Card::display("conference", $subData);
+
+                            // Search for the regID, if found, display attending status, else display confirmation form
+                            if (in_array($regId, array_column($allAttendance, 'RegId'))) {
+                                echo '<p>attending status will show here</p>';
+                            } else {
+                                //No regID found, choose confirmation status, then a record will be created with your regId (same as submissionID) and your attending status + other info
+                                echo '<form action="/manageMyConferences" method="POST">
+                                <select class="form-select" name="attendanceOption">
+                                    <option value="accept">Confirmed Attendance</option>
+                                    <option value="reject">Cancel Attendance</option>
+                                </select>
+                                <br>
+                                <div class="form-group btn-group-sm d-grid gap-2">
+                                    <button name="manageMyConferences" type="submit" class="btn btn-primary" onclick="showToast()">Submit Attendance</button>
+                                </div>
+                            </form>';
+                            }
+
+                            echo '</div>';
+                        } else {
+                            echo 'This User has no conferences';
                         }
                     }
                 }

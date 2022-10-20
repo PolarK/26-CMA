@@ -58,7 +58,6 @@ class Card
     private static function conferenceCard($title, $link, $timestamp, $filePath, $presenter, $status)
     {
         return '
-        <div class="card">
             <span class="badge ' . self::defineConfirmationStatus($status) . ' text-dark">Conference ' . $status . '</span>
             <div class="card-body">
                 <h5 class="card-title">' . $title . '</h5>
@@ -69,19 +68,8 @@ class Card
                         <strong> Meeting URL </strong> : <a href="' . $link . '">' . $link . '</a><br>
                         <strong> Paper to be presented </strong> : <a href="' . $filePath . '">' . $filePath . '</a>
                     </p>
-                    <form>
-                        <select class="form-select" name="attendanceOption">
-                            <option value="accept">Confirmed Attendance</option>
-                            <option value="reject">Cancel Attendance</option>
-                        </select>
-                        <br>
-                        <div class="form-group btn-group-sm d-grid gap-2">
-                            <button name="submitAttendance" type="submit" class="btn btn-primary" onclick="showToast()">Submit Attendance</button>
-                        </div>
-                    </form>
                 </div>
             </div>
-        </div>
         <br>
         ';
     }

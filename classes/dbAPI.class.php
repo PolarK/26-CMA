@@ -473,7 +473,7 @@ class Database
 
    /* START EVENT API CONNECTION*/
 
-    public function createNewConference()
+    public function createAttendance()
     {
         extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
         $fields = [
@@ -485,9 +485,26 @@ class Database
         ];
 
         return API::request(
-            $this->baseUrl . 'user/createNewConference',
+            $this->baseUrl . 'registration/createAttendance',
             "POST_REQUEST",
             $fields
+        );
+    }
+
+    public function getAttendance()
+    {
+        return API::request(
+            $this->baseUrl . 'registration/list',
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findAttendanceById($id) {
+        return API::request(
+            $this->baseUrl . 'registration/findAttendanceById?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
         );
     }
 

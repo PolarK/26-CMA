@@ -145,7 +145,7 @@ if (isset($_POST['register'])) {
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <label class="form-check-label" for="TermsConditions">
                             By signing up, you've agreed to our <a href="/terms&conditions">Terms & Conditions</a>
                         </label>
                     </div>
@@ -202,8 +202,8 @@ if (isset($_POST['register'])) {
                         <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" type="checkbox" required>
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" name="uAgreedTC" id="TermsConditions" required>
+                        <label class="form-check-label" for="TermsConditions">
                             By signing up, you've agreed to our <a href="/terms&conditions">Terms & Conditions</a>
                         </label>
                     </div>

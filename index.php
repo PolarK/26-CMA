@@ -42,7 +42,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/submitter/checkSubmission.php';
                 break;
 
-            case (preg_match('/submitPaper\?eventid=.*/', $request) ? true : false):
+            case (preg_match('/submitPaper\?conferenceid=.*/', $request) ? true : false):
                 require $publicPath . '/submitter/submitPaper.php';
                 break;
 
@@ -50,20 +50,20 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/submitter/viewSubmission.php';
                 break;
 
-            case '/manageMyEvents':
-                require $publicPath . '/submitter/manageMyEvents.php';
+            case '/registerConference':
+                require $publicPath . '/submitter/registerConference.php';
                 break;
 
-            case '/myUpcomingEvents':
-                require $publicPath . '/submitter/myUpcomingEvents.php';
+            case '/myUpcomingConferences':
+                require $publicPath . '/submitter/myUpcomingConferences.php';
                 break;
 
-            case '/registerNewEvent':
-                require $publicPath . '/submitter/registerNewEvent.php';
+            case '/registerNewConference':
+                require $publicPath . '/submitter/registerNewConference.php';
                 break;
 
-            case '/events':
-                require $publicPath . '/submitter/displayEvents.php';
+            case '/conferences':
+                require $publicPath . '/submitter/displayConferences.php';
                 break;
 
             case '/privacyPolicy':
@@ -151,12 +151,12 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 break;
             */
 
-            case '/manageEvents':
-                require $publicPath . '/admin/manageEvents.php';
+            case '/manageConferences':
+                require $publicPath . '/admin/manageConferences.php';
                 break; 
 
-            case '/createNewEvent':
-                require $publicPath . '/admin/createNewEvent.php';
+            case '/createNewConference':
+                require $publicPath . '/admin/createNewConference.php';
                 break;
 
             default:

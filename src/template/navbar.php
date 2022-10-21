@@ -20,16 +20,16 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/checkSubmission">My Submissions</a></li>
-                            <li><a class="dropdown-item" href="/events">Submit New Finding</a></li>
+                            <li><a class="dropdown-item" href="/conferences">Submit New Finding</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Events
+                            Conferences
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/manageMyEvents">Manage My Events</a></li>
+                            <li><a class="dropdown-item" href="/registerConference">My Conferences</a></li>
                         </ul>
                     </li>
 
@@ -52,18 +52,18 @@
                             Manage Users
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/createNewUser">Create New User</a></li>
-                            <li><a class="dropdown-item" href="/manageUsers">Edit Existing Users</a></li>
+                            <li><a class="dropdown-item" href="/createNewUser">Create User</a></li>
+                            <li><a class="dropdown-item" href="/manageUsers">Edit Users</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Manage Events
+                            Manage Conferences
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/createNewEvent">Create New Event</a></li>
-                            <li><a class="dropdown-item" href="/manageEvents">Manage Events</a></li>
+                            <li><a class="dropdown-item" href="/createNewConference">Create Conference</a></li>
+                            <li><a class="dropdown-item" href="/manageConferences">Edit Conferences</a></li>
                         </ul>
                     </li>
 

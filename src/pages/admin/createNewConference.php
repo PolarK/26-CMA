@@ -8,6 +8,8 @@
 
     $cTitle = $cSDate = $cSTime = $cEDate = $cETime = $cLocation = ""; 
 
+    $valid = false; 
+
     $errs = [
         "cTitle" => "", 
         "cLocation" => "", 
@@ -43,22 +45,25 @@
                 $cEDate . " " . $cETime, 
                 $cLocation, 
                 $cStatus
-            );            
+            );    
+            $valid = true;         
         }
         else {            
             Validator::displayErrorToasts($errs); 
+            $valid = false; 
         }
+        
     }
   
 ?>
 
-<div id="content" class="container-fluid p-5">
+<div id="register_conference_content" class="container-fluid p-5">
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center h-100 mb-5">
         <div class="card-body">
             <h1 class="display-4">Register An Upcoming Conference</h1>            
             <br>
-            <!--Start Event Register Form-->
+            <!--Start Conference Register Form-->
             <form id="registerConferenceForm" action="#" method="post">
 
                 <div class="form-group mb-2 mr-2">
@@ -116,3 +121,11 @@
     </div>
 
 </div>
+
+<?php
+    if ($valid) {
+        echo Toast::successSubmission("register_conference_content"); 
+        echo Toast::successToast("Conference successfully created."); 
+    }    
+?>
+    

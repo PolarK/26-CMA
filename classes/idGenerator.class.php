@@ -27,6 +27,11 @@ class IDGenerator
         return self::unqid(8);
     }
     
+    static function registration()
+    {
+        return self::unqid(8);
+    }
+
     private static function unqid($lenght = 5)
     {
         $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));

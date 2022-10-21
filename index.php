@@ -50,8 +50,8 @@ if (isset($_SESSION['valid']) && $_SESSION['valid']) {
                 require $publicPath . '/submitter/viewSubmission.php';
                 break;
 
-            case '/manageMyConferences':
-                require $publicPath . '/submitter/manageMyConferences.php';
+            case '/registerConference':
+                require $publicPath . '/submitter/registerConference.php';
                 break;
 
             case '/myUpcomingConferences':

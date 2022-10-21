@@ -473,21 +473,72 @@ class Database
 
    /* START EVENT API CONNECTION*/
 
-    public function createNewConference()
+    public function createRegistration()
     {
         extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
         $fields = [
-            'RegId' => $arg_0,
+            'RegistrationId' => $arg_0,
             'UserId' => $arg_1,
             'ConferenceId' => $arg_2,
-            'RegDateTime' => $arg_3,
-            'Attendance' => $arg_4
+            'RegistrationTimestamp' => $arg_3,
+            'RegistrationAttendance' => $arg_4
         ];
 
         return API::request(
-            $this->baseUrl . 'user/createNewConference',
+            $this->baseUrl . 'registration/createRegistration',
             "POST_REQUEST",
             $fields
+        );
+    }
+
+    public function updateRegistration()
+    {
+        extract(func_get_args(), EXTR_PREFIX_ALL, "arg");
+        $fields = [
+            'RegistrationId' => $arg_0,
+            'UserId' => $arg_1,
+            'ConferenceId' => $arg_2,
+            'RegistrationTimestamp' => $arg_3,
+            'RegistrationAttendance' => $arg_4
+        ];
+
+        return API::request(
+            $this->baseUrl . 'registration/updateRegistration',
+            "POST_REQUEST",
+            $fields
+        );
+    }
+
+    public function getRegistration()
+    {
+        return API::request(
+            $this->baseUrl . 'registration/list',
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findRegistrationByUserId($id) {
+        return API::request(
+            $this->baseUrl . 'registration/findRegistrationByUserId?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findRegistrationByConferenceId($id) {
+        return API::request(
+            $this->baseUrl . 'registration/findRegistrationByConferenceId?id=' . $id,
+            "GET_REQUEST",
+            $this->baseHeader
+        );
+    }
+
+    public function findRegistrationByAttendance($attendance) {
+        return API::request(
+            $this->baseUrl . 'registration/findRegistrationByAttendance?attendance=' . $attendance,
+            "GET_REQUEST",
+            $this->baseHeader
         );
     }
 

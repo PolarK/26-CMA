@@ -17,10 +17,10 @@ $(document).ready(function () {
         }
     });
 
-    $("button").click(function (conference) {
+    $("button").click(function (event) {
         var curentPath = window.location.pathname;
 
-        var rawID = conference.target.id;
+        var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
 
         if (rawID.includes('edit')) {

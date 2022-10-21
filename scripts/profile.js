@@ -3,8 +3,8 @@ $.getScript("./scripts/toast.js");
 $.getScript("./scripts/button.js");
 
 function enableProfileButtonClicks() {
-    $("button").click(function (conference) {
-        var rawID = conference.target.id;
+    $("button").click(function (event) {
+        var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
         
         if (rawID.includes('edit')) {
@@ -32,7 +32,7 @@ function editProfileData(rawID, tableID) {
 
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
-            editByProfile: conference.target.id,
+            editByProfile: event.target.id,
             UserId: $('#uID'.concat(id)).text(),
             UserFirstName: $('#uFName'.concat(id)).val(),
             UserLastName: $('#uLName'.concat(id)).val(),

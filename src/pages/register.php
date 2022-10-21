@@ -10,7 +10,7 @@ $fname = $lname = $dob = $email = $phoneno = $pwd = $cpwd = "";
 
 if (isset($_POST['register'])) {
     //! Role will be changed once the basic registration is completed.
-    $role = "REVIEWER";
+    $role = "SUBMITTER";
     $fname = Validator::sanitise($_POST["uFirstName"]);
     $lname = Validator::sanitise($_POST["uLastName"]);
     $dob = Validator::sanitise($_POST["uDob"]);

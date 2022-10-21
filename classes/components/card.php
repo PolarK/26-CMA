@@ -10,7 +10,7 @@ class Card
             case 'submission':
                 return self::submissionCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
-            case 'conference':
+            case 'conferenceCard':
                 return self::conferenceCard($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 
             case 'upcomingConference':

@@ -85,6 +85,7 @@
                     $db->updateSubmission(
                         $subId,         
                         $submission[0]->UserId,
+                        $submission[0]->ReviewerId, 
                         $submission[0]->ConferenceId, 
                         $submission[0]->SubmissionTimestamp, 
                         $submission[0]->SubmissionPath, 

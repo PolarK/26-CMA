@@ -29,7 +29,7 @@
                             Conferences
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/manageMyConferences">Manage My Conferences</a></li>
+                            <li><a class="dropdown-item" href="/registerConference">My Conferences</a></li>
                         </ul>
                     </li>
 

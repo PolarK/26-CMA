@@ -1,4 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include_once "./classes/mail.class.php";
+/*
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -19,4 +25,15 @@ $mail->isHTML(true);
 $mail->Subject = 'test';
 $mail->Body = 'test';
 $mail->send();
+*/
+
+$mail = new Mail();
+
+$mail->SendMail(
+    'widapi1643@haizail.com',
+    'Whatz Cookin',
+    'I am there for the test testing android servers and the test servers are running on different machines.'
+);
+
+
 ?>

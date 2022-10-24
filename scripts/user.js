@@ -42,7 +42,7 @@ function editUserData(rawID, tableID) {
             UserEmail: $('#uEmail'.concat(id)).val().trim(),
             UserPhoneNo: $('#uPhoneNo'.concat(id)).val().trim(),
             UserRole: $('#uRole'.concat(id)).text().trim(),
-            UserActive: $('#uActive'.concat(id)).val().trim(),
+            UserActive: $('#uActive'.concat(id)).text().trim(),
         }, function (data) {
             $('#err_user_container').html(data);
 

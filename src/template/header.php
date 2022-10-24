@@ -13,6 +13,7 @@ include "./classes/mobile.class.php";
     <link href="src\styles\bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="scripts\libraries\jquery-toast-plugin\dist\jquery.toast.min.css">
+    <link rel="icon" type="image/x-icon" href="src\images\CSMS_Logo.png">
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="scripts\libraries\jquery-toast-plugin\dist\jquery.toast.min.js"></script>

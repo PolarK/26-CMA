@@ -57,7 +57,7 @@ class ErrorHandler extends Validator
         if (empty($pwd)) {
             return "Please enter a password";
         } else if (!self::isValid(self::REGEX_PASSWORD, $pwd)) {
-            return "Please enter a valid password";
+            return "Your password must be at least 8 characters long, contain at least one letter, one number, and one special character. ";
         } else if ($pwd != $cpwd) {
             return "Both password need to match";
         }

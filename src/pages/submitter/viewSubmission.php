@@ -23,19 +23,47 @@
 
         $review = $db->findReviewBySubmissionId($_GET["subId"]); 
 
+        $sub = $db->findSubmissionById($_GET["subId"]); 
+        $timestamp = strtotime($sub[0]->SubmissionTimestamp); 
+        $subDate = date('d/m/Y', $timestamp);
+        $subTime = date('H:i', $timestamp);
+
+        $conference = $db->findConferenceById($sub[0]->ConferenceId); 
+
+        $body = '<h4 class="mt-4 mb-4 ms-2">Submission Details</h4>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Submission For</th>
+                            <td>' . $conference[0]->ConferenceTitle . '</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Submitted On</th>
+                            <td>' . $subDate . ' ' . $subTime . '</td>
+                        </tr>'; 
+
         if ($review) {
+            $grade_style = ($review[0]->ReviewStatus == "Success")? "text-success" : "text-danger"; 
             $date = date("d/m/Y", strtotime($review[0]->ReviewTimestamp));
-            $body = '<div class="form-group p-3 d-grid gap-2">
-                        <label for="rComment">Comments</label>                                        
-                        <textarea readonly id="rComment" name="rComment" placeholder="Comments" rows="6"  class="form-control">' . $review[0]->ReviewComments . '</textarea>
-                    </div>    
-                    <div class="p-3 d-grid gap-2">
-                        <p>Reviewed on: ' . $date . '</p>
-                        <p>Result: ' . $review[0]->ReviewStatus . '</p>
-                    </div>'; 
+            $body .= '<tr>
+                        <th scope="row">Graded On</th>
+                        <td>' . $date . '</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Grade</th>
+                        <td class="' . $grade_style . '">' . $review[0]->ReviewStatus . '</td>
+                    </tr>                    
+                    <tr>
+                        <th scope="row">Comments</th>
+                        <td>' . $review[0]->ReviewComments . '</td>
+                    </tr></tbody></table>';   
+                    
         }
         else {
-            $body = "<p>Pending Review</p>"; 
+            $body .= '<tr>
+                        <th scope="row">Review</th>
+                        <td>Pending</td>
+                    </tr></tbody></table>';  
         }  
    
 ?>
@@ -45,7 +73,7 @@
             <div class="col-sm-6 col-md-8 border bg-light embed-responsive embed-responsive-21by9">
                 <iframe class="p-3 embed-responsive-item" src= "<?php echo $tempPath; ?>"></iframe>
             </div>
-            <div class="col-6 col-md-4 border">
+            <div class="col-6 col-md-4 border">                
                 <?php echo $body; ?>
             </div>
         </div>

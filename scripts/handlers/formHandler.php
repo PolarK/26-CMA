@@ -176,70 +176,44 @@ if (isset($_POST['editByProfile'])) {
         $errPhoneno = $user->get_err()['phoneno'];
         $errPwd = $user->get_err()['pwd'];
 
-        echo '
-        <script>
-        $.toast({
-            heading: \'Action Failed!\',
-            text: \'Your profile was not changed. Check the following error and make sure that: \t' .
-            $errEmail . ' \',
-            icon:  \'info\',
-            position: {
-                left: 10,
-                top: 110
-            },
-            hideAfter: 6000,
-        });
-        </script>';
-
-        displayProfile($db->findUserById($_SESSION['UID']));
-        exit;
+        Validator::displayErrorToasts($user->get_err()); 
+        echo "<p id='err'>Error<p>";  
+        
     }
+    else {
+        $id = $_SESSION['UID'];
+        $role = $_SESSION['uRole'];
+        $isActive = $_SESSION['uActive'];
+        $hashedPwd = $user->generatePassword($id, $pwd);
+    
+        if (isset($hashedPwd['salt']) && isset($hashedPwd['hash'])) {
+            $db->updateUser(
+                $id,
+                $fname,
+                $lname,
+                $dob,
+                strtolower($email),
+                $phoneno,
+                $role,
+                $isActive,
+            );
+    
+            $db->updatePassword(
+                $id,
+                $hashedPwd['salt'],
+                $hashedPwd['hash'],
+            );
+    
+            $_SESSION['uFName'] = $fname;
+            $_SESSION['uLName'] = $lname;
+            $_SESSION['uDob'] = $dob;
+            $_SESSION['uEmail'] = $email;
+            $_SESSION['uPhone'] = $phoneno;
 
-    $id = $_SESSION['UID'];
-    $role = $_SESSION['uRole'];
-    $isActive = $_SESSION['uActive'];
-    $hashedPwd = $user->generatePassword($id, $pwd);
+            displayProfile($db->findUserById($_SESSION['UID']));
 
-    if (isset($hashedPwd['salt']) && isset($hashedPwd['hash'])) {
-        $db->updateUser(
-            $id,
-            $fname,
-            $lname,
-            $dob,
-            strtolower($email),
-            $phoneno,
-            $role,
-            $isActive,
-        );
-
-        $db->updatePassword(
-            $id,
-            $hashedPwd['salt'],
-            $hashedPwd['hash'],
-        );
-
-        $_SESSION['uFName'] = $fname;
-        $_SESSION['uLName'] = $lname;
-        $_SESSION['uDob'] = $dob;
-        $_SESSION['uEmail'] = $email;
-        $_SESSION['uPhone'] = $phoneno;
+        }   
     }
-
-    displayProfile($db->findUserById($_SESSION['UID']));
-
-    echo '
-        <script>
-        $.toast({
-            heading: \'Action Successful!\',
-            text: \'Your profile was updated!\',
-            icon:  \'success\',
-            position: {
-                left: 10,
-                top: 110
-            },
-            hideAfter: 6000,
-        });
-        </script>';
 }
 
 if (isset($_POST['editByConference'])) {

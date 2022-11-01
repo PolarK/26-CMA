@@ -22,6 +22,7 @@ $(document).ready(function () {
 
         var rawID = event.target.id;
         var tableID = "#field-".concat(rawID);
+        var id = rawID.split("-").pop();
 
         if (rawID.includes('edit')) {
             switch (curentPath) {
@@ -30,6 +31,7 @@ $(document).ready(function () {
                     break;
 
                 case "/profile":
+                    $('#uPass-'.concat(id)).val(""); 
                     editProfileData(rawID, tableID);
                     break;
 

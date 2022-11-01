@@ -7,7 +7,7 @@
             return "<script>
                         $.toast({                            
                             text: '". $text. "',
-                            icon: 'info',
+                            icon: 'error',
                             bgColor: '#EA0000',
                             loader: false,
                             hideAfter: 6000,

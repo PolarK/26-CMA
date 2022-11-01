@@ -3,6 +3,7 @@ require_once "./classes/dbAPI.class.php";
 require_once "./classes/user.class.php";
 require_once "./classes/validator.class.php";
 require_once "./classes/idGenerator.class.php";
+require_once "./classes/components/toast.php";
 
 $db = new Database();
 
@@ -21,8 +22,9 @@ if (isset($_POST['register'])) {
 
     $user = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $cpwd, array());
     $user->validateUserRegister();
+    $errs = $user->get_err(); 
 
-    if (Validator::validate($user->get_err())) {
+    if (Validator::validate($errs)) {
         $id = IDGenerator::user($role, $fname, $lname);
 
         $hashedPwd = $user->generatePassword($id, $pwd);
@@ -58,6 +60,9 @@ if (isset($_POST['register'])) {
 
         header('Location: /dashboard');
     }
+    else {
+        Validator::displayErrorToasts($errs); 
+    }
 }
 
 ?>
@@ -78,17 +83,11 @@ if (isset($_POST['register'])) {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <div class="text-start"><small class="text-danger">
-                                        <?php echo (isset($user)) ? $user->err['fname'] : ' ' ?>
-                                    </small></div>
                                 <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <div class="text-start"><small class="text-danger">
-                                        <?php echo (isset($user)) ? $user->err['lname'] : ' ' ?>
-                                    </small></div>
                                 <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
                             </div>
                         </div>
@@ -97,17 +96,11 @@ if (isset($_POST['register'])) {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <div class="text-start"><small class="text-danger">
-                                        <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
-                                    </small></div>
                                 <input id="uDob" name="uDob" placeholder="Date of Birth" type="text" required class="form-control" onfocus="(this.type='date')" value="<?php echo $dob; ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <div class="text-start"><small class="text-danger">
-                                        <?php echo (isset($user)) ? $user->err['email'] : ' ' ?>
-                                    </small></div>
                                 <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
                             </div>
                         </div>
@@ -116,9 +109,6 @@ if (isset($_POST['register'])) {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <div class="text-start"><small class="text-danger">
-                                        <?php echo (isset($user)) ? $user->err['phoneno'] : ' ' ?>
-                                    </small></div>
                                 <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
                             </div>
                         </div>
@@ -128,17 +118,11 @@ if (isset($_POST['register'])) {
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <div class="text-start"><small class="text-danger">
-                                        <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
-                                    </small></div>
                                 <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <div class="text-start"><small class="text-danger">
-                                        <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
-                                    </small></div>
                                 <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
                             </div>
                         </div>
@@ -159,46 +143,25 @@ if (isset($_POST['register'])) {
             <form id="UserRegisterForm" action="/register" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="form-group">
-                        <div class="text-start"><small class="text-danger">
-                                <?php echo (isset($user)) ? $user->err['fname'] : ' ' ?>
-                            </small></div>
                         <input id="uFirstName" name="uFirstName" placeholder="First Name" type="text" required class="form-control" value="<?php echo $fname; ?>">
                     </div>
                     <div class="form-group">
-                        <div class="text-start"><small class="text-danger">
-                                <?php echo (isset($user)) ? $user->err['lname'] : ' ' ?>
-                            </small></div>
                         <input id="uLastName" name="uLastName" placeholder="Last Name" type="text" required class="form-control" value="<?php echo $lname; ?>">
                     </div>
                     <div class="form-group">
-                        <div class="text-start"><small class="text-danger">
-                                <?php echo (isset($user)) ? $user->err['dob'] : ' ' ?>
-                            </small></div>
                         <input id="uDob" name="uDob" placeholder="Date of Birth" type="text" required class="form-control" onfocus="(this.type='date')" value="<?php echo $dob; ?>">
                     </div>
                     <div class="form-group">
-                        <div class="text-start"><small class="text-danger">
-                                <?php echo (isset($user)) ? $user->err['email'] : ' ' ?>
-                            </small></div>
                         <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
                     </div>
 
                     <div class="form-group">
-                        <div class="text-start"><small class="text-danger">
-                                <?php echo (isset($user)) ? $user->err['phoneno'] : ' ' ?>
-                            </small></div>
                         <input id="uPhoneNo" name="uPhoneNo" placeholder="Phone Number" type="text" required class="form-control" value="<?php echo $phoneno; ?>">
                     </div>
                     <div class="form-group">
-                        <div class="text-start"><small class="text-danger">
-                                <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
-                            </small></div>
                         <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">
                     </div>
                     <div class="form-group">
-                        <div class="text-start"><small class="text-danger">
-                                <?php echo (isset($user)) ? $user->err['pwd'] : ' ' ?>
-                            </small></div>
                         <input id="uCPassword" name="uCPassword" placeholder="Confirm Password" type="password" required class="form-control">
                     </div>
                     <div class="form-check">

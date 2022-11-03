@@ -18,7 +18,7 @@ if (isset($_POST['register'])) {
     $phoneno = '0441234567';
 
     // Ill leave the prefilled fields unless we want have the admin manually put them in
-    $user = new User($fname, $lname, $dob, $mail, $phoneno, $pwd, $pwd, array());
+    $user = new User($fname, $lname, $dob, $email, $phoneno, $pwd, $pwd, array());
     $user->validateAdminCreateUser();
     $errs = $user->get_err();
 

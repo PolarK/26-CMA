@@ -26,10 +26,6 @@ function editProfileData(rawID, tableID) {
     $("#accept-".concat(rawID)).click(function () {
         let id = rawID.replace('edit-', '-');
 
-
-        removeButton("#accept-", rawID, tableID);
-        removeButton("#cancel-", rawID, tableID);
-
         // hand the data to userHandler to process the changes
         $.post('./scripts/handlers/formHandler.php', {
             editByProfile: event.target.id,
@@ -41,9 +37,23 @@ function editProfileData(rawID, tableID) {
             UserPhoneNo: $('#uPhoneNo'.concat(id)).val(),
             UserPassword: $('#uPass'.concat(id)).val(),
         }, function (data) {
-            // bugs where input successfully submitted, button doesnt work
-            $('#searchResult').html(data);
-            enableProfileButtonClicks();
+            
+            $('#error_container').html(data);
+
+            if (!$('#err').text()) {      
+                var err_contents = $("#error_container").children();
+                err_contents.remove();       
+                
+                $('#searchResult').html(data); 
+                enableProfileButtonClicks();
+
+                userToast([
+                    'Action Completed!',
+                    'Your profile was successfully updated.',
+                    'success'
+                ]);
+            }      
+
         });
     });
 

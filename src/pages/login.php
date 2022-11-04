@@ -83,7 +83,7 @@ if (isset($_POST['login'])) {
                 <!-- \/ WILL NEED TO USE TOAST FOR INVALID LOGIN! \/ -->
                 <div class="text-start"><small class="text-danger"><?php echo (isset($user)) ? $user->err['login'] : ' ' ?></small></div>
                 <!-- /\ WILL NEED TO USE TOAST FOR INVALID LOGIN! /\-->
-                <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="text" required class="form-control" value="<?php echo $email; ?>">
+                <input id="uEmailAddress" name="uEmailAddress" placeholder="Email" type="email" required class="form-control" value="<?php echo $email; ?>">
             </div>
             <div class="form-group">
                 <input id="uPassword" name="uPassword" placeholder="Password" type="password" required class="form-control">

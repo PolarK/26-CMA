@@ -168,7 +168,7 @@ class Card
                     <hr>
                     <div class="row">
                         <div class="col d-flex align-items-center">
-                            <strong>New Password</strong>
+                            <strong>Password</strong>
                         </div>
                         <div class="col text-secondary">
                             <input id="uPass-' . $id . '" name="uPass-' . $id . '" type="password" class="form-control" value="' . $password . '" onclick="this.value =\'\'">
